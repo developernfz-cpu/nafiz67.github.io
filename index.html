@@ -8,14 +8,17 @@
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed; 
+      background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
       text-align: center;
+      overflow-x: hidden;
     }
 
     header {
-      padding: 80px 20px;
+      padding: 120px 20px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
     }
 
     h1 {
@@ -47,6 +50,8 @@
       color: #32CD32; /* Lime Green */
       margin-top: 40px;
       text-transform: uppercase;
+      opacity: 0;
+      animation: fadeInUp 1.5s forwards;
     }
 
     .card {
@@ -55,6 +60,12 @@
       background: rgba(255, 255, 255, 0.8);
       padding: 30px;
       border-radius: 10px;
+      opacity: 0;
+      animation: fadeInUp 2s forwards;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: 1s;
     }
 
     footer {
@@ -63,6 +74,38 @@
       opacity: 0.9;
       background: rgba(0, 0, 0, 0.6);
       margin-top: 40px;
+      animation: fadeInUp 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Scroll animation for elements */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1.5s forwards;
+    }
+
+    .scroll-animate:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    .scroll-animate:nth-child(3) {
+      animation-delay: 1s;
     }
   </style>
 </head>
@@ -70,28 +113,52 @@
 
   <header>
     <h1>Welcome to Nafiz's Personal Website</h1>
-    <p>Get to know me, my hobbies, and my passions.</p>
+    <p>Get to know me, my hobbies, and my passions!</p>
   </header>
 
-  <section>
+  <section class="scroll-animate">
     <div class="card">
       <h2 class="section-header">About Me</h2>
       <p>
         Hey! I’m Nafiz, and this is my personal space on the internet. Here, I share a little bit about who I am, my interests, and the things I love doing!
       </p>
+    </div>
+  </section>
 
+  <section class="scroll-animate">
+    <div class="card">
       <h2 class="section-header">My Favorite Things</h2>
       <p>
-        <strong>Football</strong> – I love football! My all-time favorite player is <strong>CR7 (Cristiano Ronaldo)</strong>! 🐐  
+        <strong>Football</strong> – I love football! My all-time favorite player is <strong>CR7 (Cristiano Ronaldo)</strong>! 🐐
         <br>
-        <strong>Free Fire</strong> – I play Free Fire a lot and I’m all about those esports matches! 🔥  
+        <strong>Free Fire</strong> – I play Free Fire a lot and I’m all about those esports matches! 🔥
         <br>
         <strong>Food</strong> – I can never get enough of <strong>shawarma</strong>! It's the best food ever. 🍴
       </p>
+    </div>
+  </section>
 
+  <section class="scroll-animate">
+    <div class="card">
       <h2 class="section-header">Why Free Fire?</h2>
       <p>
         Free Fire isn’t just a game; it’s where I feel alive! The matches, the adrenaline, and the strategy – I’m all in! 💥
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="scroll-animate">
+    <div class="card">
+      <h2 class="section-header">Contact Me</h2>
+      <p>
+        Want to reach out or connect? Send me a message or follow me on social media:
+        <br><br>
+        📧 Email: nafiz@example.com  
+        <br>
+        📱 Instagram: @nafiz_official  
+        <br>
+        💬 Twitter: @nafiz_17  
       </p>
     </div>
   </section>
