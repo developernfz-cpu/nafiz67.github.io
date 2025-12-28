@@ -22,7 +22,7 @@
       margin: 0;
     }
 
-    /* Space background with stars */
+    /* Space & Fantasy background */
     body::before {
       content: '';
       position: fixed;
@@ -30,15 +30,30 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: url('https://cdn.pixabay.com/photo/2017/08/30/22/58/space-2695566_960_720.jpg') no-repeat center center fixed;
+      background: url('https://cdn.pixabay.com/photo/2019/11/07/23/58/space-4606769_960_720.jpg') no-repeat center center fixed;
       background-size: cover;
       z-index: -1;
       opacity: 0.7;
     }
 
-    /* Smooth scrolling */
-    html {
-      scroll-behavior: smooth;
+    /* Floating Hacker Code */
+    .floating-code {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      font-size: 1.5rem;
+      color: rgba(0, 255, 0, 0.7);
+      white-space: nowrap;
+      animation: floatCode 10s linear infinite;
+    }
+
+    @keyframes floatCode {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(100vh);
+      }
     }
 
     /* Side Navigation */
@@ -159,7 +174,27 @@
       }
     }
 
-    /* Footer */
+    /* Minecraft Blocks Animation */
+    .minecraft-blocks {
+      position: absolute;
+      top: 30%;
+      left: 30%;
+      width: 200px;
+      height: 200px;
+      background-image: url('https://cdn.pixabay.com/photo/2015/09/18/19/03/minecraft-940823_960_720.png');
+      background-size: cover;
+      animation: bounce 2s infinite alternate;
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-20px);
+      }
+    }
+
     footer {
       position: fixed;
       bottom: 0;
@@ -172,39 +207,6 @@
       animation: fadeInUp 2s ease-out 1.5s forwards;
     }
 
-    /* Color Changing Background */
-    .color-change {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 50px;
-    }
-
-    .color-change button {
-      background-color: #ff0066;
-      color: #fff;
-      font-size: 1.2em;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .color-change button:hover {
-      background-color: #00ff00;
-    }
-
-    /* Bangladeshi Info Section */
-    .bangladesh-info {
-      font-size: 1.2em;
-      color: #e0e0e0;
-      max-width: 800px;
-      margin: auto;
-      margin-top: 40px;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 10px;
-    }
   </style>
 </head>
 <body>
@@ -215,6 +217,7 @@
     <a href="#favorite-things">Favorite Things</a>
     <a href="#freefire">Why Free Fire?</a>
     <a href="#tiktok">My TikTok</a>
+    <a href="#minecraft">Minecraft Theme</a>
     <a href="#bangladesh">About Bangladesh</a>
     <a href="#contact">Contact Me</a>
   </nav>
@@ -222,10 +225,28 @@
   <!-- Main Content -->
   <div class="main-content">
     <header>
-      <h1>Welcome to Nafiz's Cyber Galactic World</h1>
+      <h1>Welcome to Nafiz's Cyber Galactic Gaming World</h1>
       <p>Explore my hacker-gamer galaxy, where the future of gaming awaits!</p>
     </header>
 
+    <!-- Floating Hacker Code -->
+    <div class="floating-code">
+      <p>while (playing) { code(); }</p>
+      <p>let gamer = "Nafiz";</p>
+      <p>const hackerMode = true;</p>
+    </div>
+
+    <!-- Minecraft Section -->
+    <section id="minecraft" class="section">
+      <h2 class="section-header">Minecraft Theme</h2>
+      <p>
+        🧱 **Minecraft**: A game where creativity knows no bounds. I love building, exploring, and surviving in the blocky world of Minecraft.  
+        The endless possibilities make it one of the best games to relax and have fun with friends.
+      </p>
+      <div class="minecraft-blocks"></div>
+    </section>
+
+    <!-- Other Sections -->
     <section id="about" class="section">
       <h2 class="section-header">About Me</h2>
       <p>
@@ -246,4 +267,39 @@
     <section id="freefire" class="section">
       <h2 class="section-header">Why Free Fire?</h2>
       <p>
-        Free Fire isn't just a game for me. It’s a **lifestyle**. The fast-paced action, the strategies, and the **esports** vibe make it a perfect fit for my personality
+        Free Fire isn't just a game for me. It’s a **lifestyle**. The fast-paced action, the strategies, and the **esports** vibe make it a perfect fit for my personality.
+      </p>
+    </section>
+
+    <section id="tiktok" class="section">
+      <h2 class="section-header">Follow Me on TikTok</h2>
+      <p>
+        📱 **TikTok**: @nafiz_prettyy <br>
+        Follow me for some epic gaming moments and laughs.
+      </p>
+    </section>
+
+    <section id="bangladesh" class="section">
+      <h2 class="section-header">About Bangladesh</h2>
+      <p>
+        🇧🇩 **Bangladesh** is my home! A country full of culture, history, and heart. I’m proud of my roots and the tech community growing here.  
+        We have some of the most passionate gamers, and the future looks bright for the country’s tech industry!
+      </p>
+    </section>
+
+    <section id="contact" class="section">
+      <h2 class="section-header">Contact Me</h2>
+      <p>
+        📧 Email: nafiz@example.com <br>
+        📱 Instagram: @nafiz_official <br>
+        💬 Twitter: @nafiz_17
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2025 Nafiz | All Rights Reserved</p>
+    </footer>
+  </div>
+
+</body>
+</html>
