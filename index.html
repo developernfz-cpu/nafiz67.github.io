@@ -2,90 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Nafiz | Personal Website</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nafiz | Gaming Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      text-align: center;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
+      color: #fff;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Side Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background-color: #0f0f0f;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.3s;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #00ff00;
+      font-size: 1.5em;
+      margin: 15px 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: color 0.3s ease-in-out, transform 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ff0066;
+      transform: scale(1.1);
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 220px;
+      padding: 50px;
+      animation: fadeIn 2s ease-out forwards;
     }
 
     header {
-      padding: 120px 20px;
-      opacity: 0;
-      animation: fadeIn 2s forwards;
+      text-align: center;
+      margin-bottom: 40px;
     }
 
     h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #FF4500; /* Fire orange */
-    }
-
-    h2 {
-      font-size: 2em;
-      color: #FFD700; /* Gold */
-      margin-bottom: 20px;
-      font-weight: bold;
+      font-size: 3.5em;
+      color: #00ff00;
+      text-shadow: 0px 0px 20px rgba(0, 255, 0, 0.5);
+      animation: fadeInUp 2s ease-out;
     }
 
     p {
-      font-size: 1.5em;
+      font-size: 1.2em;
+      color: #dcdcdc;
+      line-height: 1.8;
       max-width: 700px;
       margin: auto;
-      color: #ff6347; /* Tomato red */
-      line-height: 1.6;
+      opacity: 0;
+      animation: fadeIn 2s ease-out 0.5s forwards;
+    }
+
+    /* Section Styles */
+    .section {
+      margin-top: 40px;
+      animation: fadeInUp 1.5s ease-out forwards;
+    }
+
+    .section:nth-child(even) {
+      animation-delay: 1s;
     }
 
     .section-header {
       font-size: 2.5em;
-      font-weight: bold;
-      color: #32CD32; /* Lime Green */
-      margin-top: 40px;
+      color: #ff0066;
       text-transform: uppercase;
-      opacity: 0;
-      animation: fadeInUp 1.5s forwards;
+      text-shadow: 0px 0px 20px rgba(255, 0, 102, 0.7);
+      margin-bottom: 20px;
+      animation: glowText 2s ease-in-out infinite alternate;
     }
 
-    .card {
-      max-width: 700px;
+    .section p {
+      font-size: 1.5em;
+      color: #e0e0e0;
+      max-width: 800px;
       margin: auto;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 30px;
-      border-radius: 10px;
-      opacity: 0;
-      animation: fadeInUp 2s forwards;
     }
 
-    .card:nth-child(2) {
-      animation-delay: 1s;
-    }
-
-    footer {
-      padding: 20px;
-      font-size: 1em;
-      opacity: 0.9;
-      background: rgba(0, 0, 0, 0.6);
-      margin-top: 40px;
-      animation: fadeInUp 2s forwards;
+    /* Glowing Text Animation */
+    @keyframes glowText {
+      from {
+        text-shadow: 0 0 10px #ff0066, 0 0 20px #ff0066, 0 0 30px #ff0066;
+      }
+      to {
+        text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
+      }
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
       }
       to {
         opacity: 1;
@@ -93,79 +136,85 @@
       }
     }
 
-    /* Scroll animation for elements */
-    .scroll-animate {
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeInUp 1.5s forwards;
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      background-color: #0f0f0f;
+      font-size: 1.2em;
+      color: #ff0066;
+      animation: fadeInUp 2s ease-out 1.5s forwards;
     }
 
-    .scroll-animate:nth-child(2) {
-      animation-delay: 0.5s;
-    }
-
-    .scroll-animate:nth-child(3) {
-      animation-delay: 1s;
-    }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Welcome to Nafiz's Personal Website</h1>
-    <p>Get to know me, my hobbies, and my passions!</p>
-  </header>
+  <!-- Side Navigation -->
+  <nav>
+    <a href="#about">About Me</a>
+    <a href="#favorite-things">Favorite Things</a>
+    <a href="#freefire">Why Free Fire?</a>
+    <a href="#tiktok">My TikTok</a>
+    <a href="#contact">Contact Me</a>
+  </nav>
 
-  <section class="scroll-animate">
-    <div class="card">
+  <!-- Main Content -->
+  <div class="main-content">
+    <header>
+      <h1>Welcome to Nafiz's Gaming World</h1>
+      <p>Explore my passions, my favorite games, and much more!</p>
+    </header>
+
+    <section id="about" class="section">
       <h2 class="section-header">About Me</h2>
       <p>
-        Hey! I’m Nafiz, and this is my personal space on the internet. Here, I share a little bit about who I am, my interests, and the things I love doing!
+        Hey, I'm Nafiz! I’m a big fan of **football**, **gaming**, and of course, **Free Fire**.  
+        I live for the thrill of esports matches and love to compete. My all-time favorite footballer is **CR7 (Cristiano Ronaldo)**!  
+        Welcome to my online space where I share everything I’m passionate about!
       </p>
-    </div>
-  </section>
+    </section>
 
-  <section class="scroll-animate">
-    <div class="card">
+    <section id="favorite-things" class="section">
       <h2 class="section-header">My Favorite Things</h2>
       <p>
-        <strong>Football</strong> – I love football! My all-time favorite player is <strong>CR7 (Cristiano Ronaldo)</strong>! 🐐
-        <br>
-        <strong>Free Fire</strong> – I play Free Fire a lot and I’m all about those esports matches! 🔥
-        <br>
-        <strong>Food</strong> – I can never get enough of <strong>shawarma</strong>! It's the best food ever. 🍴
+        🏆 **Football**: Can't get enough of the game! CR7 is my idol.  
+        🎮 **Gaming**: Free Fire is my go-to game! The adrenaline is unmatched.  
+        🍔 **Food**: Shawarma is life – I could eat it all day, every day!
       </p>
-    </div>
-  </section>
+    </section>
 
-  <section class="scroll-animate">
-    <div class="card">
+    <section id="freefire" class="section">
       <h2 class="section-header">Why Free Fire?</h2>
       <p>
-        Free Fire isn’t just a game; it’s where I feel alive! The matches, the adrenaline, and the strategy – I’m all in! 💥
+        Free Fire isn’t just a game – it’s a way of life! I love the fast-paced action, the strategies, and the **esports** vibe. It keeps me on my toes, and I feel like a champion every time I step into a match!
       </p>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact Section -->
-  <section class="scroll-animate">
-    <div class="card">
+    <!-- TikTok Section -->
+    <section id="tiktok" class="section">
+      <h2 class="section-header">Follow Me on TikTok</h2>
+      <p>
+        📱 **TikTok**: @nafiz_prettyy  
+        <br>Check out my TikTok for some epic gaming clips, funny moments, and more!
+      </p>
+    </section>
+
+    <section id="contact" class="section">
       <h2 class="section-header">Contact Me</h2>
       <p>
-        Want to reach out or connect? Send me a message or follow me on social media:
-        <br><br>
-        📧 Email: nafiz@example.com  
-        <br>
-        📱 Instagram: @nafiz_official  
-        <br>
-        💬 Twitter: @nafiz_17  
+        📧 Email: nafiz@example.com <br>
+        📱 Instagram: @nafiz_official <br>
+        💬 Twitter: @nafiz_17
       </p>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <p>© 2025 Nafiz | All Rights Reserved</p>
-  </footer>
+    <footer>
+      <p>© 2025 Nafiz | All Rights Reserved</p>
+    </footer>
+  </div>
 
 </body>
 </html>
