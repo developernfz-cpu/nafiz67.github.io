@@ -1,305 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nafiz | Cyber Galactic Gaming</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nafiz | Ultra Pixel Arcade</title>
 
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background: #000;
-      color: #00ff00;
-      overflow-x: hidden;
-      height: 100vh;
-      padding: 0;
-      margin: 0;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
-    /* Space & Fantasy background */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('https://cdn.pixabay.com/photo/2019/11/07/23/58/space-4606769_960_720.jpg') no-repeat center center fixed;
-      background-size: cover;
-      z-index: -1;
-      opacity: 0.7;
-    }
+<style>
+:root{
+  --green:#00ff88;
+  --pink:#ff2d95;
+  --bg:#020204;
+}
 
-    /* Floating Hacker Code */
-    .floating-code {
-      position: absolute;
-      top: -100px;
-      left: 50%;
-      font-size: 1.5rem;
-      color: rgba(0, 255, 0, 0.7);
-      white-space: nowrap;
-      animation: floatCode 10s linear infinite;
-    }
+*{margin:0;padding:0;box-sizing:border-box}
 
-    @keyframes floatCode {
-      from {
-        transform: translateY(0);
-      }
-      to {
-        transform: translateY(100vh);
-      }
-    }
+body{
+  font-family:'Orbitron',sans-serif;
+  background:radial-gradient(circle at top,#0b1220,#020204);
+  color:#eaffea;
+}
 
-    /* Side Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 240px;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      padding-top: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      transition: 0.3s;
-    }
+/* ===== LOADING SCREEN ===== */
+#loader{
+  position:fixed;
+  inset:0;
+  background:#020204;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:9999;
+  font-family:'Press Start 2P';
+  color:var(--green);
+}
 
-    nav a {
-      text-decoration: none;
-      color: #00ff00;
-      font-size: 1.4em;
-      margin: 15px 0;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-family: 'Press Start 2P', cursive;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
+#loader span{
+  animation:blink 1s infinite;
+}
 
-    nav a:hover {
-      color: #ff0066;
-      transform: scale(1.1);
-    }
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:.2}
+}
 
-    /* Main Content */
-    .main-content {
-      margin-left: 240px;
-      padding: 50px;
-      animation: fadeIn 2s ease-out forwards;
-    }
+/* ===== SIDEBAR ===== */
+nav{
+  position:fixed;
+  left:0;top:0;
+  width:220px;height:100%;
+  background:#05080d;
+  border-right:2px solid rgba(0,255,136,.2);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:30px 0;
+  gap:18px;
+}
 
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-      color: #ff0066;
-    }
+nav h2{
+  font-family:'Press Start 2P';
+  font-size:14px;
+  color:var(--green);
+}
 
-    h1 {
-      font-size: 4em;
-      color: #00ff00;
-      text-shadow: 0px 0px 20px rgba(0, 255, 0, 0.7);
-      animation: fadeInUp 2s ease-out;
-    }
+nav a{
+  font-family:'Press Start 2P';
+  font-size:11px;
+  color:#9effc9;
+  text-decoration:none;
+  transition:.3s;
+}
 
-    p {
-      font-size: 1.2em;
-      color: #dcdcdc;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: auto;
-      opacity: 0;
-      animation: fadeIn 2s ease-out 0.5s forwards;
-    }
+nav a:hover{
+  color:var(--pink);
+  transform:scale(1.1);
+}
 
-    /* Sections */
-    .section {
-      margin-top: 40px;
-      animation: fadeInUp 1.5s ease-out forwards;
-    }
+/* ===== MAIN ===== */
+.main{
+  margin-left:220px;
+  padding:50px;
+}
 
-    .section:nth-child(even) {
-      animation-delay: 1s;
-    }
+/* ===== HERO (GLITCH) ===== */
+.hero{
+  text-align:center;
+  padding:70px 20px;
+}
 
-    .section-header {
-      font-size: 2.5em;
-      color: #ff0066;
-      text-transform: uppercase;
-      text-shadow: 0px 0px 20px rgba(255, 0, 102, 0.7);
-      margin-bottom: 20px;
-      animation: glowText 2s ease-in-out infinite alternate;
-    }
+.glitch{
+  font-size:3.5rem;
+  color:var(--green);
+  position:relative;
+  animation:glitch 2s infinite;
+  font-family:'Press Start 2P';
+}
 
-    .section p {
-      font-size: 1.2em;
-      color: #e0e0e0;
-      max-width: 800px;
-      margin: auto;
-    }
+@keyframes glitch{
+  0%{text-shadow:2px 0 var(--pink)}
+  20%{text-shadow:-2px 0 var(--green)}
+  40%{text-shadow:2px 2px var(--pink)}
+  60%{text-shadow:-2px -2px var(--green)}
+  100%{text-shadow:2px 0 var(--pink)}
+}
 
-    /* Glowing Text Animation */
-    @keyframes glowText {
-      from {
-        text-shadow: 0 0 10px #ff0066, 0 0 20px #ff0066, 0 0 30px #ff0066;
-      }
-      to {
-        text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
-      }
-    }
+/* ===== SECTIONS ===== */
+section{
+  max-width:900px;
+  margin:50px auto;
+  padding:40px;
+  background:rgba(10,15,25,.75);
+  border:1px solid rgba(0,255,136,.15);
+  border-radius:16px;
+}
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
+section h2{
+  font-family:'Press Start 2P';
+  color:var(--pink);
+  font-size:16px;
+  margin-bottom:20px;
+}
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+/* ===== FREE FIRE STATS ===== */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:20px;
+}
 
-    /* Minecraft Blocks Animation */
-    .minecraft-blocks {
-      position: absolute;
-      top: 30%;
-      left: 30%;
-      width: 200px;
-      height: 200px;
-      background-image: url('https://cdn.pixabay.com/photo/2015/09/18/19/03/minecraft-940823_960_720.png');
-      background-size: cover;
-      animation: bounce 2s infinite alternate;
-    }
+.stat{
+  background:#020204;
+  padding:20px;
+  border:1px solid var(--green);
+  text-align:center;
+  box-shadow:0 0 15px rgba(0,255,136,.4);
+}
 
-    @keyframes bounce {
-      from {
-        transform: translateY(0);
-      }
-      to {
-        transform: translateY(-20px);
-      }
-    }
+.stat h3{
+  font-family:'Press Start 2P';
+  font-size:11px;
+  color:var(--green);
+}
 
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.8);
-      font-size: 1em;
-      color: #ff0066;
-      animation: fadeInUp 2s ease-out 1.5s forwards;
-    }
+.stat p{
+  margin-top:10px;
+  font-size:18px;
+}
 
-  </style>
+/* ===== GAME ===== */
+canvas{
+  background:#020204;
+  border:3px solid var(--green);
+  box-shadow:0 0 25px rgba(0,255,136,.6);
+}
+
+.game-box{text-align:center}
+
+/* ===== FPS COUNTER ===== */
+#fps{
+  position:fixed;
+  top:10px;
+  right:10px;
+  font-family:'Press Start 2P';
+  font-size:10px;
+  color:var(--green);
+  z-index:999;
+}
+
+/* ===== MOBILE CONTROLS ===== */
+.controls{
+  display:none;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+.controls button{
+  padding:15px;
+  background:#020204;
+  color:var(--green);
+  border:1px solid var(--green);
+  font-family:'Press Start 2P';
+}
+
+@media(max-width:768px){
+  .controls{display:flex}
+}
+</style>
 </head>
+
 <body>
 
-  <!-- Side Navigation -->
-  <nav>
-    <a href="#about">About Me</a>
-    <a href="#favorite-things">Favorite Things</a>
-    <a href="#freefire">Why Free Fire?</a>
-    <a href="#tiktok">My TikTok</a>
-    <a href="#minecraft">Minecraft Theme</a>
-    <a href="#bangladesh">About Bangladesh</a>
-    <a href="#contact">Contact Me</a>
-  </nav>
+<div id="loader">
+  <h1>LOADING</h1>
+  <span>█ █ █ █ █</span>
+</div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <header>
-      <h1>Welcome to Nafiz's Cyber Galactic Gaming World</h1>
-      <p>Explore my hacker-gamer galaxy, where the future of gaming awaits!</p>
-    </header>
+<div id="fps">FPS: 0</div>
 
-    <!-- Floating Hacker Code -->
-    <div class="floating-code">
-      <p>while (playing) { code(); }</p>
-      <p>let gamer = "Nafiz";</p>
-      <p>const hackerMode = true;</p>
-    </div>
+<nav>
+<h2>NAFIZ</h2>
+<a href="#about">ABOUT</a>
+<a href="#stats">FREE FIRE</a>
+<a href="#arcade">ARCADE</a>
+<a href="#contact">CONTACT</a>
+</nav>
 
-    <!-- Minecraft Section -->
-    <section id="minecraft" class="section">
-      <h2 class="section-header">Minecraft Theme</h2>
-      <p>
-        🧱 **Minecraft**: A game where creativity knows no bounds. I love building, exploring, and surviving in the blocky world of Minecraft.  
-        The endless possibilities make it one of the best games to relax and have fun with friends.
-      </p>
-      <div class="minecraft-blocks"></div>
-    </section>
+<div class="main">
 
-    <!-- Other Sections -->
-    <section id="about" class="section">
-      <h2 class="section-header">About Me</h2>
-      <p>
-        Hey, I'm Nafiz! I’m a huge fan of **football**, **gaming**, and, of course, **Free Fire**.  
-        I live for the thrill of esports and the intensity of gaming. I’m a proud fan of **CR7** and am always chasing the ultimate gaming experience.
-      </p>
-    </section>
+<div class="hero">
+<h1 class="glitch">ULTRA PIXEL ARCADE</h1>
+</div>
 
-    <section id="favorite-things" class="section">
-      <h2 class="section-header">My Favorite Things</h2>
-      <p>
-        🏆 **Football**: I’m obsessed with the sport! CR7 is my idol.  
-        🎮 **Gaming**: Free Fire is my escape; I live for the adrenaline.  
-        🍔 **Food**: Shawarma = Life. End of story. 😅
-      </p>
-    </section>
+<section id="about">
+<h2>ABOUT ME</h2>
+<p>Dark fantasy gamer • Free Fire • Minecraft • CR7 fan</p>
+</section>
 
-    <section id="freefire" class="section">
-      <h2 class="section-header">Why Free Fire?</h2>
-      <p>
-        Free Fire isn't just a game for me. It’s a **lifestyle**. The fast-paced action, the strategies, and the **esports** vibe make it a perfect fit for my personality.
-      </p>
-    </section>
+<section id="stats">
+<h2>FREE FIRE STATS</h2>
+<div class="stats">
+  <div class="stat"><h3>ROLE</h3><p>Rusher</p></div>
+  <div class="stat"><h3>K/D</h3><p>2.45</p></div>
+  <div class="stat"><h3>RANK</h3><p>Heroic</p></div>
+  <div class="stat"><h3>MAIN GUN</h3><p>MP40</p></div>
+</div>
+</section>
 
-    <section id="tiktok" class="section">
-      <h2 class="section-header">Follow Me on TikTok</h2>
-      <p>
-        📱 **TikTok**: @nafiz_prettyy <br>
-        Follow me for some epic gaming moments and laughs.
-      </p>
-    </section>
+<section id="arcade">
+<h2>SNAKE ARCADE</h2>
+<div class="game-box">
+<canvas id="game" width="300" height="300"></canvas>
 
-    <section id="bangladesh" class="section">
-      <h2 class="section-header">About Bangladesh</h2>
-      <p>
-        🇧🇩 **Bangladesh** is my home! A country full of culture, history, and heart. I’m proud of my roots and the tech community growing here.  
-        We have some of the most passionate gamers, and the future looks bright for the country’s tech industry!
-      </p>
-    </section>
+<div class="controls">
+<button onclick="setDir(0,-1)">▲</button>
+<button onclick="setDir(-1,0)">◀</button>
+<button onclick="setDir(1,0)">▶</button>
+<button onclick="setDir(0,1)">▼</button>
+</div>
+</div>
+</section>
 
-    <section id="contact" class="section">
-      <h2 class="section-header">Contact Me</h2>
-      <p>
-        📧 Email: nafiz@example.com <br>
-        📱 Instagram: @nafiz_official <br>
-        💬 Twitter: @nafiz_17
-      </p>
-    </section>
+<section id="contact">
+<h2>CONTACT</h2>
+<p>TikTok @nafiz_prettyy</p>
+</section>
 
-    <footer>
-      <p>© 2025 Nafiz | All Rights Reserved</p>
-    </footer>
-  </div>
+</div>
+
+<script>
+/* ===== LOADER ===== */
+window.onload=()=>setTimeout(()=>loader.style.display="none",1500);
+
+/* ===== FPS COUNTER ===== */
+let last=performance.now(),frames=0;
+function fpsCounter(t){
+ frames++;
+ if(t-last>=1000){
+  fps.innerText="FPS: "+frames;
+  frames=0;last=t;
+ }
+ requestAnimationFrame(fpsCounter);
+}
+requestAnimationFrame(fpsCounter);
+
+/* ===== SNAKE GAME ===== */
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+const box=15;
+let snake,dx,dy,food,dead=false;
+
+const eatSound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-arcade-mechanical-bling-210.wav");
+const overSound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-player-losing-or-failing-2042.wav");
+
+function init(){
+ snake=[{x:150,y:150}];
+ dx=box;dy=0;dead=false;
+ food={x:Math.random()*20|0*box,y:Math.random()*20|0*box}
+}
+init();
+
+function setDir(x,y){if(dx!==-x*box&&dy!==-y*box){dx=x*box;dy=y*box}}
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="ArrowUp")setDir(0,-1);
+ if(e.key==="ArrowDown")setDir(0,1);
+ if(e.key==="ArrowLeft")setDir(-1,0);
+ if(e.key==="ArrowRight")setDir(1,0);
+ if(e.code==="Space"&&dead)init();
+});
+
+function loop(){
+ if(dead)return;
+ ctx.clearRect(0,0,300,300);
+ snake.forEach((s,i)=>{
+  ctx.fillStyle=i?"#0f8":"#0ff";
+  ctx.fillRect(s.x,s.y,box,box);
+ });
+ ctx.fillStyle=varPink="#ff2d95";
+ ctx.fillRect(food.x,food.y,box,box);
+
+ let h={x:snake[0].x+dx,y:snake[0].y+dy};
+
+ if(h.x<0||h.y<0||h.x>=300||h.y>=300||snake.some(s=>s.x===h.x&&s.y===h.y)){
+  dead=true;overSound.play();return;
+ }
+
+ snake.unshift(h);
+
+ if(h.x===food.x&&h.y===food.y){
+  eatSound.play();
+  food={x:Math.random()*20|0*box,y:Math.random()*20|0*box}
+ }else snake.pop();
+}
+setInterval(loop,100);
+</script>
 
 </body>
 </html>
