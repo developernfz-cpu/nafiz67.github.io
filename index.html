@@ -11,48 +11,44 @@
 body{
  margin:0;
  font-family:'Orbitron',sans-serif;
- color:#00ffcc;
- background:#05070f;
- overflow-x:hidden;
+ color:#e8faff;
+ background:url('bg.jpg') center/cover fixed no-repeat;
 }
 body::before{
  content:"";
- position:fixed;
- inset:0;
- background:
- linear-gradient(transparent 96%,rgba(0,255,204,.07) 97%),
- linear-gradient(90deg,transparent 96%,rgba(0,255,204,.07) 97%);
- background-size:40px 40px;
- pointer-events:none;
+ position:fixed; inset:0;
+ background:rgba(0,0,0,.7);
+ backdrop-filter:blur(6px);
+ z-index:-1;
 }
 #welcome{
  position:fixed; inset:0;
- background:radial-gradient(circle,#0a1a2f,#000);
+ background:rgba(0,0,0,.85);
  display:flex; flex-direction:column;
  align-items:center; justify-content:center;
  z-index:10;
+ animation:fadeIn 1.5s;
 }
 #welcome h1{
  font-size:3em;
- text-shadow:0 0 30px #00ffcc;
+ text-shadow:0 0 30px #5fdfff;
 }
 #welcome button{
- padding:15px 40px;
+ padding:15px 45px;
  font-size:1.2em;
- background:#00ffcc;
+ background:#5fdfff;
  border:none;
- cursor:pointer;
  font-weight:700;
+ cursor:pointer;
 }
-header{
- text-align:center;
- padding:30px;
-}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+header{text-align:center;padding:30px}
 .panel{
- background:rgba(0,0,0,.7);
- border:1px solid #00ffcc;
- box-shadow:0 0 30px rgba(0,255,204,.25);
- border-radius:16px;
+ background:rgba(0,0,0,.65);
+ border:1px solid rgba(95,223,255,.4);
+ box-shadow:0 0 30px rgba(95,223,255,.25);
+ border-radius:18px;
  padding:25px;
  margin:30px auto;
  max-width:1000px;
@@ -61,33 +57,22 @@ canvas{
  display:block;
  margin:20px auto;
  background:#000;
- border:2px solid #00ffcc;
- border-radius:12px;
+ border-radius:14px;
+ border:2px solid #5fdfff;
 }
 .joystick{
- display:flex;
- justify-content:center;
- gap:10px;
- margin-top:10px;
+ display:flex; justify-content:center; gap:10px;
 }
 .joystick button{
- width:60px;height:60px;
- border-radius:50%;
- background:#00ffcc;
- border:none;
- font-weight:bold;
+ width:60px;height:60px;border-radius:50%;
+ background:#5fdfff;border:none;font-weight:bold;
 }
 .leaderboard li{
- display:flex;
- justify-content:space-between;
- padding:6px 0;
- border-bottom:1px solid rgba(0,255,204,.2);
+ display:flex; justify-content:space-between;
+ padding:8px 0;
+ border-bottom:1px solid rgba(255,255,255,.15);
 }
-footer{
- text-align:center;
- padding:40px;
- opacity:.7;
-}
+footer{text-align:center;padding:40px;opacity:.7}
 </style>
 </head>
 
@@ -95,13 +80,13 @@ footer{
 
 <div id="welcome">
 <h1>FINAL BOSS ESPORTS</h1>
-<p>Cyber Arcade • Esports • Legacy</p>
-<button onclick="startSite()">START</button>
+<p>Cyber Arcade • Premium Build</p>
+<button onclick="start()">START</button>
 </div>
 
 <header>
 <h1>FINAL BOSS ESPORTS</h1>
-<p>Founder: <strong>Nafiz</strong> 🇧🇩 | Built Through Grind</p>
+<p>Founder: <strong>Nafiz</strong> 🇧🇩</p>
 </header>
 
 <div class="panel">
@@ -115,22 +100,23 @@ footer{
 <canvas id="snake" width="360" height="360"></canvas>
 <p>Score: <span id="snakeScore">0</span></p>
 <div class="joystick">
-<button onclick="setDir(0,-20)">⬆</button>
-<button onclick="setDir(-20,0)">⬅</button>
-<button onclick="setDir(20,0)">➡</button>
-<button onclick="setDir(0,20)">⬇</button>
+<button onclick="dir(0,-20)">⬆</button>
+<button onclick="dir(-20,0)">⬅</button>
+<button onclick="dir(20,0)">➡</button>
+<button onclick="dir(0,20)">⬇</button>
 </div>
 </div>
 
 <div class="panel">
-<h2>🏃 Cyber Runner</h2>
+<h2>🏃 Cyber Runner (Spikes)</h2>
 <canvas id="runner" width="360" height="200"></canvas>
 <p>Score: <span id="runScore">0</span></p>
 </div>
 
 <div class="panel">
-<h2>🏓 Pong</h2>
-<canvas id="pong" width="360" height="200"></canvas>
+<h2>🧩 Cyber Puzzle</h2>
+<canvas id="puzzle" width="240" height="240"></canvas>
+<p>Tap tiles to solve</p>
 </div>
 
 <div class="panel">
@@ -142,108 +128,114 @@ footer{
 <h2>👑 Founder</h2>
 <p>
 <strong>Nafiz</strong> is a competitive gamer and creator from Bangladesh.
-Known for aggressive Free Fire gameplay with <strong>M590, Trogon, AWM</strong>.
+Signature Free Fire weapons: <strong>M590</strong>, <strong>Trogon</strong>, <strong>AWM</strong>.
 </p>
 <p>
-Built alongside teammates <strong>EIFAT</strong>, <strong>MEHERAJ</strong>, and <strong>NOYON</strong>,
-Final Boss Esports represents growth through iteration, not shortcuts.
+Built alongside <strong>EIFAT</strong>, <strong>MEHERAJ</strong>, and <strong>NOYON</strong>,
+Final Boss Esports represents evolution through rebuilding.
 </p>
 </div>
 
-<footer>
-FINAL BOSS ESPORTS © 2025 — World Ready
-</footer>
+<footer>FINAL BOSS ESPORTS © 2025</footer>
 
 <script>
-function startSite(){document.getElementById("welcome").style.display="none"}
+function start(){document.getElementById("welcome").style.display="none"}
 
 /* USER */
 let user=localStorage.getItem("fb_user")||"";
-document.getElementById("username").value=user;
+username.value=user;
 function saveUser(){
- user=document.getElementById("username").value||"Anonymous";
+ user=username.value||"Anonymous";
  localStorage.setItem("fb_user",user);
 }
 
 /* LEADERBOARD */
-function updateBoard(game,score){
+function saveScore(game,score){
  let d=JSON.parse(localStorage.getItem("fb_scores")||"[]");
  d.push({user,game,score});
  d=d.sort((a,b)=>b.score-a.score).slice(0,10);
  localStorage.setItem("fb_scores",JSON.stringify(d));
- renderBoard();
+ renderLB();
 }
-function renderBoard(){
- let lb=document.getElementById("leaderboard");
- lb.innerHTML="";
+function renderLB(){
+ leaderboard.innerHTML="";
  JSON.parse(localStorage.getItem("fb_scores")||"[]")
- .forEach((e,i)=>{
-  lb.innerHTML+=`<li><span>#${i+1} ${e.user} (${e.game})</span><span>${e.score}</span></li>`;
- });
+ .forEach((e,i)=>leaderboard.innerHTML+=
+ `<li><span>#${i+1} ${e.user} (${e.game})</span><span>${e.score}</span></li>`);
 }
-renderBoard();
+renderLB();
 
 /* SNAKE */
-const s=document.getElementById("snake"),sc=s.getContext("2d");
-let snake=[{x:180,y:180}],dx=20,dy=0,food={x:100,y:100},ss=0;
-function setDir(x,y){dx=x;dy=y}
+const sc=snake.getContext("2d");
+let sn=[{x:180,y:180}],dx=20,dy=0,food={x:100,y:100},ss=0;
+function dir(x,y){dx=x;dy=y}
 document.addEventListener("keydown",e=>{
- if(e.key=="ArrowUp")setDir(0,-20);
- if(e.key=="ArrowDown")setDir(0,20);
- if(e.key=="ArrowLeft")setDir(-20,0);
- if(e.key=="ArrowRight")setDir(20,0);
+ if(e.key=="ArrowUp")dir(0,-20);
+ if(e.key=="ArrowDown")dir(0,20);
+ if(e.key=="ArrowLeft")dir(-20,0);
+ if(e.key=="ArrowRight")dir(20,0);
 });
-function drawSeg(p,i){
- sc.fillStyle=i==0?"#00ffcc":"#00aa99";
+function draw(p,i){
  sc.beginPath();
- sc.arc(p.x+10,p.y+10,i==0?10:8,0,Math.PI*2);
+ sc.fillStyle=i? "#3fbfd9":"#5fdfff";
+ sc.arc(p.x+10,p.y+10,i?8:10,0,Math.PI*2);
  sc.fill();
 }
-function snakeLoop(){
+setInterval(()=>{
  sc.clearRect(0,0,360,360);
- let h={x:snake[0].x+dx,y:snake[0].y+dy};
- snake.unshift(h);
+ let h={x:sn[0].x+dx,y:sn[0].y+dy};
+ sn.unshift(h);
  if(h.x==food.x&&h.y==food.y){
-  ss++; document.getElementById("snakeScore").textContent=ss;
-  food={x:Math.floor(Math.random()*18)*20,y:Math.floor(Math.random()*18)*20};
- } else snake.pop();
- sc.fillStyle="red"; sc.fillRect(food.x+4,food.y+4,12,12);
- snake.forEach(drawSeg);
+  ss++; snakeScore.textContent=ss;
+  food={x:Math.random()*18*20,y:Math.random()*18*20};
+ } else sn.pop();
+ sc.fillStyle="red"; sc.fillRect(food.x+5,food.y+5,10,10);
+ sn.forEach(draw);
  if(h.x<0||h.y<0||h.x>=360||h.y>=360){
-  updateBoard("Snake",ss);
-  snake=[{x:180,y:180}];ss=0;
+  saveScore("Snake",ss); ss=0; sn=[{x:180,y:180}];
  }
-}
-setInterval(snakeLoop,120);
+},120);
 
-/* RUNNER */
-const r=document.getElementById("runner"),rc=r.getContext("2d");
-let ry=150,vy=0,rs=0;
-document.addEventListener("keydown",e=>{if(e.key==" ")vy=-8});
-r.addEventListener("click",()=>vy=-8);
-function runLoop(){
+/* RUNNER WITH SPIKES */
+const rc=runner.getContext("2d");
+let ry=150,vy=0,rx=360,rs=0;
+runner.onclick=()=>vy=-8;
+function run(){
  rc.clearRect(0,0,360,200);
  vy+=0.5; ry+=vy;
  if(ry>150){ry=150;vy=0}
- rc.fillStyle="#00ffcc"; rc.fillRect(40,ry,20,20);
- rs++; document.getElementById("runScore").textContent=rs;
- if(rs%500==0)updateBoard("Runner",rs);
- requestAnimationFrame(runLoop);
+ rx-=4; if(rx<0){rx=360;rs++}
+ rc.fillStyle="#5fdfff"; rc.fillRect(40,ry,20,20);
+ rc.fillStyle="red"; rc.fillRect(rx,170,20,20);
+ runScore.textContent=rs;
+ if(rx<60&&ry>130){saveScore("Runner",rs);rs=0}
+ requestAnimationFrame(run);
 }
-runLoop();
+run();
 
-/* PONG */
-const p=document.getElementById("pong"),pc=p.getContext("2d");
-let by=100,bx=180,vx=2,vy2=2;
-function pong(){
- pc.clearRect(0,0,360,200);
- bx+=vx; by+=vy2;
- if(by<0||by>200)vy2*=-1;
- if(bx<0||bx>360)vx*=-1;
- pc.fillStyle="#fff"; pc.beginPath(); pc.arc(bx,by,8,0,Math.PI*2); pc.fill();
- requestAnimationFrame(pong);
+/* PUZZLE */
+const pc=puzzle.getContext("2d");
+let tiles=[1,2,3,4,5,6,7,8,0];
+function drawPuzzle(){
+ pc.clearRect(0,0,240,240);
+ tiles.forEach((t,i)=>{
+  if(!t)return;
+  let x=i%3,y=Math.floor(i/3);
+  pc.fillStyle="#5fdfff";
+  pc.fillRect(x*80,y*80,78,78);
+  pc.fillStyle="#000";
+  pc.fillText(t,x*80+35,y*80+45);
+ });
 }
-pong();
+puzzle.onclick=e=>{
+ let x=Math.floor(e.offsetX/80),
+     y=Math.floor(e.offsetY/80),
+     i=y*3+x,
+     z=tiles.indexOf(0);
+ [tiles[i],tiles[z]]=[tiles[z],tiles[i]];
+ drawPuzzle();
+}
+drawPuzzle();
 </script>
 
 </body>
