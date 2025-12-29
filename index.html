@@ -13,15 +13,14 @@ body{
   font-family:'Orbitron',sans-serif;
   color:#00ffcc;
   background:radial-gradient(circle at top,#0a0f2c,#000);
-  overflow-x:hidden;
 }
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    linear-gradient(transparent 95%,rgba(0,255,255,.08) 96%),
-    linear-gradient(90deg,transparent 95%,rgba(0,255,255,.08) 96%);
+    linear-gradient(transparent 95%,rgba(0,255,255,.07) 96%),
+    linear-gradient(90deg,transparent 95%,rgba(0,255,255,.07) 96%);
   background-size:40px 40px;
   pointer-events:none;
 }
@@ -34,27 +33,22 @@ h1{
   text-shadow:0 0 20px #00ffcc;
 }
 .panel{
-  background:rgba(0,0,0,.6);
+  background:rgba(0,0,0,.65);
   border:1px solid #00ffcc;
-  box-shadow:0 0 20px rgba(0,255,204,.3);
-  border-radius:12px;
-  padding:20px;
+  box-shadow:0 0 25px rgba(0,255,204,.3);
+  border-radius:14px;
+  padding:25px;
   margin:30px auto;
-  max-width:900px;
+  max-width:950px;
 }
 input,button{
   font-family:'Orbitron';
   padding:10px;
-  border:none;
-  outline:none;
-}
-input{
-  width:100%;
-  margin-bottom:10px;
 }
 button{
   background:#00ffcc;
   color:#000;
+  border:none;
   cursor:pointer;
   font-weight:700;
 }
@@ -67,12 +61,13 @@ canvas{
 .leaderboard li{
   display:flex;
   justify-content:space-between;
-  padding:6px 0;
+  padding:8px 0;
   border-bottom:1px solid rgba(0,255,204,.2);
 }
+.rank{opacity:.7}
 footer{
   text-align:center;
-  padding:30px;
+  padding:40px;
   opacity:.6;
 }
 </style>
@@ -82,17 +77,17 @@ footer{
 
 <header>
 <h1>FINAL BOSS ESPORTS</h1>
-<p>Founder: Nafiz 🇧🇩 | Cyber Esports Platform</p>
+<p>Founder: <strong>Nafiz</strong> 🇧🇩 | Cyber Esports Platform</p>
 </header>
 
 <div class="panel">
-<h2>👤 Enter Gamer ID</h2>
-<input id="username" placeholder="Your Gamer Name">
-<button onclick="saveUser()">Save ID</button>
+<h2>👤 Gamer ID</h2>
+<input id="username" placeholder="Enter your gamer name">
+<button onclick="saveUser()">Save</button>
 </div>
 
 <div class="panel">
-<h2>🐍 Snake Game</h2>
+<h2>🐍 Snake</h2>
 <canvas id="snake" width="400" height="400"></canvas>
 <p>Score: <span id="snakeScore">0</span></p>
 </div>
@@ -104,8 +99,27 @@ footer{
 </div>
 
 <div class="panel">
-<h2>🏆 High Score Leaderboard</h2>
-<ol class="leaderboard" id="leaderboard"></ol>
+<h2>🏆 Leaderboard</h2>
+<ol id="leaderboard"></ol>
+</div>
+
+<div class="panel">
+<h2>👑 Founder</h2>
+<p>
+<strong>Nafiz</strong> is a competitive gamer and self-taught creator from Bangladesh who built
+<strong>Final Boss Esports</strong> through experimentation, failure, and constant rebuilding.
+</p>
+<p>
+Primarily known for his aggressive <strong>Free Fire</strong> playstyle, his signature weapons are
+<strong>M590</strong>, <strong>Trogon</strong>, and <strong>AWM</strong>, reflecting a high-risk, high-reward mindset.
+</p>
+<p>
+Alongside trusted teammates <strong>EIFAT</strong>, <strong>MEHERAJ</strong>, and <strong>NOYON</strong>,
+this platform represents growth — not perfection.
+</p>
+<p>
+Final Boss Esports exists as proof that skills are built through iteration, not shortcuts.
+</p>
 </div>
 
 <footer>
@@ -114,7 +128,7 @@ FINAL BOSS ESPORTS © 2025 — Built Through Grind, Not Luck
 
 <script>
 /* USER */
-let user = localStorage.getItem("fb_user") || "";
+let user=localStorage.getItem("fb_user")||"";
 document.getElementById("username").value=user;
 function saveUser(){
  user=document.getElementById("username").value||"Anonymous";
@@ -125,7 +139,7 @@ function saveUser(){
 function updateBoard(game,score){
  let data=JSON.parse(localStorage.getItem("fb_scores")||"[]");
  data.push({user,game,score});
- data=data.sort((a,b)=>b.score-a.score).slice(0,5);
+ data=data.sort((a,b)=>b.score-a.score).slice(0,10);
  localStorage.setItem("fb_scores",JSON.stringify(data));
  renderBoard();
 }
@@ -133,15 +147,15 @@ function renderBoard(){
  const lb=document.getElementById("leaderboard");
  lb.innerHTML="";
  let data=JSON.parse(localStorage.getItem("fb_scores")||"[]");
- data.forEach(d=>{
-   let li=document.createElement("li");
-   li.innerHTML=`<span>${d.user} (${d.game})</span><span>${d.score}</span>`;
-   lb.appendChild(li);
+ data.forEach((d,i)=>{
+  let li=document.createElement("li");
+  li.innerHTML=`<span class="rank">#${i+1}</span> <span>${d.user} (${d.game})</span><span>${d.score}</span>`;
+  lb.appendChild(li);
  });
 }
 renderBoard();
 
-/* SNAKE */
+/* SNAKE (REAL LOOK) */
 const s=document.getElementById("snake"),sc=s.getContext("2d");
 let snake=[{x:200,y:200}],dx=20,dy=0,food={x:100,y:100},snakeScore=0;
 document.addEventListener("keydown",e=>{
@@ -150,6 +164,12 @@ document.addEventListener("keydown",e=>{
  if(e.key==="ArrowLeft"){dx=-20;dy=0}
  if(e.key==="ArrowRight"){dx=20;dy=0}
 });
+function drawCircle(x,y,r,color){
+ sc.fillStyle=color;
+ sc.beginPath();
+ sc.arc(x+10,y+10,r,0,Math.PI*2);
+ sc.fill();
+}
 function snakeLoop(){
  sc.clearRect(0,0,400,400);
  let head={x:snake[0].x+dx,y:snake[0].y+dy};
@@ -159,14 +179,14 @@ function snakeLoop(){
   document.getElementById("snakeScore").textContent=snakeScore;
   food={x:Math.floor(Math.random()*20)*20,y:Math.floor(Math.random()*20)*20};
  } else snake.pop();
- sc.fillStyle="red"; sc.fillRect(food.x,food.y,20,20);
- sc.fillStyle="#00ffcc"; snake.forEach(p=>sc.fillRect(p.x,p.y,20,20));
+ drawCircle(food.x,food.y,8,"red");
+ snake.forEach((p,i)=>drawCircle(p.x,p.y,i===0?10:8,"#00ffcc"));
  if(head.x<0||head.y<0||head.x>=400||head.y>=400){
   updateBoard("Snake",snakeScore);
   snake=[{x:200,y:200}];dx=20;dy=0;snakeScore=0;
  }
 }
-setInterval(snakeLoop,120);
+setInterval(snakeLoop,110);
 
 /* SHOOTER */
 const sh=document.getElementById("shooter"),shc=sh.getContext("2d");
