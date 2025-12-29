@@ -2,35 +2,79 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Final Boss Esports | Nafiz</title>
+<title>FINAL BOSS ESPORTS | Nafiz</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-body {
+*{box-sizing:border-box}
+body{
   margin:0;
-  font-family: Orbitron, sans-serif;
-  background:#050505;
-  color:#0f0;
+  font-family:'Orbitron',sans-serif;
+  color:#00ffcc;
+  background:radial-gradient(circle at top,#0a0f2c,#000);
+  overflow-x:hidden;
 }
-header {
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(transparent 95%,rgba(0,255,255,.08) 96%),
+    linear-gradient(90deg,transparent 95%,rgba(0,255,255,.08) 96%);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+header{
   text-align:center;
-  padding:40px;
+  padding:40px 20px;
 }
-canvas {
-  background:#000;
+h1{
+  font-size:3em;
+  text-shadow:0 0 20px #00ffcc;
+}
+.panel{
+  background:rgba(0,0,0,.6);
+  border:1px solid #00ffcc;
+  box-shadow:0 0 20px rgba(0,255,204,.3);
+  border-radius:12px;
+  padding:20px;
+  margin:30px auto;
+  max-width:900px;
+}
+input,button{
+  font-family:'Orbitron';
+  padding:10px;
+  border:none;
+  outline:none;
+}
+input{
+  width:100%;
+  margin-bottom:10px;
+}
+button{
+  background:#00ffcc;
+  color:#000;
+  cursor:pointer;
+  font-weight:700;
+}
+canvas{
   display:block;
   margin:20px auto;
-  border:2px solid #0f0;
+  background:#000;
+  border:2px solid #00ffcc;
 }
-button {
-  background:#0f0;
-  color:#000;
-  border:none;
-  padding:10px 20px;
-  cursor:pointer;
-  font-weight:bold;
+.leaderboard li{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px solid rgba(0,255,204,.2);
 }
-section { padding:40px; max-width:900px; margin:auto; }
-h2 { color:#ff0066; }
+footer{
+  text-align:center;
+  padding:30px;
+  opacity:.6;
+}
 </style>
 </head>
 
@@ -38,88 +82,110 @@ h2 { color:#ff0066; }
 
 <header>
 <h1>FINAL BOSS ESPORTS</h1>
-<p>Founded by Nafiz | Bangladesh</p>
-<button onclick="toggleMusic()">🎵 Music</button>
+<p>Founder: Nafiz 🇧🇩 | Cyber Esports Platform</p>
 </header>
 
-<audio id="bgm" loop>
-<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4a7b2f92f7.mp3">
-</audio>
+<div class="panel">
+<h2>👤 Enter Gamer ID</h2>
+<input id="username" placeholder="Your Gamer Name">
+<button onclick="saveUser()">Save ID</button>
+</div>
 
-<section>
-<h2>🎮 Snake Game</h2>
+<div class="panel">
+<h2>🐍 Snake Game</h2>
 <canvas id="snake" width="400" height="400"></canvas>
-</section>
+<p>Score: <span id="snakeScore">0</span></p>
+</div>
 
-<section>
+<div class="panel">
 <h2>🔫 Aim Trainer</h2>
 <canvas id="shooter" width="400" height="300"></canvas>
-</section>
+<p>Score: <span id="shootScore">0</span></p>
+</div>
 
-<section>
-<h2>👑 Founder</h2>
-<p>
-Nafiz is a competitive gamer shaped by failure, iteration, and passion.
-Signature weapons: M590, Trogon, AWM.
-</p>
-<p>Squad: EIFAT • MEHERAJ • NOYON</p>
-</section>
+<div class="panel">
+<h2>🏆 High Score Leaderboard</h2>
+<ol class="leaderboard" id="leaderboard"></ol>
+</div>
+
+<footer>
+FINAL BOSS ESPORTS © 2025 — Built Through Grind, Not Luck
+</footer>
 
 <script>
-// MUSIC
-const bgm = document.getElementById("bgm");
-function toggleMusic(){ bgm.paused ? bgm.play() : bgm.pause(); }
+/* USER */
+let user = localStorage.getItem("fb_user") || "";
+document.getElementById("username").value=user;
+function saveUser(){
+ user=document.getElementById("username").value||"Anonymous";
+ localStorage.setItem("fb_user",user);
+}
 
-// SNAKE
-const s = document.getElementById("snake");
-const sc = s.getContext("2d");
-let snake=[{x:200,y:200}], dx=20, dy=0, food={x:100,y:100};
+/* LEADERBOARD */
+function updateBoard(game,score){
+ let data=JSON.parse(localStorage.getItem("fb_scores")||"[]");
+ data.push({user,game,score});
+ data=data.sort((a,b)=>b.score-a.score).slice(0,5);
+ localStorage.setItem("fb_scores",JSON.stringify(data));
+ renderBoard();
+}
+function renderBoard(){
+ const lb=document.getElementById("leaderboard");
+ lb.innerHTML="";
+ let data=JSON.parse(localStorage.getItem("fb_scores")||"[]");
+ data.forEach(d=>{
+   let li=document.createElement("li");
+   li.innerHTML=`<span>${d.user} (${d.game})</span><span>${d.score}</span>`;
+   lb.appendChild(li);
+ });
+}
+renderBoard();
 
+/* SNAKE */
+const s=document.getElementById("snake"),sc=s.getContext("2d");
+let snake=[{x:200,y:200}],dx=20,dy=0,food={x:100,y:100},snakeScore=0;
 document.addEventListener("keydown",e=>{
  if(e.key==="ArrowUp"){dx=0;dy=-20}
  if(e.key==="ArrowDown"){dx=0;dy=20}
  if(e.key==="ArrowLeft"){dx=-20;dy=0}
  if(e.key==="ArrowRight"){dx=20;dy=0}
 });
-
 function snakeLoop(){
  sc.clearRect(0,0,400,400);
  let head={x:snake[0].x+dx,y:snake[0].y+dy};
  snake.unshift(head);
  if(head.x===food.x && head.y===food.y){
-   food.x=Math.floor(Math.random()*20)*20;
-   food.y=Math.floor(Math.random()*20)*20;
+  snakeScore++;
+  document.getElementById("snakeScore").textContent=snakeScore;
+  food={x:Math.floor(Math.random()*20)*20,y:Math.floor(Math.random()*20)*20};
  } else snake.pop();
  sc.fillStyle="red"; sc.fillRect(food.x,food.y,20,20);
- sc.fillStyle="lime";
- snake.forEach(p=>sc.fillRect(p.x,p.y,20,20));
+ sc.fillStyle="#00ffcc"; snake.forEach(p=>sc.fillRect(p.x,p.y,20,20));
+ if(head.x<0||head.y<0||head.x>=400||head.y>=400){
+  updateBoard("Snake",snakeScore);
+  snake=[{x:200,y:200}];dx=20;dy=0;snakeScore=0;
+ }
 }
 setInterval(snakeLoop,120);
 
-// SHOOTER
-const sh = document.getElementById("shooter");
-const shc = sh.getContext("2d");
-let target={x:200,y:150,r:15}, score=0;
-
+/* SHOOTER */
+const sh=document.getElementById("shooter"),shc=sh.getContext("2d");
+let target={x:200,y:150,r:15},shootScore=0;
 sh.addEventListener("click",e=>{
- const rect=sh.getBoundingClientRect();
- const x=e.clientX-rect.left;
- const y=e.clientY-rect.top;
- const d=Math.hypot(x-target.x,y-target.y);
- if(d<target.r){ score++; spawn(); }
+ const r=sh.getBoundingClientRect();
+ const x=e.clientX-r.left,y=e.clientY-r.top;
+ if(Math.hypot(x-target.x,y-target.y)<target.r){
+  shootScore++;
+  document.getElementById("shootScore").textContent=shootScore;
+  target={x:Math.random()*360+20,y:Math.random()*260+20,r:15};
+ }
 });
-
-function spawn(){
- target.x=Math.random()*360+20;
- target.y=Math.random()*260+20;
-}
 function shooterLoop(){
  shc.clearRect(0,0,400,300);
- shc.fillStyle="white";
+ shc.fillStyle="#fff";
  shc.beginPath();
  shc.arc(target.x,target.y,target.r,0,Math.PI*2);
  shc.fill();
- shc.fillText("Score: "+score,10,20);
  requestAnimationFrame(shooterLoop);
 }
 shooterLoop();
