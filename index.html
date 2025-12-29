@@ -9,93 +9,128 @@
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:'Orbitron',sans-serif;
-  color:#00ffcc;
-  background:radial-gradient(circle at top,#0a0f2c,#000);
+ margin:0;
+ font-family:'Orbitron',sans-serif;
+ color:#00ffcc;
+ background:#05070f;
+ overflow-x:hidden;
 }
 body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(transparent 95%,rgba(0,255,255,.07) 96%),
-    linear-gradient(90deg,transparent 95%,rgba(0,255,255,.07) 96%);
-  background-size:40px 40px;
-  pointer-events:none;
+ content:"";
+ position:fixed;
+ inset:0;
+ background:
+ linear-gradient(transparent 96%,rgba(0,255,204,.07) 97%),
+ linear-gradient(90deg,transparent 96%,rgba(0,255,204,.07) 97%);
+ background-size:40px 40px;
+ pointer-events:none;
+}
+#welcome{
+ position:fixed; inset:0;
+ background:radial-gradient(circle,#0a1a2f,#000);
+ display:flex; flex-direction:column;
+ align-items:center; justify-content:center;
+ z-index:10;
+}
+#welcome h1{
+ font-size:3em;
+ text-shadow:0 0 30px #00ffcc;
+}
+#welcome button{
+ padding:15px 40px;
+ font-size:1.2em;
+ background:#00ffcc;
+ border:none;
+ cursor:pointer;
+ font-weight:700;
 }
 header{
-  text-align:center;
-  padding:40px 20px;
-}
-h1{
-  font-size:3em;
-  text-shadow:0 0 20px #00ffcc;
+ text-align:center;
+ padding:30px;
 }
 .panel{
-  background:rgba(0,0,0,.65);
-  border:1px solid #00ffcc;
-  box-shadow:0 0 25px rgba(0,255,204,.3);
-  border-radius:14px;
-  padding:25px;
-  margin:30px auto;
-  max-width:950px;
-}
-input,button{
-  font-family:'Orbitron';
-  padding:10px;
-}
-button{
-  background:#00ffcc;
-  color:#000;
-  border:none;
-  cursor:pointer;
-  font-weight:700;
+ background:rgba(0,0,0,.7);
+ border:1px solid #00ffcc;
+ box-shadow:0 0 30px rgba(0,255,204,.25);
+ border-radius:16px;
+ padding:25px;
+ margin:30px auto;
+ max-width:1000px;
 }
 canvas{
-  display:block;
-  margin:20px auto;
-  background:#000;
-  border:2px solid #00ffcc;
+ display:block;
+ margin:20px auto;
+ background:#000;
+ border:2px solid #00ffcc;
+ border-radius:12px;
+}
+.joystick{
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ margin-top:10px;
+}
+.joystick button{
+ width:60px;height:60px;
+ border-radius:50%;
+ background:#00ffcc;
+ border:none;
+ font-weight:bold;
 }
 .leaderboard li{
-  display:flex;
-  justify-content:space-between;
-  padding:8px 0;
-  border-bottom:1px solid rgba(0,255,204,.2);
+ display:flex;
+ justify-content:space-between;
+ padding:6px 0;
+ border-bottom:1px solid rgba(0,255,204,.2);
 }
-.rank{opacity:.7}
 footer{
-  text-align:center;
-  padding:40px;
-  opacity:.6;
+ text-align:center;
+ padding:40px;
+ opacity:.7;
 }
 </style>
 </head>
 
 <body>
 
+<div id="welcome">
+<h1>FINAL BOSS ESPORTS</h1>
+<p>Cyber Arcade • Esports • Legacy</p>
+<button onclick="startSite()">START</button>
+</div>
+
 <header>
 <h1>FINAL BOSS ESPORTS</h1>
-<p>Founder: <strong>Nafiz</strong> 🇧🇩 | Cyber Esports Platform</p>
+<p>Founder: <strong>Nafiz</strong> 🇧🇩 | Built Through Grind</p>
 </header>
 
 <div class="panel">
 <h2>👤 Gamer ID</h2>
-<input id="username" placeholder="Enter your gamer name">
+<input id="username" placeholder="Enter gamer name">
 <button onclick="saveUser()">Save</button>
 </div>
 
 <div class="panel">
-<h2>🐍 Snake</h2>
-<canvas id="snake" width="400" height="400"></canvas>
+<h2>🐍 Snake (Joystick + Keyboard)</h2>
+<canvas id="snake" width="360" height="360"></canvas>
 <p>Score: <span id="snakeScore">0</span></p>
+<div class="joystick">
+<button onclick="setDir(0,-20)">⬆</button>
+<button onclick="setDir(-20,0)">⬅</button>
+<button onclick="setDir(20,0)">➡</button>
+<button onclick="setDir(0,20)">⬇</button>
+</div>
 </div>
 
 <div class="panel">
-<h2>🔫 Aim Trainer</h2>
-<canvas id="shooter" width="400" height="300"></canvas>
-<p>Score: <span id="shootScore">0</span></p>
+<h2>🏃 Cyber Runner</h2>
+<canvas id="runner" width="360" height="200"></canvas>
+<p>Score: <span id="runScore">0</span></p>
+</div>
+
+<div class="panel">
+<h2>🏓 Pong</h2>
+<canvas id="pong" width="360" height="200"></canvas>
 </div>
 
 <div class="panel">
@@ -106,27 +141,22 @@ footer{
 <div class="panel">
 <h2>👑 Founder</h2>
 <p>
-<strong>Nafiz</strong> is a competitive gamer and self-taught creator from Bangladesh who built
-<strong>Final Boss Esports</strong> through experimentation, failure, and constant rebuilding.
+<strong>Nafiz</strong> is a competitive gamer and creator from Bangladesh.
+Known for aggressive Free Fire gameplay with <strong>M590, Trogon, AWM</strong>.
 </p>
 <p>
-Primarily known for his aggressive <strong>Free Fire</strong> playstyle, his signature weapons are
-<strong>M590</strong>, <strong>Trogon</strong>, and <strong>AWM</strong>, reflecting a high-risk, high-reward mindset.
-</p>
-<p>
-Alongside trusted teammates <strong>EIFAT</strong>, <strong>MEHERAJ</strong>, and <strong>NOYON</strong>,
-this platform represents growth — not perfection.
-</p>
-<p>
-Final Boss Esports exists as proof that skills are built through iteration, not shortcuts.
+Built alongside teammates <strong>EIFAT</strong>, <strong>MEHERAJ</strong>, and <strong>NOYON</strong>,
+Final Boss Esports represents growth through iteration, not shortcuts.
 </p>
 </div>
 
 <footer>
-FINAL BOSS ESPORTS © 2025 — Built Through Grind, Not Luck
+FINAL BOSS ESPORTS © 2025 — World Ready
 </footer>
 
 <script>
+function startSite(){document.getElementById("welcome").style.display="none"}
+
 /* USER */
 let user=localStorage.getItem("fb_user")||"";
 document.getElementById("username").value=user;
@@ -137,78 +167,83 @@ function saveUser(){
 
 /* LEADERBOARD */
 function updateBoard(game,score){
- let data=JSON.parse(localStorage.getItem("fb_scores")||"[]");
- data.push({user,game,score});
- data=data.sort((a,b)=>b.score-a.score).slice(0,10);
- localStorage.setItem("fb_scores",JSON.stringify(data));
+ let d=JSON.parse(localStorage.getItem("fb_scores")||"[]");
+ d.push({user,game,score});
+ d=d.sort((a,b)=>b.score-a.score).slice(0,10);
+ localStorage.setItem("fb_scores",JSON.stringify(d));
  renderBoard();
 }
 function renderBoard(){
- const lb=document.getElementById("leaderboard");
+ let lb=document.getElementById("leaderboard");
  lb.innerHTML="";
- let data=JSON.parse(localStorage.getItem("fb_scores")||"[]");
- data.forEach((d,i)=>{
-  let li=document.createElement("li");
-  li.innerHTML=`<span class="rank">#${i+1}</span> <span>${d.user} (${d.game})</span><span>${d.score}</span>`;
-  lb.appendChild(li);
+ JSON.parse(localStorage.getItem("fb_scores")||"[]")
+ .forEach((e,i)=>{
+  lb.innerHTML+=`<li><span>#${i+1} ${e.user} (${e.game})</span><span>${e.score}</span></li>`;
  });
 }
 renderBoard();
 
-/* SNAKE (REAL LOOK) */
+/* SNAKE */
 const s=document.getElementById("snake"),sc=s.getContext("2d");
-let snake=[{x:200,y:200}],dx=20,dy=0,food={x:100,y:100},snakeScore=0;
+let snake=[{x:180,y:180}],dx=20,dy=0,food={x:100,y:100},ss=0;
+function setDir(x,y){dx=x;dy=y}
 document.addEventListener("keydown",e=>{
- if(e.key==="ArrowUp"){dx=0;dy=-20}
- if(e.key==="ArrowDown"){dx=0;dy=20}
- if(e.key==="ArrowLeft"){dx=-20;dy=0}
- if(e.key==="ArrowRight"){dx=20;dy=0}
+ if(e.key=="ArrowUp")setDir(0,-20);
+ if(e.key=="ArrowDown")setDir(0,20);
+ if(e.key=="ArrowLeft")setDir(-20,0);
+ if(e.key=="ArrowRight")setDir(20,0);
 });
-function drawCircle(x,y,r,color){
- sc.fillStyle=color;
+function drawSeg(p,i){
+ sc.fillStyle=i==0?"#00ffcc":"#00aa99";
  sc.beginPath();
- sc.arc(x+10,y+10,r,0,Math.PI*2);
+ sc.arc(p.x+10,p.y+10,i==0?10:8,0,Math.PI*2);
  sc.fill();
 }
 function snakeLoop(){
- sc.clearRect(0,0,400,400);
- let head={x:snake[0].x+dx,y:snake[0].y+dy};
- snake.unshift(head);
- if(head.x===food.x && head.y===food.y){
-  snakeScore++;
-  document.getElementById("snakeScore").textContent=snakeScore;
-  food={x:Math.floor(Math.random()*20)*20,y:Math.floor(Math.random()*20)*20};
+ sc.clearRect(0,0,360,360);
+ let h={x:snake[0].x+dx,y:snake[0].y+dy};
+ snake.unshift(h);
+ if(h.x==food.x&&h.y==food.y){
+  ss++; document.getElementById("snakeScore").textContent=ss;
+  food={x:Math.floor(Math.random()*18)*20,y:Math.floor(Math.random()*18)*20};
  } else snake.pop();
- drawCircle(food.x,food.y,8,"red");
- snake.forEach((p,i)=>drawCircle(p.x,p.y,i===0?10:8,"#00ffcc"));
- if(head.x<0||head.y<0||head.x>=400||head.y>=400){
-  updateBoard("Snake",snakeScore);
-  snake=[{x:200,y:200}];dx=20;dy=0;snakeScore=0;
+ sc.fillStyle="red"; sc.fillRect(food.x+4,food.y+4,12,12);
+ snake.forEach(drawSeg);
+ if(h.x<0||h.y<0||h.x>=360||h.y>=360){
+  updateBoard("Snake",ss);
+  snake=[{x:180,y:180}];ss=0;
  }
 }
-setInterval(snakeLoop,110);
+setInterval(snakeLoop,120);
 
-/* SHOOTER */
-const sh=document.getElementById("shooter"),shc=sh.getContext("2d");
-let target={x:200,y:150,r:15},shootScore=0;
-sh.addEventListener("click",e=>{
- const r=sh.getBoundingClientRect();
- const x=e.clientX-r.left,y=e.clientY-r.top;
- if(Math.hypot(x-target.x,y-target.y)<target.r){
-  shootScore++;
-  document.getElementById("shootScore").textContent=shootScore;
-  target={x:Math.random()*360+20,y:Math.random()*260+20,r:15};
- }
-});
-function shooterLoop(){
- shc.clearRect(0,0,400,300);
- shc.fillStyle="#fff";
- shc.beginPath();
- shc.arc(target.x,target.y,target.r,0,Math.PI*2);
- shc.fill();
- requestAnimationFrame(shooterLoop);
+/* RUNNER */
+const r=document.getElementById("runner"),rc=r.getContext("2d");
+let ry=150,vy=0,rs=0;
+document.addEventListener("keydown",e=>{if(e.key==" ")vy=-8});
+r.addEventListener("click",()=>vy=-8);
+function runLoop(){
+ rc.clearRect(0,0,360,200);
+ vy+=0.5; ry+=vy;
+ if(ry>150){ry=150;vy=0}
+ rc.fillStyle="#00ffcc"; rc.fillRect(40,ry,20,20);
+ rs++; document.getElementById("runScore").textContent=rs;
+ if(rs%500==0)updateBoard("Runner",rs);
+ requestAnimationFrame(runLoop);
 }
-shooterLoop();
+runLoop();
+
+/* PONG */
+const p=document.getElementById("pong"),pc=p.getContext("2d");
+let by=100,bx=180,vx=2,vy2=2;
+function pong(){
+ pc.clearRect(0,0,360,200);
+ bx+=vx; by+=vy2;
+ if(by<0||by>200)vy2*=-1;
+ if(bx<0||bx>360)vx*=-1;
+ pc.fillStyle="#fff"; pc.beginPath(); pc.arc(bx,by,8,0,Math.PI*2); pc.fill();
+ requestAnimationFrame(pong);
+}
+pong();
 </script>
 
 </body>
