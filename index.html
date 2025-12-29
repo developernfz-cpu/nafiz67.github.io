@@ -2,194 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nafiz | Esports Documentary</title>
+<title>Final Boss Esports | Nafiz</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --green:#00ff88;
-  --pink:#ff2d95;
-  --bg:#020204;
+body {
+  margin:0;
+  font-family: Orbitron, sans-serif;
+  background:#050505;
+  color:#0f0;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
-  background:radial-gradient(circle at top,#0b1220,#020204);
-  color:#eaffea;
-  font-family:'Orbitron',sans-serif;
-}
-
-/* ===== MUSIC BUTTON ===== */
-#musicBtn{
-  position:fixed;
-  bottom:15px;
-  right:15px;
-  background:#020204;
-  color:var(--green);
-  border:1px solid var(--green);
-  padding:10px;
-  font-family:'Press Start 2P';
-  font-size:10px;
-  cursor:pointer;
-  z-index:999;
-}
-
-/* ===== NAV ===== */
-nav{
-  position:fixed;
-  left:0;top:0;
-  width:220px;height:100%;
-  background:#05080d;
-  border-right:2px solid rgba(0,255,136,.2);
-  padding:30px 0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:18px;
-}
-nav h2{font-family:'Press Start 2P';color:var(--green);font-size:14px}
-nav a{
-  font-family:'Press Start 2P';
-  font-size:11px;
-  color:#9effc9;
-  text-decoration:none;
-}
-nav a:hover{color:var(--pink)}
-
-.main{margin-left:220px;padding:50px}
-
-/* ===== HERO ===== */
-.hero{text-align:center;padding:60px 20px}
-.hero h1{
-  font-family:'Press Start 2P';
-  font-size:3rem;
-  color:var(--green);
-  text-shadow:0 0 30px rgba(0,255,136,.6);
-}
-
-/* ===== SECTION ===== */
-section{
-  max-width:900px;
-  margin:50px auto;
+header {
+  text-align:center;
   padding:40px;
-  background:rgba(10,15,25,.75);
-  border-radius:16px;
-  border:1px solid rgba(0,255,136,.15);
 }
-section h2{
-  font-family:'Press Start 2P';
-  color:var(--pink);
-  font-size:16px;
-  margin-bottom:20px;
+canvas {
+  background:#000;
+  display:block;
+  margin:20px auto;
+  border:2px solid #0f0;
 }
-
-/* ===== GAMES ===== */
-canvas{
-  background:#020204;
-  border:3px solid var(--green);
-  box-shadow:0 0 20px rgba(0,255,136,.5);
+button {
+  background:#0f0;
+  color:#000;
+  border:none;
+  padding:10px 20px;
+  cursor:pointer;
+  font-weight:bold;
 }
-
-/* ===== FOOTER ===== */
-footer{text-align:center;opacity:.6;padding:30px}
+section { padding:40px; max-width:900px; margin:auto; }
+h2 { color:#ff0066; }
 </style>
 </head>
 
 <body>
 
+<header>
+<h1>FINAL BOSS ESPORTS</h1>
+<p>Founded by Nafiz | Bangladesh</p>
+<button onclick="toggleMusic()">🎵 Music</button>
+</header>
+
 <audio id="bgm" loop>
-  <source src="https://assets.mixkit.co/music/preview/mixkit-cyberpunk-moonlight-sonata-2725.mp3">
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4a7b2f92f7.mp3">
 </audio>
 
-<button id="musicBtn">MUSIC ON</button>
+<section>
+<h2>🎮 Snake Game</h2>
+<canvas id="snake" width="400" height="400"></canvas>
+</section>
 
-<nav>
-  <h2>NAFIZ</h2>
-  <a href="#story">HISTORY</a>
-  <a href="#snake">SNAKE</a>
-  <a href="#shooter">SHOOTER</a>
-  <a href="#reflex">REFLEX</a>
-</nav>
+<section>
+<h2>🔫 Aim Trainer</h2>
+<canvas id="shooter" width="400" height="300"></canvas>
+</section>
 
-<div class="main">
-
-<div class="hero">
-<h1>ESPORTS DOCUMENTARY</h1>
-<p>Bangladesh • Free Fire • Competitive Journey</p>
-</div>
-
-<section id="story">
-<h2>MY GAMING HISTORY</h2>
+<section>
+<h2>👑 Founder</h2>
 <p>
-<b>(~1000 words – documentary style)</b><br><br>
-
-Nafiz’s journey into gaming did not begin with trophies or recognition—it began with curiosity, persistence, and a deep love for competition. Growing up in Bangladesh, a country where mobile gaming rapidly evolved into a cultural phenomenon, Nafiz found his identity through games long before he found his audience. What started as casual play slowly transformed into discipline, strategy, and ambition.
-
-In the early days, Nafiz explored games not for fame but for understanding. He studied mechanics, reaction timing, positioning, and decision-making. While others played for entertainment, Nafiz played to improve. This mindset would later become the foundation of his competitive approach. Football inspired him—Cristiano Ronaldo’s mentality of relentless self-improvement became a personal philosophy that translated directly into gaming.
-
-Free Fire became the battlefield where Nafiz truly evolved. The fast-paced nature of the game suited his aggressive yet calculated style. Among all weapons, three defined his identity: the M590, the Trogon, and the AWM. The M590 reflected his close-range dominance, raw confidence, and fearless entries. The Trogon symbolized adaptability—knowing when to push and when to reposition. The AWM represented patience and precision, waiting for the perfect moment to strike. Each weapon was not just a tool, but an extension of his mindset.
-
-No journey is complete without allies. Alongside Nafiz stood EIFAT, MEHERAJ, and NOYON—not just teammates, but brothers in competition. EIFAT brought calm decision-making under pressure. MEHERAJ contributed raw mechanical skill and clutch potential. NOYON offered strategic awareness and consistency. Together, they formed a unit built on trust, communication, and shared hunger to improve. Losses were analyzed, wins were respected, and ego was never allowed to override teamwork.
-
-What separated Nafiz from many players was discipline. He treated every session like practice, every match like a test. He studied opponents, watched replays, and accepted criticism. While others chased shortcuts, Nafiz chose the long road. This professional mindset shaped him into more than just a gamer—it shaped him into a competitor.
-
-Bangladesh’s esports scene was growing, and Nafiz was growing with it. Limited resources never stopped him. Instead, they fueled creativity and resilience. Playing on different devices, adapting to conditions, and still performing became second nature. Gaming was no longer just a hobby—it was a craft.
-
-As time passed, Nafiz understood that legacy matters. Winning is important, but influence lasts longer. Through content creation, highlights, and sharing experiences, he inspired others to take gaming seriously. Not recklessly—but responsibly. With discipline, balance, and respect.
-
-Today, Nafiz stands not as someone who “plays games,” but as someone who represents the competitive spirit of a new generation. His story is still being written, but the foundation is clear: hard work, loyalty, and passion. From Bangladesh to the global stage, the journey continues—calculated, fearless, and unstoppable.
+Nafiz is a competitive gamer shaped by failure, iteration, and passion.
+Signature weapons: M590, Trogon, AWM.
 </p>
+<p>Squad: EIFAT • MEHERAJ • NOYON</p>
 </section>
-
-<section id="snake">
-<h2>SNAKE (FIXED)</h2>
-<canvas id="snakeGame" width="300" height="300"></canvas>
-</section>
-
-<section id="shooter">
-<h2>ESPORTS SHOOTER</h2>
-<canvas id="shooterGame" width="300" height="300"></canvas>
-<p>WASD = Move • Space = Shoot</p>
-</section>
-
-<section id="reflex">
-<h2>REFLEX DODGE</h2>
-<canvas id="reflexGame" width="300" height="300"></canvas>
-</section>
-
-<footer>© 2025 Nafiz • Esports Documentary</footer>
-</div>
 
 <script>
-/* ===== MUSIC ===== */
-const bgm=document.getElementById("bgm");
-musicBtn.onclick=()=>{
- if(bgm.paused){bgm.play();musicBtn.innerText="MUSIC OFF";}
- else{bgm.pause();musicBtn.innerText="MUSIC ON";}
-};
+// MUSIC
+const bgm = document.getElementById("bgm");
+function toggleMusic(){ bgm.paused ? bgm.play() : bgm.pause(); }
 
-/* ===== FIXED SNAKE ===== */
-const s=document.getElementById("snakeGame"),sx=s.getContext("2d");
-let snake=[{x:150,y:150}],sdx=15,sdy=0,food={x:60,y:60};
+// SNAKE
+const s = document.getElementById("snake");
+const sc = s.getContext("2d");
+let snake=[{x:200,y:200}], dx=20, dy=0, food={x:100,y:100};
 
 document.addEventListener("keydown",e=>{
- if(e.key==="ArrowUp"&&sdy===0){sdx=0;sdy=-15}
- if(e.key==="ArrowDown"&&sdy===0){sdx=0;sdy=15}
- if(e.key==="ArrowLeft"&&sdx===0){sdx=-15;sdy=0}
- if(e.key==="ArrowRight"&&sdx===0){sdx=15;sdy=0}
+ if(e.key==="ArrowUp"){dx=0;dy=-20}
+ if(e.key==="ArrowDown"){dx=0;dy=20}
+ if(e.key==="ArrowLeft"){dx=-20;dy=0}
+ if(e.key==="ArrowRight"){dx=20;dy=0}
 });
 
-setInterval(()=>{
- sx.clearRect(0,0,300,300);
- snake.forEach(b=>{sx.fillStyle="#0f8";sx.fillRect(b.x,b.y,15,15)});
- let h={x:snake[0].x+sdx,y:snake[0].y+sdy};
- snake.unshift(h);
- if(h.x===food.x&&h.y===food.y){food={x:Math.random()*20|0*15,y:Math.random()*20|0*15}}
- else snake.pop();
- sx.fillStyle="#f25";sx.fillRect(food.x,food.y,15,15);
-},120);
+function snakeLoop(){
+ sc.clearRect(0,0,400,400);
+ let head={x:snake[0].x+dx,y:snake[0].y+dy};
+ snake.unshift(head);
+ if(head.x===food.x && head.y===food.y){
+   food.x=Math.floor(Math.random()*20)*20;
+   food.y=Math.floor(Math.random()*20)*20;
+ } else snake.pop();
+ sc.fillStyle="red"; sc.fillRect(food.x,food.y,20,20);
+ sc.fillStyle="lime";
+ snake.forEach(p=>sc.fillRect(p.x,p.y,20,20));
+}
+setInterval(snakeLoop,120);
+
+// SHOOTER
+const sh = document.getElementById("shooter");
+const shc = sh.getContext("2d");
+let target={x:200,y:150,r:15}, score=0;
+
+sh.addEventListener("click",e=>{
+ const rect=sh.getBoundingClientRect();
+ const x=e.clientX-rect.left;
+ const y=e.clientY-rect.top;
+ const d=Math.hypot(x-target.x,y-target.y);
+ if(d<target.r){ score++; spawn(); }
+});
+
+function spawn(){
+ target.x=Math.random()*360+20;
+ target.y=Math.random()*260+20;
+}
+function shooterLoop(){
+ shc.clearRect(0,0,400,300);
+ shc.fillStyle="white";
+ shc.beginPath();
+ shc.arc(target.x,target.y,target.r,0,Math.PI*2);
+ shc.fill();
+ shc.fillText("Score: "+score,10,20);
+ requestAnimationFrame(shooterLoop);
+}
+shooterLoop();
 </script>
 
 </body>
