@@ -1,196 +1,311 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FINAL BOSS ESPORTS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Final Boss Esports | Nafiz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
- --neon:#5fdfff;
- --glass:rgba(0,0,0,.55);
+  --neon:#5fdfff;
+  --glass:rgba(0,0,0,.6);
 }
 *{box-sizing:border-box}
 body{
- margin:0;
- font-family:Orbitron;
- color:#eaffff;
- background:url(bg.jpg) center/cover fixed;
+  margin:0;
+  font-family:Orbitron,sans-serif;
+  color:#eaffff;
+  background:#000;
 }
 body::before{
- content:"";
- position:fixed; inset:0;
- background:rgba(0,0,0,.75);
- backdrop-filter:blur(8px);
- z-index:-1;
+  content:"";
+  position:fixed; inset:0;
+  background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+    url("https://images.unsplash.com/photo-1518770660439-4636190af475");
+  background-size:cover;
+  background-position:center;
+  z-index:-1;
 }
+
+/* WELCOME */
 #welcome{
- position:fixed; inset:0;
- display:flex; flex-direction:column;
- justify-content:center; align-items:center;
- background:rgba(0,0,0,.9);
- z-index:99;
+  position:fixed; inset:0;
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  background:#000;
+  z-index:99;
 }
 #welcome h1{
- font-size:3em;
- text-shadow:0 0 40px var(--neon);
+  font-size:3em;
+  text-shadow:0 0 40px var(--neon);
 }
 #welcome button{
- padding:18px 50px;
- font-size:1.2em;
- background:var(--neon);
- border:none; cursor:pointer;
+  padding:16px 40px;
+  font-size:1.2em;
+  background:var(--neon);
+  border:none;
+  cursor:pointer;
 }
+
+/* NAV */
 nav{
- position:fixed; left:0; top:0; bottom:0;
- width:90px;
- background:var(--glass);
- display:flex; flex-direction:column;
- align-items:center; padding:10px;
+  position:fixed;
+  top:0; left:0; bottom:0;
+  width:80px;
+  background:var(--glass);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:10px;
 }
 nav button{
- margin:10px 0;
- background:none; border:none;
- color:var(--neon);
- font-size:1.4em;
- cursor:pointer;
+  margin:10px 0;
+  background:none;
+  border:none;
+  color:var(--neon);
+  font-size:1.5em;
+  cursor:pointer;
 }
-main{margin-left:90px;padding:30px}
-.section{
- display:none;
- animation:fade .6s;
-}
+
+main{margin-left:80px;padding:20px}
+.section{display:none}
 .section.active{display:block}
-@keyframes fade{from{opacity:0}to{opacity:1}}
 
 .card{
- background:var(--glass);
- border:1px solid rgba(95,223,255,.4);
- border-radius:18px;
- padding:20px;
- margin:20px 0;
- box-shadow:0 0 30px rgba(95,223,255,.25);
+  background:var(--glass);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 0 25px rgba(95,223,255,.3);
 }
+
 canvas{
- background:#000;
- border-radius:14px;
- border:2px solid var(--neon);
- display:block;
- margin:auto;
+  background:#000;
+  border:2px solid var(--neon);
+  border-radius:12px;
+  display:block;
+  margin:auto;
 }
-footer{text-align:center;opacity:.6;padding:30px}
+
+/* MOBILE JOYSTICK */
+#joystick{
+  width:120px;height:120px;
+  border-radius:50%;
+  background:rgba(255,255,255,.1);
+  position:relative;
+  margin:15px auto;
+}
+#stick{
+  width:50px;height:50px;
+  background:var(--neon);
+  border-radius:50%;
+  position:absolute;
+  left:35px;top:35px;
+}
 </style>
 </head>
 
 <body>
 
 <div id="welcome">
-<h1>FINAL BOSS ESPORTS</h1>
-<p>Cyber Arcade Platform</p>
-<button onclick="enter()">ENTER</button>
+  <h1>FINAL BOSS ESPORTS</h1>
+  <p>Cyber Arcade Platform</p>
+  <button onclick="start()">ENTER</button>
 </div>
 
 <nav>
-<button onclick="show('games')">🎮</button>
-<button onclick="show('leader')">🏆</button>
-<button onclick="show('profile')">👤</button>
-<button onclick="show('founder')">👑</button>
+  <button onclick="show('home')">🏠</button>
+  <button onclick="show('games')">🎮</button>
+  <button onclick="show('leader')">🏆</button>
+  <button onclick="show('founder')">👑</button>
 </nav>
 
 <main>
 
-<section id="games" class="section active">
-<div class="card"><h2>🐍 Snake</h2><canvas id="snake" width="320" height="320"></canvas></div>
-<div class="card"><h2>🏃 Runner</h2><canvas id="runner" width="320" height="180"></canvas></div>
-<div class="card"><h2>🧱 Breakout</h2><canvas id="breakout" width="320" height="200"></canvas></div>
-<div class="card"><h2>🚀 Space Dodge</h2><canvas id="space" width="320" height="200"></canvas></div>
+<section id="home" class="section active">
+  <div class="card">
+    <h2>Welcome <span id="user"></span></h2>
+    <p>Compete. Improve. Dominate.</p>
+  </div>
+</section>
+
+<section id="games" class="section">
+  <div class="card">
+    <h3>🐍 Snake</h3>
+    <canvas id="snake" width="300" height="300"></canvas>
+    <div id="joystick"><div id="stick"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>🏃 Runner</h3>
+    <canvas id="runner" width="300" height="150"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Puzzle</h3>
+    <button onclick="shuffle()">Shuffle Puzzle</button>
+    <div id="puzzle"></div>
+  </div>
+
+  <div class="card">
+    <h3>🐦 Arcade Flyer</h3>
+    <canvas id="flappy" width="300" height="200"></canvas>
+  </div>
 </section>
 
 <section id="leader" class="section">
-<div class="card"><h2>🏆 Global Leaderboard</h2><ol id="lb"></ol></div>
-</section>
-
-<section id="profile" class="section">
-<div class="card">
-<h2>👤 Player Profile</h2>
-<input id="name" placeholder="Gamer name">
-<button onclick="saveName()">Save</button>
-</div>
+  <div class="card">
+    <h2>Leaderboard</h2>
+    <ol id="board"></ol>
+  </div>
 </section>
 
 <section id="founder" class="section">
-<div class="card">
-<h2>👑 Founder Legacy</h2>
-<p><strong>Nafiz</strong> — Competitive gamer & creator from Bangladesh 🇧🇩</p>
-<p>Signature FF weapons: M590 • Trogon • AWM</p>
-<p>Built with EIFAT, MEHERAJ & NOYON</p>
-<p>Final Boss Esports is a result of rebuilding, failure, and evolution.</p>
-</div>
+  <div class="card">
+    <h2>Founder</h2>
+    <p><b>Nafiz</b> — Competitive gamer from Bangladesh 🇧🇩</p>
+    <p>Signature weapons: M590 • Trogon • AWM</p>
+    <p>Squad: EIFAT, MEHERAJ, NOYON</p>
+    <p>
+      Final Boss Esports was built from failure, learning,
+      and obsession with competitive gaming.
+    </p>
+  </div>
 </section>
 
 </main>
 
-<footer>FINAL BOSS ESPORTS © 2025</footer>
-
 <script>
-function enter(){welcome.style.display="none"}
+/* CORE */
+function start(){welcome.style.display="none"}
 function show(id){
- document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
-let user=localStorage.getItem("user")||"Anonymous";
-name.value=user;
-function saveName(){user=name.value;localStorage.setItem("user",user)}
 
-/* SIMPLE SCORE SYSTEM */
-let scores=JSON.parse(localStorage.getItem("scores")||"[]");
+/* USER */
+let user=localStorage.getItem("fb_user");
+if(!user){
+  user="GUEST_"+Math.floor(1000+Math.random()*9000);
+  localStorage.setItem("fb_user",user);
+}
+document.getElementById("user").textContent=user;
+
+/* LEADERBOARD */
+let scores=JSON.parse(localStorage.getItem("fb_scores")||"[]");
 function addScore(game,score){
- scores.push({user,game,score});
- scores=scores.sort((a,b)=>b.score-a.score).slice(0,10);
- localStorage.setItem("scores",JSON.stringify(scores));
- render();
+  scores.push({user,game,score});
+  scores.sort((a,b)=>b.score-a.score);
+  scores=scores.slice(0,10);
+  localStorage.setItem("fb_scores",JSON.stringify(scores));
+  render();
 }
 function render(){
- lb.innerHTML="";
- scores.forEach(s=>lb.innerHTML+=`<li>${s.user} — ${s.game}: ${s.score}</li>`);
+  board.innerHTML="";
+  scores.forEach(s=>{
+    board.innerHTML+=`<li>${s.user} — ${s.game}: ${s.score}</li>`;
+  });
 }
 render();
 
-/* BREAKOUT */
-const bc=breakout.getContext("2d");
-let bx=160,by=150,bvx=3,bvy=-3,ps=0;
-breakout.addEventListener("mousemove",e=>px=e.offsetX);
-let px=160;
-function drawBreak(){
- bc.clearRect(0,0,320,200);
- bc.fillRect(px-30,180,60,8);
- bc.beginPath();bc.arc(bx,by,6,0,Math.PI*2);bc.fill();
- bx+=bvx; by+=bvy;
- if(bx<6||bx>314)bvx*=-1;
- if(by<6)bvy*=-1;
- if(by>180&&bx>px-30&&bx<px+30){bvy*=-1;ps++}
- if(by>200){addScore("Breakout",ps);ps=0;bx=160;by=150}
- requestAnimationFrame(drawBreak);
+/* SNAKE (FIXED) */
+const sc=snake.getContext("2d");
+let snakeBody=[{x:150,y:150}];
+let dx=10,dy=0,food={x:100,y:100},ss=0;
+function snakeLoop(){
+  sc.clearRect(0,0,300,300);
+  let head={x:snakeBody[0].x+dx,y:snakeBody[0].y+dy};
+  snakeBody.unshift(head);
+  if(head.x===food.x&&head.y===food.y){
+    ss++; food={x:Math.floor(Math.random()*30)*10,y:Math.floor(Math.random()*30)*10};
+  }else snakeBody.pop();
+  sc.fillStyle="red"; sc.fillRect(food.x,food.y,10,10);
+  sc.fillStyle="lime";
+  snakeBody.forEach(p=>{
+    sc.beginPath();
+    sc.arc(p.x,p.y,6,0,Math.PI*2);
+    sc.fill();
+  });
+  if(head.x<0||head.x>300||head.y<0||head.y>300){
+    addScore("Snake",ss); ss=0; snakeBody=[{x:150,y:150}];
+  }
 }
-drawBreak();
+setInterval(snakeLoop,120);
 
-/* SPACE DODGE */
-const sc=space.getContext("2d");
-let sx=150,sy=170,ox=0,oy=0,ss=0;
-space.addEventListener("mousemove",e=>sx=e.offsetX);
-function spaceRun(){
- sc.clearRect(0,0,320,200);
- oy+=4;if(oy>200){oy=0;ox=Math.random()*300;ss++}
- sc.fillRect(sx-10,sy,20,20);
- sc.fillStyle="red";sc.fillRect(ox,oy,15,15);
- sc.fillStyle="#5fdfff";
- if(Math.abs(ox-sx)<15&&Math.abs(oy-sy)<15){
-  addScore("Space",ss);ss=0;oy=0;
- }
- requestAnimationFrame(spaceRun);
+/* JOYSTICK */
+let stick=document.getElementById("stick");
+let joy=document.getElementById("joystick");
+joy.addEventListener("touchmove",e=>{
+  let r=joy.getBoundingClientRect();
+  let x=e.touches[0].clientX-r.left-60;
+  let y=e.touches[0].clientY-r.top-60;
+  dx=Math.sign(x)*10; dy=Math.sign(y)*10;
+});
+
+/* RUNNER */
+const rc=runner.getContext("2d");
+let ry=110,vy=0,obs=300,rs=0;
+function runLoop(){
+  rc.clearRect(0,0,300,150);
+  vy+=1; ry+=vy;
+  if(ry>110){ry=110;vy=0}
+  rc.fillRect(40,ry,20,20);
+  obs-=4;if(obs<0){obs=300;rs++}
+  rc.fillStyle="red"; rc.fillRect(obs,120,15,30);
+  if(obs<60&&obs>40&&ry>100){
+    addScore("Runner",rs); rs=0; obs=300;
+  }
+  requestAnimationFrame(runLoop);
 }
-spaceRun();
+runLoop();
+document.body.onclick=()=>vy=-15;
+
+/* PUZZLE */
+const p=document.getElementById("puzzle");
+let nums=[1,2,3,4,5,6,7,8,0];
+function drawPuzzle(){
+  p.innerHTML="";
+  nums.forEach(n=>{
+    let d=document.createElement("div");
+    d.textContent=n||"";
+    d.style.display="inline-block";
+    d.style.width="60px";
+    d.style.height="60px";
+    d.style.lineHeight="60px";
+    d.style.border="1px solid #5fdfff";
+    d.style.textAlign="center";
+    d.onclick=()=>move(n);
+    p.appendChild(d);
+  });
+}
+function shuffle(){nums.sort(()=>Math.random()-.5);drawPuzzle()}
+function move(n){
+  let i=nums.indexOf(n),z=nums.indexOf(0);
+  if(Math.abs(i-z)===1||Math.abs(i-z)===3){
+    [nums[i],nums[z]]=[nums[z],nums[i]];
+    drawPuzzle();
+  }
+}
+drawPuzzle();
+
+/* FLAPPY */
+const fc=flappy.getContext("2d");
+let fy=100,fv=0,pipe=300,fs=0;
+function fly(){
+  fc.clearRect(0,0,300,200);
+  fv+=0.8; fy+=fv;
+  fc.fillRect(40,fy,20,20);
+  pipe-=3;if(pipe<0){pipe=300;fs++}
+  fc.fillRect(pipe,0,20,80);
+  fc.fillRect(pipe,130,20,70);
+  if(fy>200||fy<0||(pipe<60&&pipe>40&&(fy<80||fy>130))){
+    addScore("Flappy",fs); fs=0; fy=100;
+  }
+  requestAnimationFrame(fly);
+}
+fly();
 </script>
 
 </body>
