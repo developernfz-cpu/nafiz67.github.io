@@ -2,347 +2,270 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nafiz | Cyber Arcade</title>
+<title>Open World Hope v3</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
-
 <style>
-:root{
- --neon:#00ff66;
- --rgb:linear-gradient(90deg,#ff004c,#00ffe7,#7cff00,#ff004c);
-}
 *{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 
-body{
- background:radial-gradient(circle at top,#061b0f,#000);
- color:#d0ffd0;
- font-family:Orbitron,sans-serif;
+/* UI */
+#ui{
+ position:fixed;top:10px;left:10px;
+ background:#ffffffee;padding:12px;
+ border-radius:12px;z-index:10;font-size:13px;
+ min-width:150px
 }
-
-/* RGB TEXT */
-.rgb{
- background:var(--rgb);
- -webkit-background-clip:text;
- color:transparent;
- animation:rgb 6s linear infinite;
-}
-@keyframes rgb{
- from{background-position:0%}
- to{background-position:400%}
-}
+.bar{height:8px;background:#ddd;border-radius:4px;overflow:hidden;margin:4px 0}
+.fill{height:100%;transition:width .15s}
+#health{background:#e53935}
+#stamina{background:#fbc02d}
+#hunger{background:#fb8c00}
 
 /* LOGIN */
 #login{
- position:fixed;inset:0;
- display:flex;align-items:center;justify-content:center;
- background:#000;z-index:99;
+ position:fixed;inset:0;background:#000c;
+ display:flex;align-items:center;justify-content:center;z-index:99
 }
-.box{
- border:2px solid var(--neon);
- padding:25px;
- text-align:center;
- box-shadow:0 0 30px var(--neon);
-}
-.box input,.box button{
- width:100%;
- margin-top:10px;
- padding:10px;
- background:#000;
- color:#0f0;
- border:1px solid var(--neon);
+#login .box{
+ background:#fff;padding:22px;border-radius:14px;text-align:center
 }
 
-/* HEADER */
-header{
- text-align:center;
- padding:50px 15px;
+/* MOBILE */
+#joy{
+ position:fixed;left:20px;bottom:20px;
+ width:120px;height:120px;border-radius:50%;
+ background:#ffffff66;touch-action:none
 }
-header h1{
- font-size:32px;
- text-shadow:0 0 25px var(--neon);
+#stick{
+ width:46px;height:46px;border-radius:50%;
+ background:#222;position:absolute;left:37px;top:37px
 }
+.btn{
+ position:fixed;bottom:40px;
+ width:70px;height:70px;border-radius:50%;
+ border:none;font-weight:bold;background:#fff
+}
+#runBtn{right:100px}
+#emoBtn{right:20px}
 
-/* MUSIC BUTTON */
-#musicBtn{
- margin-top:20px;
- padding:10px 20px;
- border:1px solid var(--neon);
- background:black;
- color:var(--neon);
- font-family:Orbitron;
- cursor:pointer;
- box-shadow:0 0 15px var(--neon);
+/* FX */
+#light,#fade,#hitFlash{
+ position:fixed;inset:0;pointer-events:none
 }
-
-/* SECTIONS */
-section{
- max-width:1000px;
- margin:40px auto;
- padding:15px;
-}
-h2{margin-bottom:10px}
-
-/* GAME BOX */
-.game{
- background:#000;
- border:1px solid var(--neon);
- padding:10px;
- margin-bottom:25px;
- box-shadow:0 0 20px #00ff6670;
- position:relative;
- animation:glow 4s infinite alternate;
-}
-@keyframes glow{
- from{box-shadow:0 0 15px #00ff66}
- to{box-shadow:0 0 30px #00ffaa}
-}
-
-canvas{
- display:block;
- margin:auto;
- background:#010c05;
-}
-
-/* GAME OVER */
-.overlay{
- position:absolute;
- inset:0;
- background:rgba(0,0,0,.85);
- display:none;
- align-items:center;
- justify-content:center;
- flex-direction:column;
- animation:pop .4s ease;
-}
-@keyframes pop{
- from{transform:scale(.7);opacity:0}
- to{transform:scale(1);opacity:1}
-}
-.overlay button{
- padding:10px 15px;
- background:var(--neon);
- border:none;
- cursor:pointer;
- font-weight:bold;
-}
-
-/* LEADERBOARD */
-#leaderboard li{
- border-bottom:1px solid #0f03;
- padding:5px;
-}
-
-/* QR */
-.qr img{
- width:220px;
- image-rendering:pixelated;
- background:white;
- padding:10px;
-}
-
-footer{
- text-align:center;
- opacity:.7;
- padding:15px;
-}
+#fade{background:#000;opacity:0;transition:1s}
+#hitFlash{background:#fff;opacity:0}
 </style>
 </head>
-
 <body>
 
-<!-- LOGIN -->
 <div id="login">
  <div class="box">
-  <h1 class="rgb">ENTER CYBER ARCADE</h1>
-  <input id="name" placeholder="Username">
-  <button onclick="enter()">ENTER</button>
-  <button onclick="guest()">GUEST</button>
+  <h2>Open World Hope</h2>
+  <input id="name" placeholder="Your Name"><br><br>
+  <button onclick="start()">ENTER</button>
  </div>
 </div>
 
-<header>
-<h1 class="rgb">NAFIZ CYBER ARCADE</h1>
-<p>Free Games • Skill • Hope</p>
-<button id="musicBtn" onclick="toggleMusic()">🎵 MUSIC ON</button>
-</header>
-
-<section>
-<h2 class="rgb">Founder Story</h2>
-<p>
-My name is <b>Nafiz</b>. I built this arcade alone using only a Chromebook.
-Life hasn’t been easy, but coding and gaming kept me alive.
-This site is honest, free, and made with real effort.
-</p>
-</section>
-
-<!-- SNAKE -->
-<section>
-<h2 class="rgb">🐍 Snake Game</h2>
-<div class="game">
-<canvas id="snake" width="300" height="300"></canvas>
-<div class="overlay" id="snakeOver">
- <h3 class="rgb">GAME OVER</h3>
- <p id="snakeScore"></p>
- <button onclick="resetSnake()">PLAY AGAIN</button>
+<div id="ui">
+ <b id="uname"></b><br>
+ 💵 $<span id="money"></span><br>
+ 🕒 <span id="timeText"></span>
+ <div class="bar"><div id="health" class="fill"></div></div>
+ <div class="bar"><div id="stamina" class="fill"></div></div>
+ <div class="bar"><div id="hunger" class="fill"></div></div>
 </div>
-</div>
-</section>
 
-<!-- RUNNER -->
-<section>
-<h2 class="rgb">🏃 Runner Game</h2>
-<div class="game">
-<canvas id="run" width="400" height="200"></canvas>
-<div class="overlay" id="runOver">
- <h3 class="rgb">GAME OVER</h3>
- <p id="runScore"></p>
- <button onclick="resetRun()">PLAY AGAIN</button>
-</div>
-</div>
-</section>
+<div id="joy"><div id="stick"></div></div>
+<button class="btn" id="runBtn">RUN</button>
+<button class="btn" id="emoBtn">EMO</button>
 
-<section>
-<h2 class="rgb">🏆 Leaderboard</h2>
-<ul id="leaderboard"></ul>
-</section>
-
-<section>
-<h2 class="rgb">❤️ Support the Creator</h2>
-<p>Voluntary support only.</p>
-<p><b>bKash:</b> 01947179493</p>
-<div class="qr">
-<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=bKash%2001947179493">
-</div>
-</section>
-
-<footer>
-© 2025 Nafiz • Cyber Arcade
-</footer>
+<canvas id="game"></canvas>
+<div id="light"></div>
+<div id="fade"></div>
+<div id="hitFlash"></div>
 
 <script>
-/* USER */
-let user="Guest";
-function enter(){
- user=document.getElementById("name").value||"Player";
- document.getElementById("login").style.display="none";
-}
-function guest(){document.getElementById("login").style.display="none";}
+/* ===== CORE ===== */
+const canvas=game,ctx=canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+resize();onresize=resize;
 
-/* MUSIC */
-let audioCtx,oscillator,gainNode,playing=false;
-function toggleMusic(){
- if(!playing){
-  audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-  oscillator=audioCtx.createOscillator();
-  gainNode=audioCtx.createGain();
-  oscillator.type="sawtooth";
-  oscillator.frequency.value=80;
-  gainNode.gain.value=0.03;
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  oscillator.start();
-  musicBtn.innerText="🔇 MUSIC OFF";
-  playing=true;
- }else{
-  oscillator.stop();audioCtx.close();
-  musicBtn.innerText="🎵 MUSIC ON";
-  playing=false;
+/* ===== WORLD ===== */
+const world={w:5000,h:5000};
+
+/* ===== PLAYER ===== */
+const player={
+ x:2500,y:2500,w:18,h:24,
+ vx:0,vy:0,dir:"down",
+ health:100,stamina:100,hunger:100,
+ money:100,alive:true,
+ attackCD:0,hitCD:0,
+ emote:0,name:"Player"
+};
+
+/* ===== CAMERA ===== */
+const cam={x:0,y:0,shake:0};
+
+/* ===== NPC ===== */
+const npcs=Array.from({length:25},(_,i)=>({
+ x:Math.random()*world.w,
+ y:Math.random()*world.h,
+ vx:0,vy:0,
+ health:50,
+ state:"idle",
+ hostile:Math.random()>.6,
+ hit:0,
+ name:"NPC_"+i
+}));
+
+/* ===== INPUT ===== */
+const keys={};
+onkeydown=e=>keys[e.key]=true;
+onkeyup=e=>keys[e.key]=false;
+runBtn.ontouchstart=()=>keys.Shift=true;
+runBtn.ontouchend=()=>keys.Shift=false;
+emoBtn.onclick=()=>player.emote=40;
+
+/* JOYSTICK */
+let jx=0,jy=0;
+joy.ontouchmove=e=>{
+ const r=joy.getBoundingClientRect(),t=e.touches[0];
+ jx=(t.clientX-(r.left+60))/40;
+ jy=(t.clientY-(r.top+60))/40;
+};
+joy.ontouchend=()=>jx=jy=0;
+
+/* ===== TIME ===== */
+let time=6;
+setInterval(()=>{
+ time+=0.01;if(time>=24)time=0;
+ timeText.textContent=Math.floor(time)+":00";
+ light.style.background=(time<6||time>18)?"rgba(0,0,60,.45)":"transparent";
+},100);
+
+/* ===== START ===== */
+function start(){
+ player.name=name.value||"Player";
+ uname.textContent=player.name;
+ login.style.display="none";
+}
+
+/* ===== LOOP ===== */
+let last=0;
+function loop(ts){
+ const dt=Math.min(32,ts-last);last=ts;
+ update(dt/16);
+ draw();
+ requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+/* ===== UPDATE ===== */
+function update(dt){
+ if(!player.alive)return;
+
+ let ax=(keys.a||keys.ArrowLeft?-1:0)+(keys.d||keys.ArrowRight?1:0)+jx;
+ let ay=(keys.w||keys.ArrowUp?-1:0)+(keys.s||keys.ArrowDown?1:0)+jy;
+
+ if(ax||ay){
+  if(Math.abs(ax)>Math.abs(ay))
+   player.dir=ax>0?"right":"left";
+  else player.dir=ay>0?"down":"up";
  }
+
+ const run=keys.Shift&&player.stamina>0;
+ const sp=run?4:2;
+ if(run)player.stamina-=0.2;else player.stamina+=0.12;
+ player.hunger-=0.0015;
+
+ player.vx+=ax*0.4;player.vy+=ay*0.4;
+ player.vx*=0.8;player.vy*=0.8;
+ player.x+=player.vx*sp;player.y+=player.vy*sp;
+
+ player.x=Math.max(0,Math.min(world.w,player.x));
+ player.y=Math.max(0,Math.min(world.h,player.y));
+
+ cam.x+=(player.x-cam.x-canvas.width/2)*0.08;
+ cam.y+=(player.y-cam.y-canvas.height/2)*0.08;
+
+ if(keys.f&&player.attackCD<=0){
+  attack();
+  player.attackCD=20;
+ }
+ if(player.attackCD>0)player.attackCD--;
+
+ npcs.forEach(n=>{
+  if(n.health<=0)return;
+  const dx=player.x-n.x,dy=player.y-n.y;
+  const dist=Math.hypot(dx,dy);
+  if(n.hostile&&dist<180){
+   n.vx+=dx/dist*0.4;
+   n.vy+=dy/dist*0.4;
+   if(dist<30&&player.hitCD<=0){
+    damagePlayer(5,dx,dy);
+    player.hitCD=30;
+   }
+  }
+  n.vx*=0.85;n.vy*=0.85;
+  n.x+=n.vx;n.y+=n.vy;
+  if(n.hit>0)n.hit--;
+ });
+
+ if(player.hitCD>0)player.hitCD--;
 }
 
-/* LEADERBOARD */
-let scores=JSON.parse(localStorage.getItem("scores")||"[]");
-function save(score){
- scores.push({user,score});
- scores.sort((a,b)=>b.score-a.score);
- scores=scores.slice(0,8);
- localStorage.setItem("scores",JSON.stringify(scores));
- show();
-}
-function show(){
- leaderboard.innerHTML="";
- scores.forEach(s=>{
-  let li=document.createElement("li");
-  li.textContent=`${s.user} — ${s.score}`;
-  leaderboard.appendChild(li);
+/* ===== COMBAT ===== */
+function attack(){
+ npcs.forEach(n=>{
+  if(n.health<=0)return;
+  const dx=n.x-player.x,dy=n.y-player.y;
+  const dist=Math.hypot(dx,dy);
+  if(dist<40){
+   n.health-=20;
+   n.vx+=dx*0.1;n.vy+=dy*0.1;
+   n.hit=10;
+   cam.shake=10;
+  }
  });
 }
-show();
 
-/* SNAKE */
-const sc=snake.getContext("2d");
-let snakeBody,dx,dy,food,sscore,alive;
-function resetSnake(){
- snakeBody=[[150,150]];
- dx=10;dy=0;
- food=[100,100];
- sscore=0;alive=true;
- snakeOver.style.display="none";
+function damagePlayer(d,dx,dy){
+ player.health-=d;
+ player.vx-=dx*0.02;
+ player.vy-=dy*0.02;
+ hitFlash.style.opacity=.5;
+ setTimeout(()=>hitFlash.style.opacity=0,100);
 }
-resetSnake();
 
-document.addEventListener("keydown",e=>{
- if(e.key=="ArrowUp"){dx=0;dy=-10}
- if(e.key=="ArrowDown"){dx=0;dy=10}
- if(e.key=="ArrowLeft"){dx=-10;dy=0}
- if(e.key=="ArrowRight"){dx=10;dy=0}
-});
+/* ===== DRAW ===== */
+function draw(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
 
-function snakeLoop(){
- if(alive){
-  sc.clearRect(0,0,300,300);
-  snakeBody.unshift([snakeBody[0][0]+dx,snakeBody[0][1]+dy]);
-  if(snakeBody[0][0]==food[0]&&snakeBody[0][1]==food[1]){
-   sscore+=10;
-   food=[Math.floor(Math.random()*29)*10,Math.floor(Math.random()*29)*10];
-  }else snakeBody.pop();
-  sc.fillStyle="red";sc.fillRect(food[0],food[1],8,8);
-  snakeBody.forEach((s,i)=>{
-   sc.fillStyle=i?"#088":"#0f0";
-   sc.fillRect(s[0],s[1],8,8);
-  });
-  if(snakeBody[0][0]<0||snakeBody[0][1]<0||snakeBody[0][0]>300||snakeBody[0][1]>300){
-   alive=false;
-   save(sscore);
-   snakeScore.innerText="Score: "+sscore;
-   snakeOver.style.display="flex";
-  }
- }
- requestAnimationFrame(snakeLoop);
+ ctx.fillStyle="#6fcf97";
+ ctx.fillRect(-cam.x,-cam.y,world.w,world.h);
+
+ npcs.forEach(n=>{
+  if(n.health<=0)return;
+  ctx.fillStyle=n.hostile?"#c62828":"#1976d2";
+  if(n.hit)ctx.fillStyle="#fff";
+  ctx.fillRect(n.x-cam.x,n.y-cam.y,14,20);
+  ctx.fillStyle="#000";
+  ctx.fillText(n.name,n.x-cam.x-10,n.y-cam.y-6);
+ });
+
+ let bob=Math.sin(Date.now()/120)*2;
+ let emo=player.emote?Math.sin(Date.now()/60)*6:0;
+ ctx.fillStyle="#000";
+ ctx.fillRect(player.x-cam.x,player.y-cam.y+bob-emo,player.w,player.h);
+ ctx.fillText(player.name,player.x-cam.x-10,player.y-cam.y-8);
+
+ health.style.width=player.health+"%";
+ stamina.style.width=player.stamina+"%";
+ hunger.style.width=player.hunger+"%";
+ money.textContent=player.money;
+
+ if(player.emote>0)player.emote--;
 }
-snakeLoop();
-
-/* RUNNER */
-const rc=run.getContext("2d");
-let ry,vy,obs,rs,ralive;
-function resetRun(){
- ry=150;vy=0;obs=400;rs=0;ralive=true;
- runOver.style.display="none";
-}
-resetRun();
-document.body.onclick=()=>{if(ralive)vy=-12};
-
-function runLoop(){
- if(ralive){
-  rc.clearRect(0,0,400,200);
-  vy+=1;ry+=vy;
-  if(ry>150){ry=150;vy=0}
-  rc.fillStyle="#0f0";rc.fillRect(30,ry,20,20);
-  obs-=5;
-  rc.fillStyle="red";rc.fillRect(obs,160,20,20);
-  if(obs<0){obs=400;rs+=5}
-  if(obs<50&&ry>140){
-   ralive=false;
-   save(rs);
-   runScore.innerText="Score: "+rs;
-   runOver.style.display="flex";
-  }
- }
- requestAnimationFrame(runLoop);
-}
-runLoop();
 </script>
-
 </body>
 </html>
