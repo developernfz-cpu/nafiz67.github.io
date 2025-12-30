@@ -2,305 +2,247 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Nafiz | Cyber Esports Arcade</title>
+<title>Nafiz | Cyber Arcade</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --neon:#00ffcc;
-  --pink:#ff0077;
-  --bg:#050510;
+ --neon:#00ff66;
+ --bg:#02010a;
 }
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 body{
-  background:radial-gradient(circle at top,#0a0a20,#000);
-  color:#fff;
-  font-family:Orbitron,sans-serif;
-  overflow-x:hidden;
+ background:radial-gradient(circle at top,#061b0f,#000);
+ color:#d0ffd0;
+ font-family:Orbitron,sans-serif;
 }
 
-/* LOGIN */
-#loginScreen{
-  position:fixed;inset:0;
-  background:linear-gradient(135deg,#000,#020218);
-  display:flex;align-items:center;justify-content:center;
-  z-index:999;
+#login{
+ position:fixed;inset:0;
+ display:flex;align-items:center;justify-content:center;
+ background:#000;z-index:99;
 }
-.loginBox{
-  background:rgba(0,0,0,.7);
-  border:2px solid var(--neon);
-  padding:30px;
-  text-align:center;
-  box-shadow:0 0 40px var(--neon);
+.box{
+ border:2px solid var(--neon);
+ padding:25px;
+ text-align:center;
+ box-shadow:0 0 30px var(--neon);
 }
-.loginBox h1{
-  font-family:'Press Start 2P';
-  color:var(--neon);
-  margin-bottom:20px;
+.box h1{
+ font-family:'Press Start 2P';
+ font-size:14px;
+ color:var(--neon);
+ margin-bottom:15px;
 }
-.loginBox input{
-  width:100%;
-  padding:10px;
-  margin:10px 0;
-  background:#000;
-  border:1px solid var(--neon);
-  color:#fff;
-}
-.loginBox button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  background:var(--neon);
-  border:none;
-  font-weight:bold;
-  cursor:pointer;
+.box input, .box button{
+ width:100%;
+ padding:10px;
+ margin-top:10px;
+ background:#000;
+ color:#0f0;
+ border:1px solid var(--neon);
 }
 
-/* HEADER */
 header{
-  text-align:center;
-  padding:60px 20px;
+ text-align:center;
+ padding:50px 15px;
 }
 header h1{
-  font-size:3rem;
-  color:var(--neon);
-  text-shadow:0 0 20px var(--neon);
+ color:var(--neon);
+ text-shadow:0 0 20px var(--neon);
 }
-header p{opacity:.8}
 
-/* SECTIONS */
 section{
-  margin:50px auto;
-  max-width:1100px;
-  padding:20px;
+ max-width:1000px;
+ margin:40px auto;
+ padding:15px;
 }
 h2{
-  color:var(--pink);
-  text-shadow:0 0 15px var(--pink);
-  margin-bottom:15px;
+ color:#00ffaa;
+ margin-bottom:10px;
 }
 
-/* GAME AREA */
-.gameBox{
-  background:#000;
-  border:2px solid var(--neon);
-  padding:10px;
-  box-shadow:0 0 20px var(--neon);
-  margin-bottom:30px;
+.game{
+ background:#000;
+ border:1px solid var(--neon);
+ padding:10px;
+ margin-bottom:25px;
+ box-shadow:0 0 15px #00ff6660;
 }
-canvas{
-  background:#020218;
-  display:block;
-  margin:auto;
-  border:1px solid #0ff;
-}
+canvas{display:block;margin:auto;background:#010c05}
 
-/* LEADERBOARD */
-#leaderboard{
-  background:#000;
-  border:2px solid var(--pink);
-  padding:15px;
-}
-#leaderboard ul{list-style:none}
 #leaderboard li{
-  padding:5px;
-  border-bottom:1px solid #222;
+ border-bottom:1px solid #0f03;
+ padding:5px;
 }
 
-/* JOYSTICK */
-#joystick{
-  width:120px;height:120px;
-  border-radius:50%;
-  background:rgba(255,255,255,.1);
-  position:relative;
-  margin:20px auto;
-  touch-action:none;
-}
-#stick{
-  width:50px;height:50px;
-  border-radius:50%;
-  background:var(--neon);
-  position:absolute;top:35px;left:35px;
-}
 footer{
-  text-align:center;
-  padding:20px;
-  opacity:.6;
+ text-align:center;
+ opacity:.7;
+ padding:15px;
+ font-size:14px;
+}
+.qr{
+ background:#fff;
+ padding:10px;
+ display:inline-block;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen">
-  <div class="loginBox">
-    <h1>ENTER ARCADE</h1>
-    <input id="username" placeholder="Username">
-    <button onclick="login()">LOGIN</button>
-    <button onclick="skip()">SKIP</button>
-  </div>
+<div id="login">
+ <div class="box">
+  <h1>ENTER CYBER ARCADE</h1>
+  <input id="name" placeholder="Username">
+  <button onclick="go()">ENTER</button>
+  <button onclick="guest()">GUEST</button>
+ </div>
 </div>
 
 <header>
-<h1>NAFIZ CYBER ESPORTS ARCADE</h1>
-<p>Founder • Gamer • Free Fire • Esports</p>
+<h1>NAFIZ CYBER ARCADE</h1>
+<p>Free Games • Skill • Community • Hope</p>
 </header>
 
 <section>
-<h2>About the Founder</h2>
+<h2>Founder Story</h2>
 <p>
-I am <b>Nafiz</b>, a competitive gamer from Bangladesh.  
-Free Fire is not just a game to me — it’s a lifestyle.  
-My favorite weapons are <b>M590, Trogon, and AWM</b>.  
-Alongside my brothers <b>EIFAT, MEHERAJ, and NOYON</b>,  
-I’m building a legacy that mixes gaming, skill, and creativity.
+My name is <b>Nafiz</b>. I built this arcade alone using a Chromebook.
+Life hasn’t been easy. I lost my parents and don’t have much, but I still
+believe in building something honest with my own hands.
+Gaming helped me survive mentally, and this website is my way of turning
+skill and creativity into hope. If you enjoy this arcade, your support
+means more than money — it means I can keep going.
 </p>
 </section>
 
 <section>
-<h2>🐍 Snake Arena</h2>
-<div class="gameBox">
+<h2>🎮 Snake Game</h2>
+<div class="game">
 <canvas id="snake" width="300" height="300"></canvas>
-<div id="joystick">
-  <div id="stick"></div>
-</div>
 </div>
 </section>
 
 <section>
-<h2>🏃 Spike Runner</h2>
-<div class="gameBox">
-<canvas id="runner" width="400" height="200"></canvas>
+<h2>🏃 Runner Game</h2>
+<div class="game">
+<canvas id="run" width="400" height="200"></canvas>
 </div>
 </section>
 
 <section>
-<h2>🧠 Laser Puzzle</h2>
-<div class="gameBox">
-<canvas id="puzzle" width="300" height="200"></canvas>
-</div>
-</section>
-
-<section>
-<h2>✈️ Air Strike</h2>
-<div class="gameBox">
-<canvas id="air" width="400" height="250"></canvas>
-</div>
-</section>
-
-<section id="leaderboard">
 <h2>🏆 Leaderboard</h2>
-<ul id="scores"></ul>
+<ul id="leaderboard"></ul>
+</section>
+
+<section>
+<h2>❤️ Support the Creator</h2>
+<p>
+This arcade is <b>free</b>.  
+If you enjoyed it and want to support me, you can donate.
+No betting. No promises. Just support.
+</p>
+<p><b>bKash:</b> 01947179493</p>
+<div class="qr">
+<canvas id="qr"></canvas>
+</div>
 </section>
 
 <footer>
-© 2025 Nafiz | Cyber Esports Arcade
+© 2025 Nafiz • Cyber Arcade
 </footer>
 
 <script>
 let user="Guest";
-function login(){
- user=document.getElementById("username").value||"Player";
- document.getElementById("loginScreen").style.display="none";
+
+function go(){
+ user=document.getElementById("name").value||"Player";
+ document.getElementById("login").style.display="none";
 }
-function skip(){
- document.getElementById("loginScreen").style.display="none";
+function guest(){
+ document.getElementById("login").style.display="none";
 }
+
+/* QR CODE */
+const qr=document.getElementById("qr").getContext("2d");
+function drawQR(){
+ qr.fillStyle="#fff";qr.fillRect(0,0,200,200);
+ qr.fillStyle="#000";
+ for(let i=0;i<200;i+=20){
+  for(let j=0;j<200;j+=20){
+   if(Math.random()>0.5)qr.fillRect(i,j,15,15);
+  }
+ }
+}
+drawQR();
 
 /* LEADERBOARD */
 let scores=JSON.parse(localStorage.getItem("scores")||"[]");
 function save(score){
  scores.push({user,score});
  scores.sort((a,b)=>b.score-a.score);
- scores=scores.slice(0,10);
+ scores=scores.slice(0,8);
  localStorage.setItem("scores",JSON.stringify(scores));
- render();
+ show();
 }
-function render(){
- let ul=document.getElementById("scores");
+function show(){
+ let ul=document.getElementById("leaderboard");
  ul.innerHTML="";
  scores.forEach(s=>{
-   let li=document.createElement("li");
-   li.textContent=`${s.user} — ${s.score}`;
-   ul.appendChild(li);
+  let li=document.createElement("li");
+  li.textContent=`${s.user} - ${s.score}`;
+  ul.appendChild(li);
  });
 }
-render();
+show();
 
 /* SNAKE */
 const sc=document.getElementById("snake").getContext("2d");
-let snake=[[150,150]],dx=10,dy=0,food=[100,100],sscore=0;
-function drawSnake(){
+let snake=[[150,150]],dx=10,dy=0,food=[100,100],score=0;
+document.addEventListener("keydown",e=>{
+ if(e.key=="ArrowUp"){dx=0;dy=-10}
+ if(e.key=="ArrowDown"){dx=0;dy=10}
+ if(e.key=="ArrowLeft"){dx=-10;dy=0}
+ if(e.key=="ArrowRight"){dx=10;dy=0}
+});
+function snakeGame(){
  sc.clearRect(0,0,300,300);
- snake.forEach((s,i)=>{
-  sc.fillStyle=i==0?"#0f0":"#0aa";
-  sc.beginPath();sc.arc(s[0],s[1],6,0,Math.PI*2);sc.fill();
- });
- sc.fillStyle="red";
- sc.fillRect(food[0],food[1],8,8);
-}
-function moveSnake(){
- let head=[snake[0][0]+dx,snake[0][1]+dy];
- snake.unshift(head);
- if(head[0]==food[0]&&head[1]==food[1]){
-  sscore+=10;
+ snake.unshift([snake[0][0]+dx,snake[0][1]+dy]);
+ if(snake[0][0]==food[0]&&snake[0][1]==food[1]){
+  score+=10;
   food=[Math.floor(Math.random()*29)*10,Math.floor(Math.random()*29)*10];
  }else snake.pop();
+ sc.fillStyle="red";sc.fillRect(food[0],food[1],8,8);
+ snake.forEach((s,i)=>{
+  sc.fillStyle=i==0?"#0f0":"#088";
+  sc.fillRect(s[0],s[1],8,8);
+ });
+ if(snake[0][0]<0||snake[0][1]<0||snake[0][0]>300||snake[0][1]>300){
+  save(score);score=0;snake=[[150,150]];
+ }
 }
-setInterval(()=>{moveSnake();drawSnake();},100);
+setInterval(snakeGame,120);
 
 /* RUNNER */
-const rc=document.getElementById("runner").getContext("2d");
-let rx=20,ry=150,vy=0,spikes=[400];
+const rc=document.getElementById("run").getContext("2d");
+let y=150,vy=0,obs=400,rs=0;
+document.body.onclick=()=>vy=-12;
 function runner(){
  rc.clearRect(0,0,400,200);
- vy+=1;ry+=vy;
- if(ry>150){ry=150;vy=0}
- rc.fillStyle="#0f0";rc.fillRect(rx,ry,20,20);
- spikes.forEach((s,i)=>{
-  spikes[i]-=5;
-  rc.fillStyle="red";rc.beginPath();
-  rc.moveTo(s,170);rc.lineTo(s+10,150);rc.lineTo(s+20,170);rc.fill();
-  if(s<0)spikes[i]=400;
- });
+ vy+=1;y+=vy;
+ if(y>150){y=150;vy=0}
+ rc.fillStyle="#0f0";rc.fillRect(30,y,20,20);
+ obs-=5;if(obs<0){obs=400;rs+=5}
+ rc.fillStyle="red";rc.fillRect(obs,160,20,20);
+ if(obs<50&&y>140){save(rs);rs=0}
  requestAnimationFrame(runner);
 }
 runner();
-document.body.onclick=()=>vy=-12;
-
-/* PUZZLE */
-const pc=document.getElementById("puzzle").getContext("2d");
-let angle=0;
-document.getElementById("puzzle").onclick=()=>angle+=Math.PI/4;
-function puzzle(){
- pc.clearRect(0,0,300,200);
- pc.save();
- pc.translate(150,100);
- pc.rotate(angle);
- pc.fillStyle="#0ff";pc.fillRect(-40,-5,80,10);
- pc.restore();
- requestAnimationFrame(puzzle);
-}
-puzzle();
-
-/* AIR STRIKE */
-const ac=document.getElementById("air").getContext("2d");
-let ax=200,bullets=[];
-document.onkeydown=e=>{
- if(e.key=="ArrowLeft")ax-=10;
- if(e.key=="ArrowRight")ax+=10;
- if(e.key==" ")bullets.push([ax,200]);
-}
-function air(){
- ac.clearRect(0,0,400,250);
- ac.fillStyle="#0ff";ac.fillRect(ax,220,30,20);
- bullets.forEach(b=>{b[1]-=5;ac.fillRect(b[0],b[1],4,10)});
- requestAnimationFrame(air);
-}
-air();
 </script>
+
 </body>
 </html>
