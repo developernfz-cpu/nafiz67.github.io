@@ -46,6 +46,21 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
  background:#fff;padding:22px;border-radius:14px;text-align:center
 }
 
+/* PAUSE */
+#pause{
+ position:fixed;inset:0;background:#000c;
+ display:none;align-items:center;justify-content:center;z-index:97
+}
+#pause .box{
+ background:#fff;padding:22px;border-radius:14px;text-align:center
+}
+
+/* TUTORIAL */
+#tutorial{
+ position:fixed;inset:0 20% 20% 20%;background:#ffffffaa;
+ display:none;align-items:center;justify-content:center;z-index:96; text-align:center; padding:20px;
+}
+
 /* MOBILE */
 #joy{
  position:fixed;left:20px;bottom:20px;
@@ -111,10 +126,28 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
  </div>
 </div>
 
+<div id="tutorial">
+ <div>
+  <h2>Tutorial</h2>
+  <p>WASD or arrows to move, Space to jump, Shift to run, F to attack/shoot, 1/2 to switch weapons, E to enter/exit vehicle, B near car shop to buy car.</p>
+  <button onclick="document.getElementById('tutorial').style.display='none'">OK</button>
+ </div>
+</div>
+
 <div id="respawn">
  <div class="box">
   <h2>You Died!</h2>
   <button onclick="respawn()">RESPAWN</button>
+ </div>
+</div>
+
+<div id="pause">
+ <div class="box">
+  <h2>Paused</h2>
+  <button onclick="togglePause()">Resume</button><br><br>
+  <button onclick="saveGame()">Save</button><br><br>
+  <button onclick="loadGame()">Load</button><br><br>
+  <button onclick="toggleBloom()">Toggle Bloom: <span id="bloomStatus">On</span></button>
  </div>
 </div>
 
@@ -187,6 +220,12 @@ physicsWorld.gravity.set(0, -9.82, 0);
 physicsWorld.broadphase = new CANNON.NaiveBroadphase();
 physicsWorld.solver.iterations = 10;
 
+/* ===== LOADING MANAGER ===== */
+const loadingManager = new THREE.LoadingManager();
+loadingManager.onLoad = () => {
+  document.getElementById('loading').style.display = 'none';
+};
+
 /* ===== WORLD ===== */
 const world = { w: 10000, h: 10000 }; // Bigger map
 
@@ -201,7 +240,7 @@ for (let i = 0, j = 0; i < vertices.length; i += 3, j++) {
   vertices[i + 1] = noise.noise(x / 500, z / 500, 0) * 200 + noise.noise(x / 200, z / 200, 0) * 100; // Mountains
 }
 groundGeometry.computeNormals();
-const groundTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
+const groundTexture = new THREE.TextureLoader(loadingManager).load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
 groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
 groundTexture.repeat.set(100, 100);
 const groundMaterial = new THREE.MeshStandardMaterial({ map: groundTexture });
@@ -247,14 +286,14 @@ scene.add(sunLight);
 
 // Skybox for ultra graphics
 const skyTextures = [
-  'https://threejs.org/examples/textures/skybox/px.jpg',
-  'https://threejs.org/examples/textures/skybox/nx.jpg',
-  'https://threejs.org/examples/textures/skybox/py.jpg',
-  'https://threejs.org/examples/textures/skybox/ny.jpg',
-  'https://threejs.org/examples/textures/skybox/pz.jpg',
-  'https://threejs.org/examples/textures/skybox/nz.jpg'
+  'https://threejs.org/examples/textures/cube/SwedishRoyalCastle/px.jpg',
+  'https://threejs.org/examples/textures/cube/SwedishRoyalCastle/nx.jpg',
+  'https://threejs.org/examples/textures/cube/SwedishRoyalCastle/py.jpg',
+  'https://threejs.org/examples/textures/cube/SwedishRoyalCastle/ny.jpg',
+  'https://threejs.org/examples/textures/cube/SwedishRoyalCastle/pz.jpg',
+  'https://threejs.org/examples/textures/cube/SwedishRoyalCastle/nz.jpg'
 ];
-const skyLoader = new THREE.CubeTextureLoader();
+const skyLoader = new THREE.CubeTextureLoader(loadingManager);
 const skybox = skyLoader.load(skyTextures);
 scene.background = skybox;
 
@@ -294,6 +333,7 @@ function createBuilding(x, z, width, depth, height) {
   buildingBody.position.set(x, height / 2, z);
   physicsWorld.addBody(buildingBody);
   building.userData.physicsBody = buildingBody;
+  return building;
 }
 for (let i = 0; i < 200; i++) { // Tons of buildings
   const width = 50 + Math.random() * 100;
@@ -479,9 +519,30 @@ for (let i = 0; i < 20; i++) {
   createCollectible(Math.random() * 2000 - 1000, Math.random() * 2000 - 1000);
 }
 
+/* ===== WEATHER ===== */
+let rainParticles;
+function createRain() {
+  const rainCount = 5000;
+  const rainGeometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(rainCount * 3);
+  for (let i = 0; i < rainCount; i++) {
+    positions[i * 3] = Math.random() * 2000 - 1000;
+    positions[i * 3 + 1] = Math.random() * 1000;
+    positions[i * 3 + 2] = Math.random() * 2000 - 1000;
+  }
+  rainGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const rainMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 0.1, transparent: true });
+  rainParticles = new THREE.Points(rainGeometry, rainMaterial);
+  scene.add(rainParticles);
+}
+createRain();
+
 /* ===== INPUT ===== */
 const keys = {};
-document.onkeydown = e => keys[e.key] = true;
+document.onkeydown = e => {
+  keys[e.key] = true;
+  if (e.key === 'Escape') togglePause();
+};
 document.onkeyup = e => keys[e.key] = false;
 runBtn.ontouchstart = () => keys.Shift = true;
 runBtn.ontouchend = () => keys.Shift = false;
@@ -506,6 +567,7 @@ joy.ontouchend = () => jx = jy = 0;
 
 /* ===== TIME ===== */
 let time = 6;
+let isRaining = false;
 setInterval(() => {
   time += 0.01; if (time >= 24) time = 0;
   timeText.textContent = Math.floor(time) + ":00";
@@ -514,20 +576,18 @@ setInterval(() => {
   hemiLight.intensity = night ? 0.2 : 0.6;
   sunLight.intensity = night ? 0.2 : 1.0;
   light.style.background = night ? "rgba(0,0,60,.45)" : "transparent";
+
+  // Random weather
+  if (Math.random() < 0.01) isRaining = !isRaining;
+  rainParticles.visible = isRaining;
 }, 100);
 
 /* ===== START ===== */
-let assetsLoaded = false;
-const loader = new THREE.TextureLoader();
-loader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg', () => {
-  assetsLoaded = true;
-  document.getElementById('loading').style.display = 'none';
-});
-
 function start() {
   player.name = name.value || "Player";
   uname.textContent = player.name;
   login.style.display = "none";
+  tutorial.style.display = "flex";
   controls.lock();
 }
 
@@ -540,13 +600,54 @@ function respawn() {
   respawn.style.display = "none";
 }
 
+let paused = false;
+function togglePause() {
+  paused = !paused;
+  pause.style.display = paused ? "flex" : "none";
+  if (paused) controls.unlock(); else controls.lock();
+}
+
+function toggleBloom() {
+  bloomPass.enabled = !bloomPass.enabled;
+  bloomStatus.textContent = bloomPass.enabled ? "On" : "Off";
+}
+
+function saveGame() {
+  const saveData = {
+    position: {x: player.position.x, y: player.position.y, z: player.position.z},
+    health: player.health,
+    stamina: player.stamina,
+    hunger: player.hunger,
+    money: player.money,
+    currentWeapon: player.currentWeapon
+  };
+  localStorage.setItem('ultraCitySave', JSON.stringify(saveData));
+  alert('Game Saved!');
+}
+
+function loadGame() {
+  const saveData = JSON.parse(localStorage.getItem('ultraCitySave'));
+  if (saveData) {
+    player.position.set(saveData.position.x, saveData.position.y, saveData.position.z);
+    playerBody.position.copy(player.position);
+    player.health = saveData.health;
+    player.stamina = saveData.stamina;
+    player.hunger = saveData.hunger;
+    player.money = saveData.money;
+    player.currentWeapon = saveData.currentWeapon;
+    alert('Game Loaded!');
+  } else {
+    alert('No save found!');
+  }
+}
+
 /* ===== LOOP ===== */
 let last = 0;
 const fixedTimeStep = 1 / 60;
 const maxSubSteps = 3;
 function loop(ts) {
   const dt = (ts - last) / 1000; last = ts;
-  if (player.alive) {
+  if (player.alive && !paused) {
     update(dt);
     physicsWorld.step(fixedTimeStep, dt, maxSubSteps);
   }
@@ -700,6 +801,20 @@ function update(dt) {
   if (player.health <= 0) {
     player.alive = false;
     respawn.style.display = "flex";
+  }
+
+  // Update bullets
+  updateBullets(dt);
+
+  // Update rain
+  if (isRaining) {
+    rainParticles.position.copy(camera.position);
+    const positions = rainParticles.geometry.attributes.position.array;
+    for (let i = 0; i < positions.length; i += 3) {
+      positions[i + 1] -= 50 * dt;
+      if (positions[i + 1] < 0) positions[i + 1] = 1000;
+    }
+    rainParticles.geometry.attributes.position.needsUpdate = true;
   }
 }
 
