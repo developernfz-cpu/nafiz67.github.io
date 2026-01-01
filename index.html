@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Open World Hope v3</title>
+<title>Open World Hope v3 - 3D Edition</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -54,13 +54,39 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 }
 #fade{background:#000;opacity:0;transition:1s}
 #hitFlash{background:#fff;opacity:0}
+
+/* Crosshair for FPS */
+#crosshair {
+ position: fixed;
+ top: 50%; left: 50%;
+ transform: translate(-50%, -50%);
+ width: 20px; height: 20px;
+ background: transparent;
+ border: 1px solid #fff;
+ border-radius: 50%;
+ z-index: 5;
+ pointer-events: none;
+}
+#crosshair::before, #crosshair::after {
+ content: '';
+ position: absolute;
+ background: #fff;
+}
+#crosshair::before {
+ width: 2px; height: 10px;
+ top: -5px; left: 9px;
+}
+#crosshair::after {
+ width: 10px; height: 2px;
+ left: -5px; top: 9px;
+}
 </style>
 </head>
 <body>
 
 <div id="login">
  <div class="box">
-  <h2>Open World Hope</h2>
+  <h2>Open World Hope - 3D</h2>
   <input id="name" placeholder="Your Name"><br><br>
   <button onclick="start()">ENTER</button>
  </div>
@@ -79,192 +105,285 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 <button class="btn" id="runBtn">RUN</button>
 <button class="btn" id="emoBtn">EMO</button>
 
-<canvas id="game"></canvas>
+<div id="crosshair"></div>
+
+<div id="game" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
 <div id="light"></div>
 <div id="fade"></div>
 <div id="hitFlash"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/PointerLockControls.js"></script>
+
 <script>
 /* ===== CORE ===== */
-const canvas=game,ctx=canvas.getContext("2d");
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
-resize();onresize=resize;
+const container = document.getElementById('game');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 10000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+container.appendChild(renderer.domElement);
+
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+// Pointer Lock Controls for FPS
+const controls = new THREE.PointerLockControls(camera, document.body);
+scene.add(controls.getObject());
+document.addEventListener('click', () => controls.lock());
+
+// Optimize: Basic fog for distance culling
+scene.fog = new THREE.Fog(0x87ceeb, 500, 3000);
 
 /* ===== WORLD ===== */
-const world={w:5000,h:5000};
+const world = { w: 5000, h: 5000 }; // Depth is now along z-axis
+
+// Ground: Simple plane with texture for optimization
+const groundTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
+groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+groundTexture.repeat.set(50, 50);
+const groundMaterial = new THREE.MeshLambertMaterial({ map: groundTexture });
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(world.w, world.h), groundMaterial);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+// Basic lighting with optimization (one directional light + ambient)
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+const sunLight = new THREE.DirectionalLight(0xffffff, 0.8);
+sunLight.position.set(1000, 2000, 1000);
+sunLight.castShadow = true;
+sunLight.shadow.mapSize.width = 1024; // Optimized shadow resolution
+sunLight.shadow.mapSize.height = 1024;
+sunLight.shadow.camera.near = 0.5;
+sunLight.shadow.camera.far = 5000;
+sunLight.shadow.camera.left = -2000;
+sunLight.shadow.camera.right = 2000;
+sunLight.shadow.camera.top = 2000;
+sunLight.shadow.camera.bottom = -2000;
+scene.add(sunLight);
+
+// Simple procedural trees for open world feel (optimized: low poly)
+const treeGeometry = new THREE.ConeGeometry(20, 60, 8);
+const treeMaterial = new THREE.MeshLambertMaterial({ color: 0x228b22 });
+const trunkGeometry = new THREE.CylinderGeometry(5, 5, 30, 8);
+const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x8b4513 });
+function createTree(x, z) {
+  const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+  trunk.position.set(x, 15, z);
+  trunk.castShadow = true;
+  scene.add(trunk);
+  const foliage = new THREE.Mesh(treeGeometry, treeMaterial);
+  foliage.position.set(x, 45, z);
+  foliage.castShadow = true;
+  scene.add(foliage);
+}
+for (let i = 0; i < 100; i++) { // Limited for optimization
+  createTree(Math.random() * world.w - world.w / 2, Math.random() * world.h - world.h / 2);
+}
 
 /* ===== PLAYER ===== */
-const player={
- x:2500,y:2500,w:18,h:24,
- vx:0,vy:0,dir:"down",
- health:100,stamina:100,hunger:100,
- money:100,alive:true,
- attackCD:0,hitCD:0,
- emote:0,name:"Player"
+const player = {
+  position: new THREE.Vector3(0, 10, 0), // y=10 for eye height
+  velocity: new THREE.Vector3(),
+  direction: new THREE.Vector3(),
+  health: 100, stamina: 100, hunger: 100,
+  money: 100, alive: true,
+  attackCD: 0, hitCD: 0,
+  emote: 0, name: "Player"
 };
-
-/* ===== CAMERA ===== */
-const cam={x:0,y:0,shake:0};
+camera.position.copy(player.position);
 
 /* ===== NPC ===== */
-const npcs=Array.from({length:25},(_,i)=>({
- x:Math.random()*world.w,
- y:Math.random()*world.h,
- vx:0,vy:0,
- health:50,
- state:"idle",
- hostile:Math.random()>.6,
- hit:0,
- name:"NPC_"+i
-}));
+// Simple box NPCs for optimization (low poly)
+const npcGeometry = new THREE.BoxGeometry(10, 20, 10);
+const friendlyMaterial = new THREE.MeshLambertMaterial({ color: 0x1976d2 });
+const hostileMaterial = new THREE.MeshLambertMaterial({ color: 0xc62828 });
+const npcs = Array.from({length: 25}, (_, i) => {
+  const hostile = Math.random() > 0.6;
+  const npc = new THREE.Mesh(npcGeometry, hostile ? hostileMaterial : friendlyMaterial);
+  npc.position.set(Math.random() * world.w - world.w / 2, 10, Math.random() * world.h - world.h / 2);
+  npc.castShadow = true;
+  npc.userData = {
+    health: 50,
+    state: "idle",
+    hostile,
+    hit: 0,
+    name: "NPC_" + i,
+    velocity: new THREE.Vector3()
+  };
+  scene.add(npc);
+  return npc;
+});
 
 /* ===== INPUT ===== */
-const keys={};
-onkeydown=e=>keys[e.key]=true;
-onkeyup=e=>keys[e.key]=false;
-runBtn.ontouchstart=()=>keys.Shift=true;
-runBtn.ontouchend=()=>keys.Shift=false;
-emoBtn.onclick=()=>player.emote=40;
+const keys = {};
+document.onkeydown = e => keys[e.key] = true;
+document.onkeyup = e => keys[e.key] = false;
+runBtn.ontouchstart = () => keys.Shift = true;
+runBtn.ontouchend = () => keys.Shift = false;
+emoBtn.onclick = () => player.emote = 40;
 
-/* JOYSTICK */
-let jx=0,jy=0;
-joy.ontouchmove=e=>{
- const r=joy.getBoundingClientRect(),t=e.touches[0];
- jx=(t.clientX-(r.left+60))/40;
- jy=(t.clientY-(r.top+60))/40;
+// Mouse look is handled by PointerLockControls
+
+/* JOYSTICK for movement */
+let jx = 0, jy = 0;
+joy.ontouchmove = e => {
+  const r = joy.getBoundingClientRect(), t = e.touches[0];
+  jx = (t.clientX - (r.left + 60)) / 40;
+  jy = (t.clientY - (r.top + 60)) / 40;
 };
-joy.ontouchend=()=>jx=jy=0;
+joy.ontouchend = () => jx = jy = 0;
 
 /* ===== TIME ===== */
-let time=6;
-setInterval(()=>{
- time+=0.01;if(time>=24)time=0;
- timeText.textContent=Math.floor(time)+":00";
- light.style.background=(time<6||time>18)?"rgba(0,0,60,.45)":"transparent";
-},100);
+let time = 6;
+setInterval(() => {
+  time += 0.01; if (time >= 24) time = 0;
+  timeText.textContent = Math.floor(time) + ":00";
+  const night = time < 6 || time > 18;
+  ambientLight.intensity = night ? 0.2 : 0.5;
+  sunLight.intensity = night ? 0.1 : 0.8;
+  light.style.background = night ? "rgba(0,0,60,.45)" : "transparent";
+}, 100);
 
 /* ===== START ===== */
-function start(){
- player.name=name.value||"Player";
- uname.textContent=player.name;
- login.style.display="none";
+function start() {
+  player.name = name.value || "Player";
+  uname.textContent = player.name;
+  login.style.display = "none";
+  controls.lock(); // Lock pointer on start
 }
 
 /* ===== LOOP ===== */
-let last=0;
-function loop(ts){
- const dt=Math.min(32,ts-last);last=ts;
- update(dt/16);
- draw();
- requestAnimationFrame(loop);
+let last = 0;
+function loop(ts) {
+  const dt = Math.min(32, ts - last); last = ts;
+  update(dt / 16);
+  draw();
+  requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
 
 /* ===== UPDATE ===== */
-function update(dt){
- if(!player.alive)return;
+function update(dt) {
+  if (!player.alive) return;
 
- let ax=(keys.a||keys.ArrowLeft?-1:0)+(keys.d||keys.ArrowRight?1:0)+jx;
- let ay=(keys.w||keys.ArrowUp?-1:0)+(keys.s||keys.ArrowDown?1:0)+jy;
+  // Movement
+  const moveSpeed = keys.Shift && player.stamina > 0 ? 8 : 4;
+  if (keys.Shift) player.stamina -= 0.2 * dt; else player.stamina += 0.12 * dt;
+  player.hunger -= 0.0015 * dt;
+  player.stamina = Math.max(0, Math.min(100, player.stamina));
+  player.hunger = Math.max(0, Math.min(100, player.hunger));
 
- if(ax||ay){
-  if(Math.abs(ax)>Math.abs(ay))
-   player.dir=ax>0?"right":"left";
-  else player.dir=ay>0?"down":"up";
- }
+  const forward = new THREE.Vector3();
+  camera.getWorldDirection(forward);
+  forward.y = 0; forward.normalize();
 
- const run=keys.Shift&&player.stamina>0;
- const sp=run?4:2;
- if(run)player.stamina-=0.2;else player.stamina+=0.12;
- player.hunger-=0.0015;
+  const right = new THREE.Vector3();
+  right.crossVectors(forward, camera.up).normalize();
 
- player.vx+=ax*0.4;player.vy+=ay*0.4;
- player.vx*=0.8;player.vy*=0.8;
- player.x+=player.vx*sp;player.y+=player.vy*sp;
+  player.velocity.set(0, player.velocity.y, 0); // Reset horizontal velocity
 
- player.x=Math.max(0,Math.min(world.w,player.x));
- player.y=Math.max(0,Math.min(world.h,player.y));
+  if (keys.w || keys.ArrowUp || jy < 0) player.velocity.add(forward.multiplyScalar(moveSpeed * dt));
+  if (keys.s || keys.ArrowDown || jy > 0) player.velocity.add(forward.multiplyScalar(-moveSpeed * dt));
+  if (keys.a || keys.ArrowLeft || jx < 0) player.velocity.add(right.multiplyScalar(-moveSpeed * dt));
+  if (keys.d || keys.ArrowRight || jx > 0) player.velocity.add(right.multiplyScalar(moveSpeed * dt));
 
- cam.x+=(player.x-cam.x-canvas.width/2)*0.08;
- cam.y+=(player.y-cam.y-canvas.height/2)*0.08;
+  // Simple gravity and ground clamping
+  player.velocity.y -= 0.98 * dt; // Gravity
+  player.position.add(player.velocity);
 
- if(keys.f&&player.attackCD<=0){
-  attack();
-  player.attackCD=20;
- }
- if(player.attackCD>0)player.attackCD--;
-
- npcs.forEach(n=>{
-  if(n.health<=0)return;
-  const dx=player.x-n.x,dy=player.y-n.y;
-  const dist=Math.hypot(dx,dy);
-  if(n.hostile&&dist<180){
-   n.vx+=dx/dist*0.4;
-   n.vy+=dy/dist*0.4;
-   if(dist<30&&player.hitCD<=0){
-    damagePlayer(5,dx,dy);
-    player.hitCD=30;
-   }
+  if (player.position.y < 10) {
+    player.position.y = 10;
+    player.velocity.y = 0;
   }
-  n.vx*=0.85;n.vy*=0.85;
-  n.x+=n.vx;n.y+=n.vy;
-  if(n.hit>0)n.hit--;
- });
 
- if(player.hitCD>0)player.hitCD--;
+  camera.position.copy(player.position);
+
+  // Clamp to world bounds
+  player.position.x = Math.max(-world.w / 2, Math.min(world.w / 2, player.position.x));
+  player.position.z = Math.max(-world.h / 2, Math.min(world.h / 2, player.position.z));
+
+  // Attack
+  if (keys.f && player.attackCD <= 0) {
+    attack();
+    player.attackCD = 20;
+  }
+  if (player.attackCD > 0) player.attackCD -= dt;
+
+  // NPC updates
+  npcs.forEach(n => {
+    const data = n.userData;
+    if (data.health <= 0) return;
+
+    const dx = player.position.x - n.position.x;
+    const dz = player.position.z - n.position.z;
+    const dist = Math.hypot(dx, dz);
+
+    if (data.hostile && dist < 180) {
+      const dir = new THREE.Vector3(dx, 0, dz).normalize();
+      data.velocity.add(dir.multiplyScalar(0.4 * dt));
+      if (dist < 30 && player.hitCD <= 0) {
+        damagePlayer(5, dx, dz);
+        player.hitCD = 30;
+      }
+    }
+
+    data.velocity.multiplyScalar(0.85);
+    n.position.add(data.velocity);
+
+    if (data.hit > 0) data.hit -= dt;
+    // Simple billboarding for name (optimization: no full text rendering)
+  });
+
+  if (player.hitCD > 0) player.hitCD -= dt;
+
+  if (player.emote > 0) player.emote -= dt;
 }
 
 /* ===== COMBAT ===== */
-function attack(){
- npcs.forEach(n=>{
-  if(n.health<=0)return;
-  const dx=n.x-player.x,dy=n.y-player.y;
-  const dist=Math.hypot(dx,dy);
-  if(dist<40){
-   n.health-=20;
-   n.vx+=dx*0.1;n.vy+=dy*0.1;
-   n.hit=10;
-   cam.shake=10;
+function attack() {
+  const raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera(new THREE.Vector2(0, 0), camera); // Center of screen
+  const intersects = raycaster.intersectObjects(npcs);
+
+  if (intersects.length > 0 && intersects[0].distance < 40) {
+    const n = intersects[0].object;
+    const data = n.userData;
+    data.health -= 20;
+    const knockback = new THREE.Vector3().subVectors(n.position, player.position).normalize().multiplyScalar(0.1);
+    data.velocity.add(knockback);
+    data.hit = 10;
+    // Camera shake
+    camera.position.add(new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).multiplyScalar(2));
+    setTimeout(() => camera.position.copy(player.position), 100);
   }
- });
 }
 
-function damagePlayer(d,dx,dy){
- player.health-=d;
- player.vx-=dx*0.02;
- player.vy-=dy*0.02;
- hitFlash.style.opacity=.5;
- setTimeout(()=>hitFlash.style.opacity=0,100);
+function damagePlayer(d, dx, dz) {
+  player.health -= d;
+  const knockback = new THREE.Vector3(dx, 0, dz).normalize().multiplyScalar(-0.02);
+  player.velocity.add(knockback);
+  hitFlash.style.opacity = 0.5;
+  setTimeout(() => hitFlash.style.opacity = 0, 100);
 }
 
 /* ===== DRAW ===== */
-function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
+function draw() {
+  // Update UI
+  health.style.width = player.health + "%";
+  stamina.style.width = player.stamina + "%";
+  hunger.style.width = player.hunger + "%";
+  money.textContent = player.money;
 
- ctx.fillStyle="#6fcf97";
- ctx.fillRect(-cam.x,-cam.y,world.w,world.h);
-
- npcs.forEach(n=>{
-  if(n.health<=0)return;
-  ctx.fillStyle=n.hostile?"#c62828":"#1976d2";
-  if(n.hit)ctx.fillStyle="#fff";
-  ctx.fillRect(n.x-cam.x,n.y-cam.y,14,20);
-  ctx.fillStyle="#000";
-  ctx.fillText(n.name,n.x-cam.x-10,n.y-cam.y-6);
- });
-
- let bob=Math.sin(Date.now()/120)*2;
- let emo=player.emote?Math.sin(Date.now()/60)*6:0;
- ctx.fillStyle="#000";
- ctx.fillRect(player.x-cam.x,player.y-cam.y+bob-emo,player.w,player.h);
- ctx.fillText(player.name,player.x-cam.x-10,player.y-cam.y-8);
-
- health.style.width=player.health+"%";
- stamina.style.width=player.stamina+"%";
- hunger.style.width=player.hunger+"%";
- money.textContent=player.money;
-
- if(player.emote>0)player.emote--;
+  // Render scene
+  renderer.render(scene, camera);
 }
 </script>
 </body>
