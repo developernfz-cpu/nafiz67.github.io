@@ -30,13 +30,6 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
  background:#fff;padding:22px;border-radius:14px;text-align:center
 }
 
-/* LOADING */
-#loading{
- position:fixed;inset:0;background:#000;
- display:flex;align-items:center;justify-content:center;z-index:100;
- color:#fff;font-size:24px;
-}
-
 /* RESPAWN */
 #respawn{
  position:fixed;inset:0;background:#000c;
@@ -115,8 +108,6 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 </style>
 </head>
 <body>
-
-<div id="loading">Loading...</div>
 
 <div id="login">
  <div class="box">
@@ -220,12 +211,6 @@ physicsWorld.gravity.set(0, -9.82, 0);
 physicsWorld.broadphase = new CANNON.NaiveBroadphase();
 physicsWorld.solver.iterations = 10;
 
-/* ===== LOADING MANAGER ===== */
-const loadingManager = new THREE.LoadingManager();
-loadingManager.onLoad = () => {
-  document.getElementById('loading').style.display = 'none';
-};
-
 /* ===== WORLD ===== */
 const world = { w: 10000, h: 10000 }; // Bigger map
 
@@ -240,7 +225,7 @@ for (let i = 0, j = 0; i < vertices.length; i += 3, j++) {
   vertices[i + 1] = noise.noise(x / 500, z / 500, 0) * 200 + noise.noise(x / 200, z / 200, 0) * 100; // Mountains
 }
 groundGeometry.computeNormals();
-const groundTexture = new THREE.TextureLoader(loadingManager).load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
+const groundTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
 groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
 groundTexture.repeat.set(100, 100);
 const groundMaterial = new THREE.MeshStandardMaterial({ map: groundTexture });
@@ -293,7 +278,7 @@ const skyTextures = [
   'https://threejs.org/examples/textures/cube/SwedishRoyalCastle/pz.jpg',
   'https://threejs.org/examples/textures/cube/SwedishRoyalCastle/nz.jpg'
 ];
-const skyLoader = new THREE.CubeTextureLoader(loadingManager);
+const skyLoader = new THREE.CubeTextureLoader();
 const skybox = skyLoader.load(skyTextures);
 scene.background = skybox;
 
