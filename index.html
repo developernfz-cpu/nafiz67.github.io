@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ULTRA CITY HOPE - GTA Web</title>
+    <title>NAFIZ EMPIRE - Bangladeshi Open World</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -17,13 +17,92 @@
 
         body {
             overflow: hidden;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #111;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: #0a0a0a;
             color: white;
             touch-action: none;
         }
 
-        #gameCanvas {
+        canvas {
+            display: block;
+        }
+
+        /* LOADING SCREEN - Bangladeshi Theme */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #006a4e 0%, #006a4e 50%, #f42a41 50%, #f42a41 100%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s;
+        }
+
+        .bangladeshi-flag {
+            width: 200px;
+            height: 120px;
+            background: #006a4e;
+            border-radius: 5px;
+            position: relative;
+            margin-bottom: 30px;
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .bangladeshi-flag::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #f42a41;
+            border-radius: 50%;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top: 5px solid #f42a41;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        #loadingText {
+            font-size: 22px;
+            margin-top: 10px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #006a4e, #f42a41);
+            width: 0%;
+            transition: width 0.3s;
+            border-radius: 5px;
+        }
+
+        /* GAME CONTAINER */
+        #gameContainer {
             position: fixed;
             top: 0;
             left: 0;
@@ -32,39 +111,7 @@
             z-index: 1;
         }
 
-        /* LOADING SCREEN */
-        #loadingScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.5s;
-        }
-
-        .loader {
-            width: 80px;
-            height: 80px;
-            border: 5px solid #333;
-            border-top: 5px solid #00a8ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        #loadingText {
-            font-size: 24px;
-            margin-top: 20px;
-            color: #00a8ff;
-        }
-
-        /* HUD */
+        /* HUD - Bangladeshi Colors */
         #hud {
             position: fixed;
             top: 0;
@@ -75,56 +122,104 @@
             z-index: 10;
         }
 
-        .hud-top {
+        .hud-top-left {
             position: absolute;
             top: 15px;
             left: 15px;
+        }
+
+        .hud-top-right {
+            position: absolute;
+            top: 15px;
             right: 15px;
-            display: flex;
-            justify-content: space-between;
+            text-align: right;
         }
 
         .hud-bottom {
             position: absolute;
-            bottom: 20px;
+            bottom: 120px;
             left: 20px;
             right: 20px;
         }
 
         .hud-stat {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            padding: 10px 15px;
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 15px;
+            padding: 12px 18px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #006a4e;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            min-width: 200px;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            color: #f42a41;
+            font-weight: bold;
         }
 
         .stat-bar {
-            width: 200px;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            margin-top: 5px;
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
             overflow: hidden;
         }
 
         .stat-fill {
             height: 100%;
-            border-radius: 5px;
+            border-radius: 6px;
             transition: width 0.3s;
+            box-shadow: 0 0 10px currentColor;
         }
 
-        #healthBar { background: linear-gradient(90deg, #e74c3c, #c0392b); }
-        #staminaBar { background: linear-gradient(90deg, #f39c12, #e67e22); }
-        #money { color: #f1c40f; font-weight: bold; }
-        #weaponDisplay { background: rgba(0, 0, 0, 0.7); padding: 8px 12px; border-radius: 20px; }
+        #healthBar { 
+            background: linear-gradient(90deg, #f42a41, #ff6b6b);
+            color: #f42a41;
+        }
+        
+        #staminaBar { 
+            background: linear-gradient(90deg, #00a8ff, #4cd137);
+            color: #00a8ff;
+        }
+        
+        #money { 
+            color: #f1c40f;
+            font-weight: bold;
+            font-size: 20px;
+            text-shadow: 0 0 10px gold;
+        }
 
-        /* MOBILE CONTROLS */
+        #weaponDisplay {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #f42a41;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(244,42,65,0.3);
+        }
+
+        #locationDisplay {
+            background: rgba(0, 106, 78, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 2px solid #f42a41;
+            box-shadow: 0 3px 10px rgba(0,106,78,0.5);
+        }
+
+        /* BANGLADESHI THEME CONTROLS - Vibrant and Colorful */
         #mobileControls {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
             z-index: 20;
             display: flex;
             justify-content: space-between;
@@ -134,55 +229,177 @@
         .control-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
             pointer-events: auto;
         }
 
+        /* Bangladeshi Flag Themed Joystick */
         .joystick {
-            width: 120px;
-            height: 120px;
-            background: rgba(0, 0, 0, 0.5);
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, #006a4e 0%, #004d36 100%);
             border-radius: 50%;
             position: relative;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 4px solid #f42a41;
+            box-shadow: 
+                0 8px 25px rgba(0,0,0,0.5),
+                0 0 0 2px rgba(255,255,255,0.2),
+                inset 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .joystick::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: #f42a41;
+            border-radius: 50%;
+            z-index: 1;
         }
 
         .joystick-handle {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.8);
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #fff 0%, #ccc 100%);
             border-radius: 50%;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border: 3px solid rgba(0, 0, 0, 0.3);
+            border: 4px solid #f42a41;
+            box-shadow: 
+                0 0 20px rgba(244,42,65,0.5),
+                inset 0 5px 15px rgba(255,255,255,0.9);
+            z-index: 2;
         }
 
+        /* Colorful Action Buttons */
         .action-button {
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid rgba(255, 255, 255, 0.2);
             color: white;
-            font-size: 24px;
+            font-size: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.1s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 20px rgba(0,0,0,0.4),
+                0 0 0 3px rgba(255,255,255,0.1);
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
 
         .action-button:active {
             transform: scale(0.9);
-            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 
+                0 4px 10px rgba(0,0,0,0.3),
+                0 0 0 3px rgba(255,255,255,0.2);
         }
 
-        #jumpBtn { background: rgba(41, 128, 185, 0.8); }
-        #attackBtn { background: rgba(231, 76, 60, 0.8); }
-        #interactBtn { background: rgba(46, 204, 113, 0.8); }
-        #menuBtn { background: rgba(149, 165, 166, 0.8); }
+        .action-button:active::before {
+            opacity: 1;
+        }
+
+        /* Individual Button Colors */
+        #jumpBtn { 
+            background: linear-gradient(135deg, #4cd137, #2ecc71);
+            border: 4px solid #27ae60;
+        }
+        
+        #attackBtn { 
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: 4px solid #7f0000;
+            animation: pulse 2s infinite;
+        }
+        
+        #interactBtn { 
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: 4px solid #1a5276;
+        }
+        
+        #menuBtn { 
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            border: 4px solid #6c3483;
+        }
+
+        #weaponBtn {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border: 4px solid #d35400;
+            width: 85px;
+            height: 85px;
+            font-size: 32px;
+        }
+
+        /* MISSION NOTIFICATION */
+        #missionNotification {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #006a4e, #004d36);
+            border-left: 5px solid #f42a41;
+            padding: 18px 30px;
+            border-radius: 15px;
+            z-index: 40;
+            display: none;
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.5s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 90%;
+            text-align: center;
+            border: 2px solid #f42a41;
+        }
+
+        /* MINIMAP */
+        #miniMap {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 180px;
+            height: 180px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            border: 3px solid #006a4e;
+            z-index: 15;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .mini-map-content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .mini-map-player {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #f42a41;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #f42a41;
+            border: 2px solid white;
+        }
 
         /* MENUS */
         .menu {
@@ -191,70 +408,64 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 106, 78, 0.95);
             z-index: 30;
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
         }
 
         .menu-content {
-            background: rgba(30, 30, 40, 0.95);
-            border-radius: 20px;
-            padding: 30px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 25px;
+            padding: 40px;
             max-width: 500px;
             width: 90%;
-            border: 2px solid #00a8ff;
-            box-shadow: 0 0 50px rgba(0, 168, 255, 0.3);
+            border: 4px solid #f42a41;
+            box-shadow: 0 0 50px rgba(244, 42, 65, 0.5);
+            text-align: center;
         }
 
         .menu h2 {
-            color: #00a8ff;
-            margin-bottom: 20px;
+            color: #f42a41;
+            margin-bottom: 30px;
             text-align: center;
-            font-size: 32px;
+            font-size: 36px;
+            text-shadow: 0 0 20px rgba(244,42,65,0.7);
+            font-weight: bold;
         }
 
         .menu-button {
             width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background: rgba(0, 168, 255, 0.2);
-            border: 2px solid #00a8ff;
+            padding: 18px;
+            margin: 12px 0;
+            background: linear-gradient(135deg, #006a4e, #004d36);
+            border: 3px solid #f42a41;
             color: white;
-            border-radius: 10px;
-            font-size: 18px;
+            border-radius: 15px;
+            font-size: 20px;
             cursor: pointer;
             transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
         .menu-button:hover {
-            background: rgba(0, 168, 255, 0.4);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, #00875a, #006a4e);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(244,42,65,0.3);
         }
 
         .menu-button:active {
             transform: translateY(0);
         }
 
-        /* MISSION NOTIFICATION */
-        #missionNotification {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.9);
-            border-left: 5px solid #00a8ff;
-            padding: 15px 25px;
-            border-radius: 10px;
-            z-index: 40;
-            display: none;
-            backdrop-filter: blur(10px);
-            animation: slideDown 0.5s ease-out;
-        }
-
+        /* ANIMATIONS */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -265,117 +476,153 @@
             to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
 
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
         /* CROSSHAIR */
         #crosshair {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             pointer-events: none;
             z-index: 5;
         }
 
         .crosshair-dot {
-            width: 4px;
-            height: 4px;
-            background: #fff;
+            width: 6px;
+            height: 6px;
+            background: #f42a41;
             border-radius: 50%;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #f42a41;
         }
 
         .crosshair-line {
             position: absolute;
-            background: #fff;
+            background: #f42a41;
+            border-radius: 1px;
         }
 
         .crosshair-horizontal {
-            width: 10px;
-            height: 2px;
+            width: 14px;
+            height: 3px;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
         }
 
         .crosshair-vertical {
-            width: 2px;
-            height: 10px;
+            width: 3px;
+            height: 14px;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        /* TIME DISPLAY */
+        #timeDisplay {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 25px;
+            border-radius: 25px;
+            border: 2px solid #006a4e;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
             .joystick {
-                width: 100px;
-                height: 100px;
+                width: 110px;
+                height: 110px;
             }
             
             .action-button {
-                width: 60px;
-                height: 60px;
-                font-size: 20px;
+                width: 65px;
+                height: 65px;
+                font-size: 24px;
+            }
+            
+            #weaponBtn {
+                width: 70px;
+                height: 70px;
+                font-size: 26px;
             }
             
             .hud-stat {
-                padding: 8px 12px;
+                padding: 10px 15px;
                 font-size: 14px;
+                min-width: 170px;
+            }
+            
+            #miniMap {
+                width: 150px;
+                height: 150px;
+                bottom: 25px;
+                right: 25px;
             }
         }
 
-        /* FPS COUNTER */
-        #fpsCounter {
+        /* SCORE DISPLAY */
+        #scoreDisplay {
             position: fixed;
-            top: 15px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-family: monospace;
+            top: 80px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 25px;
+            border-radius: 20px;
+            border: 2px solid #f42a41;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(244,42,65,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        /* HIT MARKER */
-        #hitMarker {
+        /* HIT EFFECT */
+        .hit-effect {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 30px;
-            height: 30px;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 25;
             opacity: 0;
             transition: opacity 0.1s;
+            background: radial-gradient(circle, transparent 30%, rgba(244,42,65,0.3) 100%);
         }
-
-        .hit-line {
-            position: absolute;
-            background: #ff0000;
-        }
-
-        .hit-line-1 { top: 0; left: 50%; width: 2px; height: 10px; transform: translateX(-50%); }
-        .hit-line-2 { bottom: 0; left: 50%; width: 2px; height: 10px; transform: translateX(-50%); }
-        .hit-line-3 { left: 0; top: 50%; width: 10px; height: 2px; transform: translateY(-50%); }
-        .hit-line-4 { right: 0; top: 50%; width: 10px; height: 2px; transform: translateY(-50%); }
     </style>
 </head>
 <body>
     <!-- LOADING SCREEN -->
     <div id="loadingScreen">
+        <div class="bangladeshi-flag"></div>
         <div class="loader"></div>
-        <h2>ULTRA CITY HOPE</h2>
-        <p id="loadingText">Loading Game Assets...</p>
-        <p style="margin-top: 20px; color: #666;">Optimized for Mobile & Chromebook</p>
+        <h2 style="font-size: 36px; margin-bottom: 10px; color: white; text-shadow: 3px 3px 6px rgba(0,0,0,0.5);">NAFIZ EMPIRE</h2>
+        <p style="color: white; margin-bottom: 20px; font-size: 18px;">বাংলাদেশী ওপেন ওয়ার্ল্ড গেম</p>
+        <div id="loadingText">লোড হচ্ছে...</div>
+        <div class="loading-progress">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
     </div>
 
-    <!-- CANVAS -->
-    <canvas id="gameCanvas"></canvas>
+    <!-- GAME CONTAINER -->
+    <div id="gameContainer"></div>
 
     <!-- HUD -->
     <div id="hud">
@@ -386,49 +633,67 @@
             <div class="crosshair-line crosshair-vertical"></div>
         </div>
 
-        <!-- Hit Marker -->
-        <div id="hitMarker">
-            <div class="hit-line hit-line-1"></div>
-            <div class="hit-line hit-line-2"></div>
-            <div class="hit-line hit-line-3"></div>
-            <div class="hit-line hit-line-4"></div>
-        </div>
-
-        <!-- Top HUD -->
-        <div class="hud-top">
+        <!-- Top Left HUD -->
+        <div class="hud-top-left">
             <div class="hud-stat">
-                <div><i class="fas fa-heart" style="color: #e74c3c;"></i> HEALTH</div>
+                <div class="stat-header">
+                    <span><i class="fas fa-heart"></i> স্বাস্থ্য</span>
+                    <span id="healthValue">100%</span>
+                </div>
                 <div class="stat-bar">
                     <div id="healthBar" class="stat-fill" style="width: 100%"></div>
                 </div>
             </div>
             
             <div class="hud-stat">
-                <div><i class="fas fa-bolt" style="color: #f39c12;"></i> STAMINA</div>
+                <div class="stat-header">
+                    <span><i class="fas fa-bolt"></i> শক্তি</span>
+                    <span id="staminaValue">100%</span>
+                </div>
                 <div class="stat-bar">
                     <div id="staminaBar" class="stat-fill" style="width: 100%"></div>
                 </div>
             </div>
-            
-            <div class="hud-stat">
-                <div><i class="fas fa-money-bill-wave"></i> CASH</div>
-                <div id="money">$1000</div>
-            </div>
-            
+        </div>
+
+        <!-- Top Right HUD -->
+        <div class="hud-top-right">
             <div id="weaponDisplay">
-                <i class="fas fa-fist-raised"></i> FIST
+                <i class="fas fa-fist-raised"></i> <span id="weaponName">মুষ্টি</span>
+            </div>
+            <div style="margin-top: 15px;" id="locationDisplay">
+                <i class="fas fa-map-marker-alt"></i> <span id="locationName">ঢাকা শহর</span>
             </div>
         </div>
 
-        <!-- Bottom HUD -->
-        <div class="hud-bottom">
-            <div id="missionNotification">
-                <strong>MISSION:</strong> Explore the city!
+        <!-- Time Display -->
+        <div id="timeDisplay">
+            <i class="fas fa-clock"></i> <span id="timeText">সকাল ৯:০০</span>
+        </div>
+
+        <!-- Score Display -->
+        <div id="scoreDisplay">
+            <div><i class="fas fa-money-bill-wave"></i> <span id="money">৳ ১০০০</span></div>
+            <div><i class="fas fa-star"></i> <span id="score">স্কোর: ০</span></div>
+        </div>
+
+        <!-- Mission Notification -->
+        <div id="missionNotification">
+            <strong>মিশন:</strong> শহর ঘুরে দেখুন!
+        </div>
+
+        <!-- Hit Effect -->
+        <div class="hit-effect" id="hitEffect"></div>
+
+        <!-- Minimap -->
+        <div id="miniMap">
+            <div class="mini-map-content">
+                <div class="mini-map-player"></div>
             </div>
         </div>
     </div>
 
-    <!-- MOBILE CONTROLS -->
+    <!-- BANGLADESHI STYLE MOBILE CONTROLS -->
     <div id="mobileControls">
         <div class="control-group">
             <div class="joystick" id="moveJoystick">
@@ -440,11 +705,14 @@
         </div>
         
         <div class="control-group">
+            <div class="action-button" id="weaponBtn">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
             <div class="action-button" id="attackBtn">
                 <i class="fas fa-crosshairs"></i>
             </div>
             <div class="action-button" id="interactBtn">
-                <i class="fas fa-car"></i>
+                <i class="fas fa-car-side"></i>
             </div>
             <div class="action-button" id="menuBtn">
                 <i class="fas fa-bars"></i>
@@ -455,18 +723,21 @@
     <!-- MAIN MENU -->
     <div id="mainMenu" class="menu">
         <div class="menu-content">
-            <h2>ULTRA CITY HOPE</h2>
+            <h2>NAFIZ EMPIRE</h2>
             <button class="menu-button" id="resumeBtn">
-                <i class="fas fa-play"></i> RESUME GAME
+                <i class="fas fa-play"></i> গেম চালিয়ে যান
             </button>
             <button class="menu-button" id="newGameBtn">
-                <i class="fas fa-plus-circle"></i> NEW GAME
+                <i class="fas fa-plus-circle"></i> নতুন গেম
             </button>
             <button class="menu-button" id="settingsBtn">
-                <i class="fas fa-cog"></i> SETTINGS
+                <i class="fas fa-cog"></i> সেটিংস
+            </button>
+            <button class="menu-button" id="missionsBtn">
+                <i class="fas fa-tasks"></i> মিশন
             </button>
             <button class="menu-button" id="helpBtn">
-                <i class="fas fa-question-circle"></i> HELP & CONTROLS
+                <i class="fas fa-question-circle"></i> সাহায্য
             </button>
         </div>
     </div>
@@ -474,29 +745,42 @@
     <!-- SETTINGS MENU -->
     <div id="settingsMenu" class="menu">
         <div class="menu-content">
-            <h2><i class="fas fa-cog"></i> SETTINGS</h2>
+            <h2><i class="fas fa-cog"></i> সেটিংস</h2>
             <button class="menu-button" id="backBtn">
-                <i class="fas fa-arrow-left"></i> BACK
+                <i class="fas fa-arrow-left"></i> পিছনে
             </button>
-            <div style="margin: 20px 0; color: #00a8ff;">
-                <div style="margin: 10px 0;">
-                    <label>Graphics Quality:</label>
-                    <select id="graphicsQuality" style="width: 100%; padding: 10px; margin-top: 5px; background: #222; color: white; border: 1px solid #00a8ff; border-radius: 5px;">
-                        <option value="low">Low (Mobile)</option>
-                        <option value="medium" selected>Medium</option>
-                        <option value="high">High</option>
+            <div style="margin: 25px 0; color: #f42a41;">
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 18px;">গ্রাফিক্স:</label>
+                    <select id="graphicsQuality" style="width: 100%; padding: 12px; background: #111; color: white; border: 2px solid #006a4e; border-radius: 10px; font-size: 16px;">
+                        <option value="low">লো (মোবাইল)</option>
+                        <option value="medium" selected>মধ্যম</option>
+                        <option value="high">উচ্চ</option>
                     </select>
                 </div>
-                <div style="margin: 10px 0;">
-                    <label>Controls:</label>
-                    <select id="controlType" style="width: 100%; padding: 10px; margin-top: 5px; background: #222; color: white; border: 1px solid #00a8ff; border-radius: 5px;">
-                        <option value="touch">Touch Controls</option>
-                        <option value="keyboard">Keyboard</option>
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 18px;">নিয়ন্ত্রণ:</label>
+                    <select id="controlType" style="width: 100%; padding: 12px; background: #111; color: white; border: 2px solid #006a4e; border-radius: 10px; font-size: 16px;">
+                        <option value="touch" selected>স্পর্শ নিয়ন্ত্রণ</option>
+                        <option value="keyboard">কীবোর্ড</option>
                     </select>
                 </div>
             </div>
             <button class="menu-button" onclick="saveSettings()">
-                <i class="fas fa-save"></i> SAVE SETTINGS
+                <i class="fas fa-save"></i> সেভ করুন
+            </button>
+        </div>
+    </div>
+
+    <!-- MISSIONS MENU -->
+    <div id="missionsMenu" class="menu">
+        <div class="menu-content">
+            <h2><i class="fas fa-tasks"></i> মিশন</h2>
+            <div id="missionsList" style="text-align: left; margin: 20px 0; max-height: 300px; overflow-y: auto;">
+                <!-- Missions will be added here -->
+            </div>
+            <button class="menu-button" id="missionsBackBtn">
+                <i class="fas fa-arrow-left"></i> পিছনে
             </button>
         </div>
     </div>
@@ -504,598 +788,626 @@
     <!-- HELP MENU -->
     <div id="helpMenu" class="menu">
         <div class="menu-content">
-            <h2><i class="fas fa-question-circle"></i> CONTROLS</h2>
-            <div style="margin: 20px 0; line-height: 1.6;">
-                <p><strong>MOBILE:</strong></p>
-                <p><i class="fas fa-arrows-alt"></i> Left Joystick - Move</p>
-                <p><i class="fas fa-arrow-up"></i> Jump Button - Jump</p>
-                <p><i class="fas fa-crosshairs"></i> Red Button - Attack/Shoot</p>
-                <p><i class="fas fa-car"></i> Green Button - Enter Vehicle</p>
-                <p><i class="fas fa-bars"></i> Menu Button - Pause Game</p>
+            <h2><i class="fas fa-question-circle"></i> সাহায্য</h2>
+            <div style="margin: 25px 0; line-height: 1.8; text-align: left;">
+                <p><strong><i class="fas fa-gamepad"></i> মোবাইল নিয়ন্ত্রণ:</strong></p>
+                <p><i class="fas fa-arrows-alt"></i> জয়স্টিক - চলাচল</p>
+                <p><i class="fas fa-arrow-up"></i> সবুজ বাটন - লাফান</p>
+                <p><i class="fas fa-crosshairs"></i> লাল বাটন - আক্রমণ/শুট</p>
+                <p><i class="fas fa-car-side"></i> নীল বাটন - গাড়িতে উঠুন</p>
+                <p><i class="fas fa-exchange-alt"></i> হলুদ বাটন - অস্ত্র পরিবর্তন</p>
+                <p><i class="fas fa-bars"></i> বেগুনী বাটন - মেনু</p>
                 
-                <p style="margin-top: 20px;"><strong>KEYBOARD:</strong></p>
-                <p>WASD - Move</p>
-                <p>Space - Jump</p>
-                <p>F - Attack/Shoot</p>
-                <p>E - Enter Vehicle</p>
-                <p>ESC - Pause Menu</p>
-                <p>1-3 - Switch Weapons</p>
+                <p style="margin-top: 25px;"><strong><i class="fas fa-keyboard"></i> কীবোর্ড:</strong></p>
+                <p>WASD - চলাচল</p>
+                <p>Space - লাফান</p>
+                <p>F - আক্রমণ</p>
+                <p>E - গাড়িতে উঠুন</p>
+                <p>1-4 - অস্ত্র পরিবর্তন</p>
+                <p>ESC - মেনু</p>
             </div>
             <button class="menu-button" id="helpBackBtn">
-                <i class="fas fa-arrow-left"></i> BACK
+                <i class="fas fa-arrow-left"></i> পিছনে
             </button>
         </div>
     </div>
 
-    <!-- FPS COUNTER -->
-    <div id="fpsCounter">FPS: 0</div>
+    <!-- THREE.JS LIBRARIES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
 
     <script>
+        // GAME CONFIGURATION
+        const CONFIG = {
+            gameName: "NAFIZ EMPIRE",
+            version: "1.0.0",
+            player: {
+                speed: 0.2,
+                jumpForce: 0.5,
+                runSpeed: 0.3
+            },
+            world: {
+                size: 1000,
+                buildings: 50,
+                trees: 200,
+                vehicles: 15
+            }
+        };
+
         // GAME STATE
         const gameState = {
             isLoaded: false,
             isPaused: false,
+            gameStarted: false,
             player: {
                 health: 100,
+                maxHealth: 100,
                 stamina: 100,
+                maxStamina: 100,
                 money: 1000,
+                score: 0,
                 position: { x: 0, y: 10, z: 0 },
-                rotation: 0,
+                rotation: { x: 0, y: 0 },
                 velocity: { x: 0, y: 0, z: 0 },
                 isJumping: false,
                 currentWeapon: 0,
-                weapons: ['Fist', 'Pistol', 'SMG'],
-                inVehicle: false
+                weapons: [
+                    { name: "মুষ্টি", damage: 10, icon: "fa-fist-raised" },
+                    { name: "বন্দুক", damage: 25, icon: "fa-gun" },
+                    { name: "ছুরি", damage: 15, icon: "fa-hat-cowboy-side" },
+                    { name: "বোমা", damage: 50, icon: "fa-bomb" }
+                ],
+                inVehicle: false,
+                currentVehicle: null
             },
             settings: {
                 graphics: 'medium',
-                controls: 'touch'
+                controls: 'touch',
+                sound: true,
+                music: true
             },
             world: {
-                time: 12,
-                weather: 'sunny'
+                time: 9,
+                isDay: true,
+                weather: 'sunny',
+                locations: [
+                    { name: "ঢাকা শহর", x: 0, z: 0 },
+                    { name: "চট্টগ্রাম পাহাড়", x: 300, z: 300 },
+                    { name: "সিলেট চা বাগান", x: -200, z: 400 },
+                    { name: "কক্সবাজার সমুদ্র", x: 400, z: -300 }
+                ]
             },
             missions: [
-                { id: 1, title: 'Explore the City', completed: false },
-                { id: 2, title: 'Collect $500', completed: false }
-            ]
+                { id: 1, title: "শহর ঘুরে দেখুন", description: "ঢাকা শহরের ৫টি স্থান ভ্রমণ করুন", completed: false, reward: 500, progress: 0, target: 5 },
+                { id: 2, title: "টাকা সংগ্রহ করুন", description: "৳ ২০০০ টাকা সংগ্রহ করুন", completed: false, reward: 1000, progress: 0, target: 2000 },
+                { id: 3, title: "গাড়ি চালান", description: "৩টি গাড়িতে চড়ুন", completed: false, reward: 300, progress: 0, target: 3 },
+                { id: 4, title: "শত্রু মারুন", description: "১০টি শত্রু নিপাত করুন", completed: false, reward: 800, progress: 0, target: 10 }
+            ],
+            collectibles: [],
+            vehicles: [],
+            npcs: [],
+            buildings: []
         };
 
-        // CANVAS SETUP
-        const canvas = document.getElementById('gameCanvas');
-        const gl = canvas.getContext('webgl2') || canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-        
-        if (!gl) {
-            alert('WebGL not supported! Try Chrome or Firefox.');
-            throw new Error('WebGL not supported');
-        }
+        // THREE.JS VARIABLES
+        let scene, camera, renderer, controls;
+        let clock, deltaTime;
+        let mixer, animations = {};
+        let playerModel, currentAnimation;
 
-        // RESIZE HANDLER
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            gl.viewport(0, 0, canvas.width, canvas.height);
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        // INPUT MANAGEMENT
+        const keys = {};
+        const touch = {
+            joystick: { x: 0, y: 0, active: false },
+            buttons: {}
+        };
 
-        // SIMPLE 3D RENDERER (Optimized for Mobile)
-        class Simple3D {
-            constructor() {
-                this.objects = [];
-                this.camera = {
-                    x: 0, y: 15, z: 30,
-                    rx: -0.3, ry: 0
-                };
-                
-                // Create basic 3D objects
-                this.createCity();
-                this.createPlayer();
-            }
-            
-            createCity() {
-                // Ground
-                this.objects.push({
-                    type: 'plane',
-                    position: { x: 0, y: 0, z: 0 },
-                    size: { width: 1000, height: 1000 },
-                    color: [0.2, 0.6, 0.2]
-                });
-                
-                // Buildings
-                for (let i = 0; i < 20; i++) {
-                    const size = 20 + Math.random() * 30;
-                    this.objects.push({
-                        type: 'cube',
-                        position: { 
-                            x: (Math.random() - 0.5) * 800, 
-                            y: size/2, 
-                            z: (Math.random() - 0.5) * 800 
-                        },
-                        size: { width: 15, height: size, depth: 15 },
-                        color: [
-                            0.3 + Math.random() * 0.3,
-                            0.3 + Math.random() * 0.3,
-                            0.4 + Math.random() * 0.3
-                        ]
-                    });
-                }
-                
-                // Roads
-                for (let i = -5; i <= 5; i++) {
-                    this.objects.push({
-                        type: 'plane',
-                        position: { x: i * 80, y: 0.1, z: 0 },
-                        size: { width: 20, height: 1000 },
-                        color: [0.3, 0.3, 0.3]
-                    });
-                    this.objects.push({
-                        type: 'plane',
-                        position: { x: 0, y: 0.1, z: i * 80 },
-                        size: { width: 1000, height: 20 },
-                        color: [0.3, 0.3, 0.3]
-                    });
-                }
-                
-                // Trees
-                for (let i = 0; i < 50; i++) {
-                    this.objects.push({
-                        type: 'cylinder',
-                        position: { 
-                            x: (Math.random() - 0.5) * 900, 
-                            y: 5, 
-                            z: (Math.random() - 0.5) * 900 
-                        },
-                        size: { radius: 2, height: 10 },
-                        color: [0.4, 0.2, 0.1]
-                    });
-                    this.objects.push({
-                        type: 'cone',
-                        position: { 
-                            x: (Math.random() - 0.5) * 900, 
-                            y: 15, 
-                            z: (Math.random() - 0.5) * 900 
-                        },
-                        size: { radius: 5, height: 10 },
-                        color: [0.1, 0.5, 0.1]
-                    });
-                }
-            }
-            
-            createPlayer() {
-                this.player = {
-                    type: 'cube',
-                    position: { x: 0, y: 10, z: 0 },
-                    size: { width: 5, height: 10, depth: 5 },
-                    color: [0.8, 0.1, 0.1]
-                };
-            }
-            
-            update(deltaTime) {
-                // Update camera based on player
-                const targetX = gameState.player.position.x;
-                const targetZ = gameState.player.position.z + 30;
-                const targetY = gameState.player.position.y + 15;
-                
-                // Smooth camera follow
-                this.camera.x += (targetX - this.camera.x) * 0.1;
-                this.camera.y += (targetY - this.camera.y) * 0.1;
-                this.camera.z += (targetZ - this.camera.z) * 0.1;
-                
-                // Update player position
-                this.player.position.x = gameState.player.position.x;
-                this.player.position.y = gameState.player.position.y;
-                this.player.position.z = gameState.player.position.z;
-            }
-            
-            render() {
-                // Clear screen
-                gl.clearColor(0.53, 0.81, 0.98, 1.0); // Sky blue
-                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-                gl.enable(gl.DEPTH_TEST);
-                
-                // Simple orthographic projection for now
-                const aspect = canvas.width / canvas.height;
-                const scale = 100;
-                
-                // Draw each object
-                [...this.objects, this.player].forEach(obj => {
-                    if (!obj) return;
-                    
-                    // Set color
-                    gl.clearColor(obj.color[0], obj.color[1], obj.color[2], 1.0);
-                    
-                    // Draw based on type
-                    switch(obj.type) {
-                        case 'cube':
-                            this.drawCube(obj.position, obj.size);
-                            break;
-                        case 'plane':
-                            this.drawPlane(obj.position, obj.size);
-                            break;
-                        case 'cylinder':
-                            this.drawCylinder(obj.position, obj.size);
-                            break;
-                        case 'cone':
-                            this.drawCone(obj.position, obj.size);
-                            break;
-                    }
-                });
-            }
-            
-            drawCube(pos, size) {
-                // Simple wireframe cube drawing
-                const vertices = [
-                    // Front face
-                    pos.x - size.width/2, pos.y - size.height/2, pos.z + size.depth/2,
-                    pos.x + size.width/2, pos.y - size.height/2, pos.z + size.depth/2,
-                    pos.x + size.width/2, pos.y + size.height/2, pos.z + size.depth/2,
-                    pos.x - size.width/2, pos.y + size.height/2, pos.z + size.depth/2,
-                    
-                    // Back face
-                    pos.x - size.width/2, pos.y - size.height/2, pos.z - size.depth/2,
-                    pos.x + size.width/2, pos.y - size.height/2, pos.z - size.depth/2,
-                    pos.x + size.width/2, pos.y + size.height/2, pos.z - size.depth/2,
-                    pos.x - size.width/2, pos.y + size.height/2, pos.z - size.depth/2
-                ];
-                
-                const indices = [
-                    // Front
-                    0, 1, 1, 2, 2, 3, 3, 0,
-                    // Back
-                    4, 5, 5, 6, 6, 7, 7, 4,
-                    // Connections
-                    0, 4, 1, 5, 2, 6, 3, 7
-                ];
-                
-                this.drawLines(vertices, indices);
-            }
-            
-            drawPlane(pos, size) {
-                const vertices = [
-                    pos.x - size.width/2, pos.y, pos.z - size.height/2,
-                    pos.x + size.width/2, pos.y, pos.z - size.height/2,
-                    pos.x + size.width/2, pos.y, pos.z + size.height/2,
-                    pos.x - size.width/2, pos.y, pos.z + size.height/2
-                ];
-                
-                const indices = [0, 1, 1, 2, 2, 3, 3, 0];
-                this.drawLines(vertices, indices);
-            }
-            
-            drawLines(vertices, indices) {
-                // Simple line drawing implementation
-                // In a real game, you'd use proper shaders and buffers
-                // This is a simplified version for demonstration
-                
-                gl.lineWidth(2);
-                // ... actual WebGL drawing code would go here
-            }
-            
-            // Placeholder methods for other shapes
-            drawCylinder(pos, size) {}
-            drawCone(pos, size) {}
-        }
+        // GAME OBJECTS
+        const gameObjects = {
+            player: null,
+            ground: null,
+            skybox: null,
+            lights: [],
+            buildings: [],
+            trees: [],
+            vehicles: [],
+            collectibles: [],
+            npcs: []
+        };
 
-        // INPUT MANAGER
-        class InputManager {
-            constructor() {
-                this.keys = {};
-                this.touch = {
-                    moveX: 0,
-                    moveY: 0,
-                    isTouching: false
-                };
-                
-                this.setupEventListeners();
-                this.setupJoystick();
-            }
-            
-            setupEventListeners() {
-                // Keyboard
-                document.addEventListener('keydown', (e) => {
-                    if (gameState.settings.controls === 'keyboard') {
-                        this.keys[e.key.toLowerCase()] = true;
-                        
-                        if (e.key === 'Escape') {
-                            toggleMenu();
-                        }
-                    }
-                });
-                
-                document.addEventListener('keyup', (e) => {
-                    if (gameState.settings.controls === 'keyboard') {
-                        this.keys[e.key.toLowerCase()] = false;
-                    }
-                });
-                
-                // Prevent context menu on mobile
-                document.addEventListener('contextmenu', (e) => e.preventDefault());
-            }
-            
-            setupJoystick() {
-                const joystick = document.getElementById('moveJoystick');
-                const handle = joystick.querySelector('.joystick-handle');
-                
-                let isDragging = false;
-                
-                joystick.addEventListener('touchstart', (e) => {
-                    if (gameState.settings.controls === 'touch') {
-                        isDragging = true;
-                        e.preventDefault();
-                    }
-                });
-                
-                joystick.addEventListener('touchmove', (e) => {
-                    if (gameState.settings.controls === 'touch' && isDragging) {
-                        const rect = joystick.getBoundingClientRect();
-                        const touch = e.touches[0];
-                        const x = touch.clientX - rect.left - rect.width / 2;
-                        const y = touch.clientY - rect.top - rect.height / 2;
-                        
-                        const distance = Math.min(Math.sqrt(x*x + y*y), rect.width / 2);
-                        const angle = Math.atan2(y, x);
-                        
-                        this.touch.moveX = Math.cos(angle) * (distance / (rect.width / 2));
-                        this.touch.moveY = Math.sin(angle) * (distance / (rect.height / 2));
-                        
-                        handle.style.transform = `translate(-50%, -50%) translate(${this.touch.moveX * 30}px, ${this.touch.moveY * 30}px)`;
-                        e.preventDefault();
-                    }
-                });
-                
-                joystick.addEventListener('touchend', () => {
-                    if (gameState.settings.controls === 'touch') {
-                        isDragging = false;
-                        this.touch.moveX = 0;
-                        this.touch.moveY = 0;
-                        handle.style.transform = 'translate(-50%, -50%)';
-                    }
-                });
-            }
-            
-            getMovement() {
-                if (gameState.settings.controls === 'keyboard') {
-                    return {
-                        x: (this.keys['a'] ? -1 : 0) + (this.keys['d'] ? 1 : 0),
-                        y: (this.keys['w'] ? -1 : 0) + (this.keys['s'] ? 1 : 0)
-                    };
-                } else {
-                    return {
-                        x: this.touch.moveX,
-                        y: this.touch.moveY
-                    };
-                }
-            }
-            
-            isKeyPressed(key) {
-                return this.keys[key] || false;
-            }
-        }
-
-        // GAME LOGIC
-        class GameLogic {
-            constructor() {
-                this.input = new InputManager();
-                this.renderer = new Simple3D();
-                this.lastTime = 0;
-                this.fps = 0;
-                this.frameCount = 0;
-                this.lastFpsUpdate = 0;
-                
-                // Game objects
-                this.vehicles = [];
-                this.collectibles = [];
-                this.npcs = [];
-                
-                this.initGameObjects();
-            }
-            
-            initGameObjects() {
-                // Create some vehicles
-                for (let i = 0; i < 10; i++) {
-                    this.vehicles.push({
-                        x: (Math.random() - 0.5) * 200,
-                        z: (Math.random() - 0.5) * 200,
-                        type: 'car',
-                        color: `hsl(${Math.random() * 360}, 100%, 50%)`
-                    });
-                }
-                
-                // Create collectibles
-                for (let i = 0; i < 20; i++) {
-                    this.collectibles.push({
-                        x: (Math.random() - 0.5) * 400,
-                        z: (Math.random() - 0.5) * 400,
-                        collected: false
-                    });
-                }
-            }
-            
-            updatePlayer(deltaTime) {
-                const move = this.input.getMovement();
-                const speed = 10 * deltaTime;
-                
-                // Apply movement
-                gameState.player.position.x += move.x * speed;
-                gameState.player.position.z += move.y * speed;
-                
-                // Gravity and jumping
-                if (!gameState.player.isJumping) {
-                    gameState.player.position.y = Math.max(10, gameState.player.position.y - 5 * deltaTime);
-                }
-                
-                // Check for jump
-                if (this.input.isKeyPressed(' ') || document.getElementById('jumpBtn').classList.contains('active')) {
-                    if (!gameState.player.isJumping) {
-                        gameState.player.isJumping = true;
-                        gameState.player.velocity.y = 15;
-                    }
-                }
-                
-                if (gameState.player.isJumping) {
-                    gameState.player.position.y += gameState.player.velocity.y * deltaTime;
-                    gameState.player.velocity.y -= 30 * deltaTime;
-                    
-                    if (gameState.player.position.y <= 10) {
-                        gameState.player.position.y = 10;
-                        gameState.player.isJumping = false;
-                        gameState.player.velocity.y = 0;
-                    }
-                }
-                
-                // Stamina drain
-                if (Math.abs(move.x) > 0.1 || Math.abs(move.y) > 0.1) {
-                    gameState.player.stamina = Math.max(0, gameState.player.stamina - 5 * deltaTime);
-                } else {
-                    gameState.player.stamina = Math.min(100, gameState.player.stamina + 10 * deltaTime);
-                }
-                
-                // Check collectibles
-                this.collectibles.forEach(item => {
-                    if (!item.collected) {
-                        const dx = item.x - gameState.player.position.x;
-                        const dz = item.z - gameState.player.position.z;
-                        const distance = Math.sqrt(dx*dx + dz*dz);
-                        
-                        if (distance < 10) {
-                            item.collected = true;
-                            gameState.player.money += 50;
-                            showNotification('+$50 Collected!');
-                        }
-                    }
-                });
-                
-                // Update UI
-                updateHUD();
-            }
-            
-            update(time) {
-                if (!gameState.isLoaded || gameState.isPaused) return;
-                
-                const deltaTime = Math.min(0.1, (time - this.lastTime) / 1000);
-                this.lastTime = time;
-                
-                // Update FPS counter
-                this.frameCount++;
-                if (time - this.lastFpsUpdate > 1000) {
-                    this.fps = Math.round((this.frameCount * 1000) / (time - this.lastFpsUpdate));
-                    this.frameCount = 0;
-                    this.lastFpsUpdate = time;
-                    document.getElementById('fpsCounter').textContent = `FPS: ${this.fps}`;
-                }
-                
-                // Update game logic
-                this.updatePlayer(deltaTime);
-                this.renderer.update(deltaTime);
-                this.renderer.render();
-                
-                // Continue game loop
-                requestAnimationFrame((t) => this.update(t));
-            }
-            
-            start() {
-                this.lastTime = performance.now();
-                requestAnimationFrame((t) => this.update(t));
-            }
-        }
-
-        // UI FUNCTIONS
-        function updateHUD() {
-            document.getElementById('healthBar').style.width = `${gameState.player.health}%`;
-            document.getElementById('staminaBar').style.width = `${gameState.player.stamina}%`;
-            document.getElementById('money').textContent = `$${gameState.player.money}`;
-            document.getElementById('weaponDisplay').innerHTML = 
-                `<i class="fas fa-${getWeaponIcon()}"></i> ${gameState.player.weapons[gameState.player.currentWeapon]}`;
-        }
-        
-        function getWeaponIcon() {
-            switch(gameState.player.currentWeapon) {
-                case 0: return 'fist-raised';
-                case 1: return 'gun';
-                case 2: return 'crosshairs';
-                default: return 'fist-raised';
-            }
-        }
-        
-        function showNotification(text) {
-            const notification = document.getElementById('missionNotification');
-            notification.innerHTML = `<strong>${text}</strong>`;
-            notification.style.display = 'block';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        }
-        
-        function toggleMenu() {
-            gameState.isPaused = !gameState.isPaused;
-            document.getElementById('mainMenu').style.display = gameState.isPaused ? 'flex' : 'none';
-        }
-        
-        function saveSettings() {
-            gameState.settings.graphics = document.getElementById('graphicsQuality').value;
-            gameState.settings.controls = document.getElementById('controlType').value;
-            
-            // Show mobile controls based on setting
-            document.getElementById('mobileControls').style.display = 
-                gameState.settings.controls === 'touch' ? 'flex' : 'none';
-            
-            document.getElementById('settingsMenu').style.display = 'none';
-            document.getElementById('mainMenu').style.display = 'flex';
-            
-            showNotification('Settings Saved!');
-        }
-
-        // INITIALIZATION
+        // LOADING FUNCTIONS
         async function initGame() {
-            console.log('Starting Ultra City Hope...');
+            console.log('Initializing NAFIZ EMPIRE...');
             
-            // Show loading progress
+            // Update loading text
             const loadingText = document.getElementById('loadingText');
-            const loadingStages = [
-                'Loading 3D Engine...',
-                'Creating World...',
-                'Loading Assets...',
-                'Initializing Physics...',
-                'Ready!'
+            const loadingBar = document.getElementById('loadingBar');
+            
+            const loadingSteps = [
+                { text: "3D ইঞ্জিন লোড হচ্ছে...", progress: 10 },
+                { text: "বিশ্ব তৈরি হচ্ছে...", progress: 30 },
+                { text: "টেক্সচার লোড হচ্ছে...", progress: 50 },
+                { text: "মডেল লোড হচ্ছে...", progress: 70 },
+                { text: "ফিজিক্স সেটআপ হচ্ছে...", progress: 85 },
+                { text: "প্রস্তুত!", progress: 100 }
             ];
             
-            for (let i = 0; i < loadingStages.length; i++) {
-                loadingText.textContent = loadingStages[i];
+            for (let i = 0; i < loadingSteps.length; i++) {
+                loadingText.textContent = loadingSteps[i].text;
+                loadingBar.style.width = loadingSteps[i].progress + '%';
                 await new Promise(resolve => setTimeout(resolve, 500));
             }
             
-            // Initialize game
-            const game = new GameLogic();
+            // Initialize Three.js
+            initThreeJS();
             
-            // Hide loading screen
+            // Create world
+            createWorld();
+            
+            // Create player
+            createPlayer();
+            
+            // Create environment
+            createEnvironment();
+            
+            // Setup controls
+            setupControls();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Start game
             setTimeout(() => {
                 document.getElementById('loadingScreen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loadingScreen').style.display = 'none';
                     gameState.isLoaded = true;
-                    game.start();
+                    gameState.gameStarted = true;
                     
                     // Show welcome message
-                    setTimeout(() => {
-                        showNotification('Welcome to ULTRA CITY HOPE!');
-                    }, 1000);
+                    showNotification('NAFIZ EMPIRE-এ স্বাগতম! শহর ঘুরে দেখুন।');
+                    
+                    // Start game loop
+                    animate();
                 }, 500);
             }, 1000);
-            
-            // Setup button listeners
-            setupButtonListeners();
         }
         
-        function setupButtonListeners() {
-            // Menu buttons
+        function initThreeJS() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x87ceeb, 100, 500);
+            
+            // Create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 10, 20);
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            document.getElementById('gameContainer').appendChild(renderer.domElement);
+            
+            // Add window resize listener
+            window.addEventListener('resize', onWindowResize);
+            
+            // Create clock
+            clock = new THREE.Clock();
+            
+            // Add orbit controls for debugging (remove in production)
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+        }
+        
+        function createWorld() {
+            // Create skybox with Bangladeshi colors
+            const skyGeometry = new THREE.SphereGeometry(500, 32, 32);
+            const skyMaterial = new THREE.MeshBasicMaterial({
+                color: 0x87ceeb,
+                side: THREE.BackSide
+            });
+            gameObjects.skybox = new THREE.Mesh(skyGeometry, skyMaterial);
+            scene.add(gameObjects.skybox);
+            
+            // Create ground with Bangladesh texture
+            const groundGeometry = new THREE.PlaneGeometry(1000, 1000);
+            const groundMaterial = new THREE.MeshStandardMaterial({
+                color: 0x228B22, // Forest green
+                roughness: 0.8,
+                metalness: 0.2
+            });
+            gameObjects.ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            gameObjects.ground.rotation.x = -Math.PI / 2;
+            gameObjects.ground.receiveShadow = true;
+            scene.add(gameObjects.ground);
+            
+            // Add roads
+            createRoads();
+            
+            // Add lighting
+            createLighting();
+        }
+        
+        function createRoads() {
+            // Main road
+            const roadGeometry = new THREE.PlaneGeometry(800, 20);
+            const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+            const road = new THREE.Mesh(roadGeometry, roadMaterial);
+            road.rotation.x = -Math.PI / 2;
+            road.position.y = 0.1;
+            road.receiveShadow = true;
+            scene.add(road);
+            
+            // Cross road
+            const crossRoad = new THREE.Mesh(roadGeometry, roadMaterial);
+            crossRoad.rotation.x = -Math.PI / 2;
+            crossRoad.rotation.z = Math.PI / 2;
+            crossRoad.position.y = 0.1;
+            crossRoad.receiveShadow = true;
+            scene.add(crossRoad);
+            
+            // Road markings
+            for (let i = -4; i <= 4; i++) {
+                const lineGeometry = new THREE.PlaneGeometry(2, 0.5);
+                const lineMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+                const line = new THREE.Mesh(lineGeometry, lineMaterial);
+                line.rotation.x = -Math.PI / 2;
+                line.position.set(i * 50, 0.15, 0);
+                scene.add(line);
+                
+                const line2 = new THREE.Mesh(lineGeometry, lineMaterial);
+                line2.rotation.x = -Math.PI / 2;
+                line2.rotation.z = Math.PI / 2;
+                line2.position.set(0, 0.15, i * 50);
+                scene.add(line2);
+            }
+        }
+        
+        function createLighting() {
+            // Ambient light
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            // Directional light (sun)
+            const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+            sunLight.position.set(50, 100, 50);
+            sunLight.castShadow = true;
+            sunLight.shadow.mapSize.width = 2048;
+            sunLight.shadow.mapSize.height = 2048;
+            scene.add(sunLight);
+            
+            // Hemisphere light for sky color
+            const hemiLight = new THREE.HemisphereLight(0x87ceeb, 0x228B22, 0.3);
+            scene.add(hemiLight);
+            
+            gameObjects.lights.push(ambientLight, sunLight, hemiLight);
+        }
+        
+        function createPlayer() {
+            // Create simple player model (cube for now)
+            const geometry = new THREE.BoxGeometry(2, 5, 2);
+            const material = new THREE.MeshStandardMaterial({
+                color: 0xf42a41, // Bangladesh red
+                metalness: 0.3,
+                roughness: 0.4
+            });
+            
+            gameObjects.player = new THREE.Mesh(geometry, material);
+            gameObjects.player.castShadow = true;
+            gameObjects.player.position.set(0, 2.5, 0);
+            scene.add(gameObjects.player);
+            
+            // Add player marker
+            const markerGeometry = new THREE.ConeGeometry(1, 2, 4);
+            const markerMaterial = new THREE.MeshBasicMaterial({ color: 0x006a4e });
+            const marker = new THREE.Mesh(markerGeometry, markerMaterial);
+            marker.position.y = 4;
+            marker.rotation.x = Math.PI;
+            gameObjects.player.add(marker);
+        }
+        
+        function createEnvironment() {
+            // Create Bangladeshi-style buildings
+            for (let i = 0; i < 30; i++) {
+                createBuilding();
+            }
+            
+            // Create trees
+            for (let i = 0; i < 100; i++) {
+                createTree();
+            }
+            
+            // Create vehicles
+            for (let i = 0; i < 10; i++) {
+                createVehicle();
+            }
+            
+            // Create collectibles
+            for (let i = 0; i < 20; i++) {
+                createCollectible();
+            }
+            
+            // Create NPCs
+            for (let i = 0; i < 15; i++) {
+                createNPC();
+            }
+        }
+        
+        function createBuilding() {
+            const width = 10 + Math.random() * 20;
+            const height = 15 + Math.random() * 30;
+            const depth = 10 + Math.random() * 20;
+            
+            const geometry = new THREE.BoxGeometry(width, height, depth);
+            const material = new THREE.MeshStandardMaterial({
+                color: Math.random() > 0.5 ? 0x8B4513 : 0xA0522D, // Brown colors
+                roughness: 0.8
+            });
+            
+            const building = new THREE.Mesh(geometry, material);
+            building.castShadow = true;
+            building.receiveShadow = true;
+            
+            // Position building away from roads
+            let x, z;
+            do {
+                x = (Math.random() - 0.5) * 400;
+                z = (Math.random() - 0.5) * 400;
+            } while (Math.abs(x) < 50 && Math.abs(z) < 50);
+            
+            building.position.set(x, height / 2, z);
+            scene.add(building);
+            
+            gameObjects.buildings.push(building);
+            
+            // Add roof (Bangladeshi style)
+            const roofGeometry = new THREE.ConeGeometry(width * 0.8, 5, 4);
+            const roofMaterial = new THREE.MeshStandardMaterial({ color: 0x2c3e50 });
+            const roof = new THREE.Mesh(roofGeometry, roofMaterial);
+            roof.position.y = height + 2.5;
+            building.add(roof);
+        }
+        
+        function createTree() {
+            // Trunk
+            const trunkGeometry = new THREE.CylinderGeometry(0.5, 0.7, 3);
+            const trunkMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
+            const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+            
+            // Leaves (Bangladeshi mango tree style)
+            const leavesGeometry = new THREE.SphereGeometry(3, 8, 6);
+            const leavesMaterial = new THREE.MeshStandardMaterial({ color: 0x228B22 });
+            const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
+            leaves.position.y = 3;
+            
+            const tree = new THREE.Group();
+            tree.add(trunk);
+            tree.add(leaves);
+            
+            let x, z;
+            do {
+                x = (Math.random() - 0.5) * 450;
+                z = (Math.random() - 0.5) * 450;
+            } while (Math.abs(x) < 60 && Math.abs(z) < 60);
+            
+            tree.position.set(x, 0, z);
+            tree.castShadow = true;
+            scene.add(tree);
+            
+            gameObjects.trees.push(tree);
+        }
+        
+        function createVehicle() {
+            const colors = [0xf42a41, 0x006a4e, 0x3498db, 0xf1c40f, 0x9b59b6];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Body
+            const bodyGeometry = new THREE.BoxGeometry(4, 1.5, 8);
+            const bodyMaterial = new THREE.MeshStandardMaterial({ color: color, roughness: 0.5 });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.castShadow = true;
+            
+            // Top
+            const topGeometry = new THREE.BoxGeometry(3, 1.5, 4);
+            const topMaterial = new THREE.MeshStandardMaterial({ color: color * 0.8 });
+            const top = new THREE.Mesh(topGeometry, topMaterial);
+            top.position.y = 1.5;
+            top.castShadow = true;
+            
+            // Wheels
+            const wheelGeometry = new THREE.CylinderGeometry(0.8, 0.8, 0.5, 16);
+            const wheelMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
+            
+            const wheelPositions = [
+                { x: -1.5, z: 3 },
+                { x: 1.5, z: 3 },
+                { x: -1.5, z: -3 },
+                { x: 1.5, z: -3 }
+            ];
+            
+            const vehicle = new THREE.Group();
+            vehicle.add(body);
+            vehicle.add(top);
+            
+            wheelPositions.forEach(pos => {
+                const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+                wheel.rotation.z = Math.PI / 2;
+                wheel.position.set(pos.x, -0.75, pos.z);
+                wheel.castShadow = true;
+                vehicle.add(wheel);
+            });
+            
+            let x, z;
+            do {
+                x = (Math.random() - 0.5) * 400;
+                z = (Math.random() - 0.5) * 400;
+            } while (Math.abs(x) < 30 && Math.abs(z) < 30);
+            
+            vehicle.position.set(x, 1, z);
+            vehicle.rotation.y = Math.random() * Math.PI * 2;
+            scene.add(vehicle);
+            
+            // Store vehicle data
+            const vehicleData = {
+                mesh: vehicle,
+                type: 'car',
+                color: color,
+                speed: 0.1 + Math.random() * 0.2,
+                direction: Math.random() * Math.PI * 2,
+                userInVehicle: false
+            };
+            
+            gameObjects.vehicles.push(vehicleData);
+        }
+        
+        function createCollectible() {
+            const types = [
+                { color: 0xf1c40f, value: 100, icon: 'fa-money-bill' }, // Money
+                { color: 0xe74c3c, value: 50, icon: 'fa-heart' }, // Health
+                { color: 0x3498db, value: 30, icon: 'fa-bolt' } // Stamina
+            ];
+            
+            const type = types[Math.floor(Math.random() * types.length)];
+            
+            const geometry = new THREE.SphereGeometry(1, 16, 16);
+            const material = new THREE.MeshStandardMaterial({
+                color: type.color,
+                emissive: type.color,
+                emissiveIntensity: 0.5
+            });
+            
+            const collectible = new THREE.Mesh(geometry, material);
+            collectible.castShadow = true;
+            
+            const x = (Math.random() - 0.5) * 400;
+            const z = (Math.random() - 0.5) * 400;
+            collectible.position.set(x, 2, z);
+            
+            // Add floating animation
+            collectible.userData = {
+                type: type,
+                originalY: 2,
+                floatSpeed: 0.5 + Math.random() * 0.5,
+                floatHeight: 0.5 + Math.random() * 0.5
+            };
+            
+            scene.add(collectible);
+            gameObjects.collectibles.push(collectible);
+        }
+        
+        function createNPC() {
+            const geometry = new THREE.CylinderGeometry(1, 1, 5, 8);
+            const material = new THREE.MeshStandardMaterial({
+                color: Math.random() > 0.3 ? 0x3498db : 0xe74c3c // Blue for friendly, red for enemy
+            });
+            
+            const npc = new THREE.Mesh(geometry, material);
+            npc.castShadow = true;
+            
+            const x = (Math.random() - 0.5) * 400;
+            const z = (Math.random() - 0.5) * 400;
+            npc.position.set(x, 2.5, z);
+            
+            npc.userData = {
+                type: material.color.getHex() === 0xe74c3c ? 'enemy' : 'friendly',
+                health: 100,
+                speed: 0.02 + Math.random() * 0.03,
+                direction: Math.random() * Math.PI * 2,
+                lastDirectionChange: 0
+            };
+            
+            scene.add(npc);
+            gameObjects.npcs.push(npc);
+        }
+        
+        function setupControls() {
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (gameState.settings.controls === 'keyboard' && gameState.isLoaded && !gameState.isPaused) {
+                    keys[e.key.toLowerCase()] = true;
+                    
+                    if (e.key === 'Escape') {
+                        toggleMenu();
+                    }
+                    
+                    if (e.key === '1' || e.key === '2' || e.key === '3' || e.key === '4') {
+                        const weaponIndex = parseInt(e.key) - 1;
+                        if (weaponIndex < gameState.player.weapons.length) {
+                            switchWeapon(weaponIndex);
+                        }
+                    }
+                }
+            });
+            
+            document.addEventListener('keyup', (e) => {
+                if (gameState.settings.controls === 'keyboard') {
+                    keys[e.key.toLowerCase()] = false;
+                }
+            });
+            
+            // Touch joystick
+            const joystick = document.getElementById('moveJoystick');
+            const handle = joystick.querySelector('.joystick-handle');
+            
+            let joystickActive = false;
+            let joystickCenter = { x: 0, y: 0 };
+            
+            joystick.addEventListener('touchstart', (e) => {
+                if (gameState.settings.controls === 'touch') {
+                    const rect = joystick.getBoundingClientRect();
+                    joystickCenter.x = rect.left + rect.width / 2;
+                    joystickCenter.y = rect.top + rect.height / 2;
+                    joystickActive = true;
+                    e.preventDefault();
+                }
+            });
+            
+            joystick.addEventListener('touchmove', (e) => {
+                if (gameState.settings.controls === 'touch' && joystickActive) {
+                    const touch = e.touches[0];
+                    const dx = touch.clientX - joystickCenter.x;
+                    const dy = touch.clientY - joystickCenter.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const maxDistance = 40;
+                    
+                    if (distance > maxDistance) {
+                        touch.joystick.x = (dx / distance) * (maxDistance / 40);
+                        touch.joystick.y = (dy / distance) * (maxDistance / 40);
+                        handle.style.transform = `translate(-50%, -50%) translate(${(dx / distance) * 30}px, ${(dy / distance) * 30}px)`;
+                    } else {
+                        touch.joystick.x = dx / 40;
+                        touch.joystick.y = dy / 40;
+                        handle.style.transform = `translate(-50%, -50%) translate(${dx * 0.75}px, ${dy * 0.75}px)`;
+                    }
+                    
+                    touch.joystick.active = true;
+                    e.preventDefault();
+                }
+            });
+            
+            joystick.addEventListener('touchend', () => {
+                if (gameState.settings.controls === 'touch') {
+                    joystickActive = false;
+                    touch.joystick.x = 0;
+                    touch.joystick.y = 0;
+                    touch.joystick.active = false;
+                    handle.style.transform = 'translate(-50%, -50%)';
+                }
+            });
+        }
+        
+        function setupEventListeners() {
+            // Button event listeners
             document.getElementById('resumeBtn').onclick = () => {
                 toggleMenu();
             };
             
             document.getElementById('newGameBtn').onclick = () => {
-                if (confirm('Start new game? Current progress will be lost.')) {
+                if (confirm('নতুন গেম শুরু করতে চান? বর্তমান প্রোগ্রেস নষ্ট হবে।')) {
                     location.reload();
                 }
             };
@@ -1103,6 +1415,12 @@
             document.getElementById('settingsBtn').onclick = () => {
                 document.getElementById('mainMenu').style.display = 'none';
                 document.getElementById('settingsMenu').style.display = 'flex';
+            };
+            
+            document.getElementById('missionsBtn').onclick = () => {
+                showMissions();
+                document.getElementById('mainMenu').style.display = 'none';
+                document.getElementById('missionsMenu').style.display = 'flex';
             };
             
             document.getElementById('helpBtn').onclick = () => {
@@ -1115,65 +1433,592 @@
                 document.getElementById('mainMenu').style.display = 'flex';
             };
             
+            document.getElementById('missionsBackBtn').onclick = () => {
+                document.getElementById('missionsMenu').style.display = 'none';
+                document.getElementById('mainMenu').style.display = 'flex';
+            };
+            
             document.getElementById('helpBackBtn').onclick = () => {
                 document.getElementById('helpMenu').style.display = 'none';
                 document.getElementById('mainMenu').style.display = 'flex';
             };
             
             // Action buttons
-            const attackBtn = document.getElementById('attackBtn');
-            attackBtn.addEventListener('touchstart', () => {
-                attackBtn.classList.add('active');
-                showHitMarker();
-            });
-            attackBtn.addEventListener('touchend', () => {
-                attackBtn.classList.remove('active');
+            document.getElementById('jumpBtn').addEventListener('touchstart', () => {
+                touch.buttons.jump = true;
             });
             
-            document.getElementById('interactBtn').onclick = () => {
-                showNotification('Looking for vehicle...');
-            };
-            
-            document.getElementById('menuBtn').onclick = toggleMenu;
-            
-            // Jump button
-            const jumpBtn = document.getElementById('jumpBtn');
-            jumpBtn.addEventListener('touchstart', () => {
-                jumpBtn.classList.add('active');
+            document.getElementById('jumpBtn').addEventListener('touchend', () => {
+                touch.buttons.jump = false;
             });
-            jumpBtn.addEventListener('touchend', () => {
-                jumpBtn.classList.remove('active');
+            
+            document.getElementById('attackBtn').addEventListener('touchstart', () => {
+                touch.buttons.attack = true;
+                performAttack();
+            });
+            
+            document.getElementById('weaponBtn').addEventListener('touchstart', () => {
+                switchWeapon((gameState.player.currentWeapon + 1) % gameState.player.weapons.length);
+            });
+            
+            document.getElementById('interactBtn').addEventListener('touchstart', () => {
+                touch.buttons.interact = true;
+                tryEnterVehicle();
+            });
+            
+            document.getElementById('menuBtn').addEventListener('touchstart', () => {
+                toggleMenu();
+            });
+            
+            // Prevent default touch behaviors
+            document.addEventListener('touchmove', (e) => {
+                if (e.scale !== 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        // GAME LOGIC FUNCTIONS
+        function updatePlayer() {
+            if (!gameState.isLoaded || gameState.isPaused) return;
+            
+            const player = gameObjects.player;
+            const playerState = gameState.player;
+            
+            // Movement
+            let moveX = 0, moveZ = 0;
+            
+            if (gameState.settings.controls === 'keyboard') {
+                if (keys['w'] || keys['arrowup']) moveZ = -1;
+                if (keys['s'] || keys['arrowdown']) moveZ = 1;
+                if (keys['a'] || keys['arrowleft']) moveX = -1;
+                if (keys['d'] || keys['arrowright']) moveX = 1;
+            } else {
+                moveX = touch.joystick.x;
+                moveZ = touch.joystick.y;
+            }
+            
+            // Normalize diagonal movement
+            if (moveX !== 0 || moveZ !== 0) {
+                const length = Math.sqrt(moveX * moveX + moveZ * moveZ);
+                moveX /= length;
+                moveZ /= length;
+            }
+            
+            // Apply movement speed
+            const speed = (keys['shift'] || touch.buttons.run) ? CONFIG.player.runSpeed : CONFIG.player.speed;
+            const moveDistance = speed * deltaTime * 60;
+            
+            const newX = player.position.x + moveX * moveDistance;
+            const newZ = player.position.z + moveZ * moveDistance;
+            
+            // Check boundaries
+            if (Math.abs(newX) < 480 && Math.abs(newZ) < 480) {
+                player.position.x = newX;
+                player.position.z = newZ;
+                
+                // Update game state
+                playerState.position.x = player.position.x;
+                playerState.position.z = player.position.z;
+                
+                // Rotate player towards movement direction
+                if (moveX !== 0 || moveZ !== 0) {
+                    player.rotation.y = Math.atan2(moveX, moveZ);
+                }
+                
+                // Drain stamina if running
+                if ((keys['shift'] || touch.buttons.run) && playerState.stamina > 0) {
+                    playerState.stamina = Math.max(0, playerState.stamina - 0.5);
+                } else {
+                    playerState.stamina = Math.min(playerState.maxStamina, playerState.stamina + 0.2);
+                }
+            }
+            
+            // Jump
+            if ((keys[' '] || touch.buttons.jump) && !playerState.isJumping && player.position.y <= 3) {
+                playerState.velocity.y = CONFIG.player.jumpForce;
+                playerState.isJumping = true;
+                touch.buttons.jump = false;
+            }
+            
+            // Apply gravity
+            playerState.velocity.y -= 0.01;
+            player.position.y += playerState.velocity.y * deltaTime * 60;
+            
+            // Ground collision
+            if (player.position.y <= 2.5) {
+                player.position.y = 2.5;
+                playerState.velocity.y = 0;
+                playerState.isJumping = false;
+            }
+            
+            // Update camera position
+            camera.position.x = player.position.x;
+            camera.position.z = player.position.z + 10;
+            camera.position.y = player.position.y + 5;
+            camera.lookAt(player.position.x, player.position.y + 2, player.position.z);
+            
+            // Update minimap player position
+            updateMinimap();
+            
+            // Update location display
+            updateLocation();
+            
+            // Check collectibles
+            checkCollectibles();
+            
+            // Update NPCs
+            updateNPCs();
+            
+            // Update vehicles
+            updateVehicles();
+            
+            // Update floating collectibles
+            updateFloatingObjects();
+            
+            // Update UI
+            updateUI();
+        }
+        
+        function updateNPCs() {
+            gameObjects.npcs.forEach(npc => {
+                const data = npc.userData;
+                
+                // Change direction randomly
+                data.lastDirectionChange += deltaTime;
+                if (data.lastDirectionChange > 3 + Math.random() * 5) {
+                    data.direction = Math.random() * Math.PI * 2;
+                    data.lastDirectionChange = 0;
+                }
+                
+                // Move NPC
+                const moveX = Math.sin(data.direction) * data.speed * deltaTime * 60;
+                const moveZ = Math.cos(data.direction) * data.speed * deltaTime * 60;
+                
+                const newX = npc.position.x + moveX;
+                const newZ = npc.position.z + moveZ;
+                
+                // Stay within bounds
+                if (Math.abs(newX) < 480 && Math.abs(newZ) < 480) {
+                    npc.position.x = newX;
+                    npc.position.z = newZ;
+                } else {
+                    data.direction += Math.PI; // Turn around
+                }
+                
+                // Rotate NPC
+                npc.rotation.y = data.direction;
+                
+                // Enemy AI
+                if (data.type === 'enemy') {
+                    const playerPos = gameObjects.player.position;
+                    const dx = playerPos.x - npc.position.x;
+                    const dz = playerPos.z - npc.position.z;
+                    const distance = Math.sqrt(dx * dx + dz * dz);
+                    
+                    if (distance < 20) {
+                        // Move towards player
+                        data.direction = Math.atan2(dx, dz);
+                        
+                        if (distance < 5 && Math.random() < 0.01) {
+                            // Attack player
+                            damagePlayer(10);
+                        }
+                    }
+                }
             });
         }
         
-        function showHitMarker() {
-            const hitMarker = document.getElementById('hitMarker');
-            hitMarker.style.opacity = '1';
+        function updateVehicles() {
+            gameObjects.vehicles.forEach(vehicle => {
+                const mesh = vehicle.mesh;
+                
+                if (!vehicle.userInVehicle) {
+                    // Move vehicle
+                    const moveX = Math.sin(vehicle.direction) * vehicle.speed * deltaTime * 60;
+                    const moveZ = Math.cos(vehicle.direction) * vehicle.speed * deltaTime * 60;
+                    
+                    const newX = mesh.position.x + moveX;
+                    const newZ = mesh.position.z + moveZ;
+                    
+                    // Bounce off boundaries
+                    if (Math.abs(newX) > 480 || Math.abs(newZ) > 480) {
+                        vehicle.direction += Math.PI / 2 + (Math.random() * Math.PI / 2);
+                    } else {
+                        mesh.position.x = newX;
+                        mesh.position.z = newZ;
+                    }
+                    
+                    // Rotate vehicle
+                    mesh.rotation.y = vehicle.direction;
+                }
+            });
+        }
+        
+        function updateFloatingObjects() {
+            gameObjects.collectibles.forEach(collectible => {
+                const data = collectible.userData;
+                const time = Date.now() * 0.001;
+                collectible.position.y = data.originalY + Math.sin(time * data.floatSpeed) * data.floatHeight;
+                collectible.rotation.y += 0.02;
+            });
+        }
+        
+        function checkCollectibles() {
+            const playerPos = gameObjects.player.position;
+            
+            for (let i = gameObjects.collectibles.length - 1; i >= 0; i--) {
+                const collectible = gameObjects.collectibles[i];
+                const dx = playerPos.x - collectible.position.x;
+                const dz = playerPos.z - collectible.position.z;
+                const distance = Math.sqrt(dx * dx + dz * dz);
+                
+                if (distance < 3) {
+                    collectItem(collectible);
+                    scene.remove(collectible);
+                    gameObjects.collectibles.splice(i, 1);
+                }
+            }
+        }
+        
+        function collectItem(collectible) {
+            const data = collectible.userData;
+            
+            switch(data.type.icon) {
+                case 'fa-money-bill':
+                    gameState.player.money += data.value;
+                    showNotification(`+৳${data.value} টাকা!`);
+                    break;
+                case 'fa-heart':
+                    gameState.player.health = Math.min(gameState.player.maxHealth, gameState.player.health + data.value);
+                    showNotification(`+${data.value} স্বাস্থ্য!`);
+                    break;
+                case 'fa-bolt':
+                    gameState.player.stamina = Math.min(gameState.player.maxStamina, gameState.player.stamina + data.value);
+                    showNotification(`+${data.value} শক্তি!`);
+                    break;
+            }
+            
+            // Update missions
+            updateMissionProgress(2, data.value);
+        }
+        
+        function tryEnterVehicle() {
+            if (gameState.player.inVehicle) {
+                // Exit vehicle
+                gameState.player.inVehicle = false;
+                gameState.player.currentVehicle.userInVehicle = false;
+                gameState.player.currentVehicle = null;
+                showNotification('গাড়ি থেকে নামলেন');
+                touch.buttons.interact = false;
+                return;
+            }
+            
+            const playerPos = gameObjects.player.position;
+            let closestVehicle = null;
+            let closestDistance = Infinity;
+            
+            gameObjects.vehicles.forEach(vehicle => {
+                const dx = playerPos.x - vehicle.mesh.position.x;
+                const dz = playerPos.z - vehicle.mesh.position.z;
+                const distance = Math.sqrt(dx * dx + dz * dz);
+                
+                if (distance < 10 && distance < closestDistance) {
+                    closestDistance = distance;
+                    closestVehicle = vehicle;
+                }
+            });
+            
+            if (closestVehicle) {
+                gameState.player.inVehicle = true;
+                gameState.player.currentVehicle = closestVehicle;
+                closestVehicle.userInVehicle = true;
+                showNotification('গাড়িতে উঠলেন! W/A/S/D চালান');
+                updateMissionProgress(3, 1);
+                touch.buttons.interact = false;
+            } else {
+                showNotification('কাছাকাছি কোন গাড়ি নেই');
+            }
+        }
+        
+        function performAttack() {
+            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+            showHitEffect();
+            
+            // Check for nearby enemies
+            const playerPos = gameObjects.player.position;
+            let hitEnemy = false;
+            
+            gameObjects.npcs.forEach((npc, index) => {
+                if (npc.userData.type === 'enemy') {
+                    const dx = playerPos.x - npc.position.x;
+                    const dz = playerPos.z - npc.position.z;
+                    const distance = Math.sqrt(dx * dx + dz * dz);
+                    
+                    if (distance < 10) {
+                        npc.userData.health -= weapon.damage;
+                        
+                        if (npc.userData.health <= 0) {
+                            // Enemy defeated
+                            scene.remove(npc);
+                            gameObjects.npcs.splice(index, 1);
+                            gameState.player.score += 100;
+                            gameState.player.money += 50;
+                            showNotification(`শত্রু নিপাত! +৳50, +100 স্কোর`);
+                            updateMissionProgress(4, 1);
+                        }
+                        
+                        hitEnemy = true;
+                    }
+                }
+            });
+            
+            if (!hitEnemy) {
+                showNotification(`${weapon.name} দিয়ে আক্রমণ!`);
+            }
+            
+            touch.buttons.attack = false;
+        }
+        
+        function switchWeapon(index) {
+            if (index < gameState.player.weapons.length) {
+                gameState.player.currentWeapon = index;
+                const weapon = gameState.player.weapons[index];
+                showNotification(`অস্ত্র পরিবর্তন: ${weapon.name}`);
+                updateWeaponDisplay();
+            }
+        }
+        
+        function damagePlayer(amount) {
+            gameState.player.health = Math.max(0, gameState.player.health - amount);
+            showHitEffect();
+            
+            if (gameState.player.health <= 0) {
+                gameOver();
+            }
+        }
+        
+        function gameOver() {
+            showNotification('গেম ওভার! মেনুতে যান');
+            gameState.isPaused = true;
+            toggleMenu();
+        }
+        
+        // UI FUNCTIONS
+        function updateUI() {
+            // Update health bar
+            const healthPercent = (gameState.player.health / gameState.player.maxHealth) * 100;
+            document.getElementById('healthBar').style.width = `${healthPercent}%`;
+            document.getElementById('healthValue').textContent = `${Math.round(healthPercent)}%`;
+            
+            // Update stamina bar
+            const staminaPercent = (gameState.player.stamina / gameState.player.maxStamina) * 100;
+            document.getElementById('staminaBar').style.width = `${staminaPercent}%`;
+            document.getElementById('staminaValue').textContent = `${Math.round(staminaPercent)}%`;
+            
+            // Update money
+            document.getElementById('money').textContent = `৳ ${gameState.player.money}`;
+            
+            // Update score
+            document.getElementById('score').textContent = `স্কোর: ${gameState.player.score}`;
+            
+            // Update time
+            updateTime();
+        }
+        
+        function updateTime() {
+            gameState.world.time += deltaTime * 0.1;
+            if (gameState.world.time >= 24) gameState.world.time = 0;
+            
+            const hour = Math.floor(gameState.world.time);
+            const minute = Math.floor((gameState.world.time % 1) * 60);
+            const period = hour < 12 ? 'সকাল' : hour < 18 ? 'দুপুর' : 'রাত';
+            
+            gameState.world.isDay = hour >= 6 && hour < 18;
+            
+            // Update sky color based on time
+            if (gameState.world.isDay) {
+                scene.fog.color.setHex(0x87ceeb); // Sky blue
+                gameObjects.skybox.material.color.setHex(0x87ceeb);
+            } else {
+                scene.fog.color.setHex(0x1a237e); // Dark blue
+                gameObjects.skybox.material.color.setHex(0x1a237e);
+            }
+            
+            document.getElementById('timeText').textContent = `${period} ${hour}:${minute.toString().padStart(2, '0')}`;
+        }
+        
+        function updateLocation() {
+            const playerPos = gameState.player.position;
+            let closestLocation = gameState.world.locations[0];
+            let closestDistance = Infinity;
+            
+            gameState.world.locations.forEach(location => {
+                const dx = playerPos.x - location.x;
+                const dz = playerPos.z - location.z;
+                const distance = Math.sqrt(dx * dx + dz * dz);
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestLocation = location;
+                }
+            });
+            
+            if (closestDistance < 100) {
+                document.getElementById('locationName').textContent = closestLocation.name;
+                
+                // Update mission progress for location exploration
+                if (closestDistance < 50) {
+                    updateMissionProgress(1, 0.1);
+                }
+            }
+        }
+        
+        function updateMinimap() {
+            const playerDot = document.querySelector('.mini-map-player');
+            const playerPos = gameState.player.position;
+            
+            // Convert world coordinates to minimap coordinates
+            const mapX = (playerPos.x / 500) * 90 + 50;
+            const mapY = (playerPos.z / 500) * 90 + 50;
+            
+            playerDot.style.left = `${mapX}%`;
+            playerDot.style.top = `${mapY}%`;
+        }
+        
+        function updateWeaponDisplay() {
+            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+            document.getElementById('weaponName').textContent = weapon.name;
+            document.getElementById('weaponDisplay').innerHTML = `<i class="fas ${weapon.icon}"></i> ${weapon.name}`;
+        }
+        
+        function updateMissionProgress(missionId, amount) {
+            const mission = gameState.missions.find(m => m.id === missionId);
+            if (mission && !mission.completed) {
+                mission.progress += amount;
+                
+                if (mission.progress >= mission.target) {
+                    mission.completed = true;
+                    mission.progress = mission.target;
+                    gameState.player.money += mission.reward;
+                    showNotification(`মিশন সম্পন্ন! +৳${mission.reward} পুরস্কার`);
+                }
+            }
+        }
+        
+        function showMissions() {
+            const missionsList = document.getElementById('missionsList');
+            missionsList.innerHTML = '';
+            
+            gameState.missions.forEach(mission => {
+                const progressPercent = (mission.progress / mission.target) * 100;
+                const missionElement = document.createElement('div');
+                missionElement.style.background = 'rgba(0,0,0,0.5)';
+                missionElement.style.padding = '15px';
+                missionElement.style.margin = '10px 0';
+                missionElement.style.borderRadius = '10px';
+                missionElement.style.border = '2px solid ' + (mission.completed ? '#00ff00' : '#f42a41');
+                
+                missionElement.innerHTML = `
+                    <div style="font-weight: bold; color: ${mission.completed ? '#00ff00' : '#f42a41'}; margin-bottom: 8px;">
+                        ${mission.title} ${mission.completed ? '✓' : ''}
+                    </div>
+                    <div style="font-size: 14px; margin-bottom: 10px; color: #ccc;">
+                        ${mission.description}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="width: 70%; height: 8px; background: #333; border-radius: 4px; overflow: hidden;">
+                            <div style="width: ${progressPercent}%; height: 100%; background: ${mission.completed ? '#00ff00' : '#f42a41'};"></div>
+                        </div>
+                        <div style="font-size: 14px; color: #f1c40f;">
+                            ${mission.progress.toFixed(0)}/${mission.target}
+                        </div>
+                    </div>
+                    <div style="margin-top: 8px; color: #f1c40f;">
+                        পুরস্কার: ৳${mission.reward}
+                    </div>
+                `;
+                
+                missionsList.appendChild(missionElement);
+            });
+        }
+        
+        function showNotification(text) {
+            const notification = document.getElementById('missionNotification');
+            notification.innerHTML = `<strong>${text}</strong>`;
+            notification.style.display = 'block';
             
             setTimeout(() => {
-                hitMarker.style.opacity = '0';
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        function showHitEffect() {
+            const hitEffect = document.getElementById('hitEffect');
+            hitEffect.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                hitEffect.style.opacity = '0';
             }, 100);
         }
-
-        // START GAME WHEN READY
+        
+        function toggleMenu() {
+            gameState.isPaused = !gameState.isPaused;
+            document.getElementById('mainMenu').style.display = gameState.isPaused ? 'flex' : 'none';
+        }
+        
+        function saveSettings() {
+            gameState.settings.graphics = document.getElementById('graphicsQuality').value;
+            gameState.settings.controls = document.getElementById('controlType').value;
+            
+            // Apply graphics settings
+            if (gameState.settings.graphics === 'low') {
+                renderer.setPixelRatio(1);
+            } else {
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            }
+            
+            document.getElementById('settingsMenu').style.display = 'none';
+            document.getElementById('mainMenu').style.display = 'flex';
+            
+            showNotification('সেটিংস সেভ করা হয়েছে!');
+        }
+        
+        // ANIMATION LOOP
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            deltaTime = clock.getDelta();
+            
+            if (gameState.isLoaded && !gameState.isPaused) {
+                updatePlayer();
+                
+                // Update orbit controls
+                controls.update();
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        // START THE GAME
         document.addEventListener('DOMContentLoaded', initGame);
         
-        // Prevent zoom on mobile
-        document.addEventListener('touchmove', (e) => {
-            if (e.scale !== 1) {
-                e.preventDefault();
+        // Add fullscreen support
+        document.addEventListener('dblclick', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
             }
-        }, { passive: false });
-        
-        // Prevent pull-to-refresh
-        document.body.addEventListener('touchstart', (e) => {
-            if (e.touches.length > 1) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-        
-        // Make game fullscreen on mobile
-        document.documentElement.requestFullscreen?.().catch(console.log);
+        });
     </script>
 </body>
 </html>
