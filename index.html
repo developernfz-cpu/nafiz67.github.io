@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Open World Hope v3 - 3D Edition</title>
+<title>Ultra City Hope - GTA Web</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -30,6 +30,22 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
  background:#fff;padding:22px;border-radius:14px;text-align:center
 }
 
+/* LOADING */
+#loading{
+ position:fixed;inset:0;background:#000;
+ display:flex;align-items:center;justify-content:center;z-index:100;
+ color:#fff;font-size:24px;
+}
+
+/* RESPAWN */
+#respawn{
+ position:fixed;inset:0;background:#000c;
+ display:none;align-items:center;justify-content:center;z-index:98
+}
+#respawn .box{
+ background:#fff;padding:22px;border-radius:14px;text-align:center
+}
+
 /* MOBILE */
 #joy{
  position:fixed;left:20px;bottom:20px;
@@ -45,8 +61,9 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
  width:70px;height:70px;border-radius:50%;
  border:none;font-weight:bold;background:#fff
 }
-#runBtn{right:100px}
-#emoBtn{right:20px}
+#runBtn{right:160px}
+#emoBtn{right:80px}
+#enterBtn{right:20px; bottom:120px;}
 
 /* FX */
 #light,#fade,#hitFlash{
@@ -84,11 +101,20 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 </head>
 <body>
 
+<div id="loading">Loading...</div>
+
 <div id="login">
  <div class="box">
-  <h2>Open World Hope - 3D</h2>
+  <h2>Ultra City Hope - GTA Web</h2>
   <input id="name" placeholder="Your Name"><br><br>
   <button onclick="start()">ENTER</button>
+ </div>
+</div>
+
+<div id="respawn">
+ <div class="box">
+  <h2>You Died!</h2>
+  <button onclick="respawn()">RESPAWN</button>
  </div>
 </div>
 
@@ -99,11 +125,13 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
  <div class="bar"><div id="health" class="fill"></div></div>
  <div class="bar"><div id="stamina" class="fill"></div></div>
  <div class="bar"><div id="hunger" class="fill"></div></div>
+ <br>Weapon: <span id="weaponText">Fist</span>
 </div>
 
 <div id="joy"><div id="stick"></div></div>
 <button class="btn" id="runBtn">RUN</button>
-<button class="btn" id="emoBtn">EMO</button>
+<button class="btn" id="emoBtn">EMOTE</button>
+<button class="btn" id="enterBtn">ENTER</button>
 
 <div id="crosshair"></div>
 
@@ -112,14 +140,19 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 <div id="fade"></div>
 <div id="hitFlash"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/PointerLockControls.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r161/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/PointerLockControls.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/postprocessing/UnrealBloomPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/math/ImprovedNoise.js"></script>
 
 <script>
 /* ===== CORE ===== */
 const container = document.getElementById('game');
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 10000);
+const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 20000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true;
@@ -130,7 +163,15 @@ window.addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
+  composer.setSize(innerWidth, innerHeight);
 });
+
+// Post-processing for ultra graphics
+const composer = new THREE.EffectComposer(renderer);
+const renderPass = new THREE.RenderPass(scene, camera);
+composer.addPass(renderPass);
+const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 1.5, 0.4, 0.85);
+composer.addPass(bloomPass);
 
 // Pointer Lock Controls for FPS
 const controls = new THREE.PointerLockControls(camera, document.body);
@@ -138,29 +179,64 @@ scene.add(controls.getObject());
 document.addEventListener('click', () => controls.lock());
 
 // Optimize: Basic fog for distance culling
-scene.fog = new THREE.Fog(0x87ceeb, 500, 3000);
+scene.fog = new THREE.Fog(0x87ceeb, 1000, 10000);
+
+/* ===== PHYSICS ===== */
+const physicsWorld = new CANNON.World();
+physicsWorld.gravity.set(0, -9.82, 0);
+physicsWorld.broadphase = new CANNON.NaiveBroadphase();
+physicsWorld.solver.iterations = 10;
 
 /* ===== WORLD ===== */
-const world = { w: 5000, h: 5000 }; // Depth is now along z-axis
+const world = { w: 10000, h: 10000 }; // Bigger map
 
-// Ground: Simple plane with texture for optimization
+// Procedural terrain ground with mountains
+const segments = 128;
+const groundGeometry = new THREE.PlaneGeometry(world.w, world.h, segments, segments);
+const noise = new THREE.ImprovedNoise();
+const vertices = groundGeometry.attributes.position.array;
+for (let i = 0, j = 0; i < vertices.length; i += 3, j++) {
+  const x = (j % (segments + 1)) / segments * world.w - world.w / 2;
+  const z = Math.floor(j / (segments + 1)) / segments * world.h - world.h / 2;
+  vertices[i + 1] = noise.noise(x / 500, z / 500, 0) * 200 + noise.noise(x / 200, z / 200, 0) * 100; // Mountains
+}
+groundGeometry.computeNormals();
 const groundTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg');
 groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-groundTexture.repeat.set(50, 50);
-const groundMaterial = new THREE.MeshLambertMaterial({ map: groundTexture });
-const ground = new THREE.Mesh(new THREE.PlaneGeometry(world.w, world.h), groundMaterial);
+groundTexture.repeat.set(100, 100);
+const groundMaterial = new THREE.MeshStandardMaterial({ map: groundTexture });
+const ground = new THREE.Mesh(groundGeometry, groundMaterial);
 ground.rotation.x = -Math.PI / 2;
 ground.receiveShadow = true;
 scene.add(ground);
 
-// Basic lighting with optimization (one directional light + ambient)
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+// Physics for ground (heightfield)
+const heightData = [];
+for (let z = 0; z <= segments; z++) {
+  const row = [];
+  for (let x = 0; x <= segments; x++) {
+    const index = (z * (segments + 1) + x) * 3 + 1;
+    row.push(vertices[index]);
+  }
+  heightData.push(row);
+}
+const groundShape = new CANNON.Heightfield(heightData, { elementSize: world.w / segments });
+const groundBody = new CANNON.Body({ mass: 0 });
+groundBody.addShape(groundShape);
+groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+physicsWorld.addBody(groundBody);
+
+// Basic lighting with ultra graphics
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
 scene.add(ambientLight);
-const sunLight = new THREE.DirectionalLight(0xffffff, 0.8);
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+hemiLight.position.set(0, 200, 0);
+scene.add(hemiLight);
+const sunLight = new THREE.DirectionalLight(0xffffff, 1.0);
 sunLight.position.set(1000, 2000, 1000);
 sunLight.castShadow = true;
-sunLight.shadow.mapSize.width = 1024; // Optimized shadow resolution
-sunLight.shadow.mapSize.height = 1024;
+sunLight.shadow.mapSize.width = 2048;
+sunLight.shadow.mapSize.height = 2048;
 sunLight.shadow.camera.near = 0.5;
 sunLight.shadow.camera.far = 5000;
 sunLight.shadow.camera.left = -2000;
@@ -169,11 +245,24 @@ sunLight.shadow.camera.top = 2000;
 sunLight.shadow.camera.bottom = -2000;
 scene.add(sunLight);
 
-// Simple procedural trees for open world feel (optimized: low poly)
+// Skybox for ultra graphics
+const skyTextures = [
+  'https://threejs.org/examples/textures/skybox/px.jpg',
+  'https://threejs.org/examples/textures/skybox/nx.jpg',
+  'https://threejs.org/examples/textures/skybox/py.jpg',
+  'https://threejs.org/examples/textures/skybox/ny.jpg',
+  'https://threejs.org/examples/textures/skybox/pz.jpg',
+  'https://threejs.org/examples/textures/skybox/nz.jpg'
+];
+const skyLoader = new THREE.CubeTextureLoader();
+const skybox = skyLoader.load(skyTextures);
+scene.background = skybox;
+
+// Procedural trees (500 for big map)
 const treeGeometry = new THREE.ConeGeometry(20, 60, 8);
-const treeMaterial = new THREE.MeshLambertMaterial({ color: 0x228b22 });
+const treeMaterial = new THREE.MeshStandardMaterial({ color: 0x228b22 });
 const trunkGeometry = new THREE.CylinderGeometry(5, 5, 30, 8);
-const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x8b4513 });
+const trunkMaterial = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
 function createTree(x, z) {
   const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
   trunk.position.set(x, 15, z);
@@ -184,43 +273,211 @@ function createTree(x, z) {
   foliage.castShadow = true;
   scene.add(foliage);
 }
-for (let i = 0; i < 100; i++) { // Limited for optimization
+for (let i = 0; i < 500; i++) {
   createTree(Math.random() * world.w - world.w / 2, Math.random() * world.h - world.h / 2);
 }
 
+// Procedural buildings (full of buildings)
+function createBuilding(x, z, width, depth, height) {
+  const buildingGeometry = new THREE.BoxGeometry(width, height, depth);
+  const buildingMaterial = new THREE.MeshStandardMaterial({ color: Math.random() * 0xffffff });
+  const building = new THREE.Mesh(buildingGeometry, buildingMaterial);
+  building.position.set(x, height / 2, z);
+  building.castShadow = true;
+  building.receiveShadow = true;
+  scene.add(building);
+
+  // Physics
+  const buildingShape = new CANNON.Box(new CANNON.Vec3(width / 2, height / 2, depth / 2));
+  const buildingBody = new CANNON.Body({ mass: 0 });
+  buildingBody.addShape(buildingShape);
+  buildingBody.position.set(x, height / 2, z);
+  physicsWorld.addBody(buildingBody);
+  building.userData.physicsBody = buildingBody;
+}
+for (let i = 0; i < 200; i++) { // Tons of buildings
+  const width = 50 + Math.random() * 100;
+  const depth = 50 + Math.random() * 100;
+  const height = 100 + Math.random() * 400;
+  const x = Math.random() * 2000 - 1000; // Cluster in city area
+  const z = Math.random() * 2000 - 1000;
+  createBuilding(x, z, width, depth, height);
+}
+
+// Car shop (simple building)
+const carShop = createBuilding(0, -500, 200, 200, 50); // Example position
+
 /* ===== PLAYER ===== */
 const player = {
-  position: new THREE.Vector3(0, 10, 0), // y=10 for eye height
+  position: new THREE.Vector3(0, 10, 0),
   velocity: new THREE.Vector3(),
-  direction: new THREE.Vector3(),
   health: 100, stamina: 100, hunger: 100,
   money: 100, alive: true,
   attackCD: 0, hitCD: 0,
-  emote: 0, name: "Player"
+  emote: 0, name: "Player",
+  currentWeapon: 0, // 0: fist, 1: gun
+  inVehicle: false,
+  vehicle: null
 };
 camera.position.copy(player.position);
 
+// Player physics body (sphere for simplicity)
+const playerShape = new CANNON.Sphere(5);
+const playerBody = new CANNON.Body({ mass: 1 });
+playerBody.addShape(playerShape);
+playerBody.position.set(0, 10, 0);
+physicsWorld.addBody(playerBody);
+
+/* ===== VEHICLES ===== */
+const vehicles = [];
+function createVehicle(x, y, z) {
+  // Simple car model
+  const carGroup = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(20, 10, 40), new THREE.MeshStandardMaterial({ color: 0xff0000 }));
+  body.position.y = 5;
+  carGroup.add(body);
+  const wheels = [];
+  for (let i = 0; i < 4; i++) {
+    const wheel = new THREE.Mesh(new THREE.CylinderGeometry(5, 5, 4, 16), new THREE.MeshStandardMaterial({ color: 0x000000 }));
+    wheel.rotation.z = Math.PI / 2;
+    wheel.position.set((i % 2 ? 12 : -12), 0, (i < 2 ? 15 : -15));
+    carGroup.add(wheel);
+    wheels.push(wheel);
+  }
+  carGroup.position.set(x, y, z);
+  scene.add(carGroup);
+
+  // Cannon vehicle
+  const chassisShape = new CANNON.Box(new CANNON.Vec3(10, 5, 20));
+  const chassisBody = new CANNON.Body({ mass: 500 });
+  chassisBody.addShape(chassisShape);
+  chassisBody.position.set(x, y + 5, z);
+  physicsWorld.addBody(chassisBody);
+
+  const vehicle = new CANNON.RaycastVehicle({
+    chassisBody: chassisBody,
+    indexForwardAxis: 2,
+    indexRightAxis: 0,
+    indexUpAxis: 1
+  });
+
+  const wheelOptions = {
+    radius: 5,
+    directionLocal: new CANNON.Vec3(0, -1, 0),
+    suspensionStiffness: 30,
+    suspensionRestLength: 5,
+    frictionSlip: 5,
+    dampingRelaxation: 2.3,
+    dampingCompression: 4.4,
+    maxSuspensionForce: 100000,
+    rollInfluence: 0.01,
+    axleLocal: new CANNON.Vec3(-1, 0, 0),
+    chassisConnectionPointLocal: new CANNON.Vec3(0, 0, 0),
+    maxSuspensionTravel: 0.3,
+    customSlidingRotationalSpeed: -30,
+    useCustomSlidingRotationalSpeed: true
+  };
+
+  wheelOptions.chassisConnectionPointLocal.set(12, 0, 15);
+  vehicle.addWheel(wheelOptions);
+  wheelOptions.chassisConnectionPointLocal.set(-12, 0, 15);
+  vehicle.addWheel(wheelOptions);
+  wheelOptions.chassisConnectionPointLocal.set(12, 0, -15);
+  vehicle.addWheel(wheelOptions);
+  wheelOptions.chassisConnectionPointLocal.set(-12, 0, -15);
+  vehicle.addWheel(wheelOptions);
+
+  vehicle.addToWorld(physicsWorld);
+
+  carGroup.userData = { physics: vehicle, wheels };
+  vehicles.push(carGroup);
+  return carGroup;
+}
+
+// Add some cars
+for (let i = 0; i < 10; i++) {
+  createVehicle(Math.random() * 2000 - 1000, 10, Math.random() * 2000 - 1000);
+}
+
+// Car shop spawns cars
+function buyCar() {
+  if (player.money >= 50) {
+    player.money -= 50;
+    createVehicle(player.position.x + 50, 10, player.position.z);
+  }
+}
+
 /* ===== NPC ===== */
-// Simple box NPCs for optimization (low poly)
-const npcGeometry = new THREE.BoxGeometry(10, 20, 10);
-const friendlyMaterial = new THREE.MeshLambertMaterial({ color: 0x1976d2 });
-const hostileMaterial = new THREE.MeshLambertMaterial({ color: 0xc62828 });
-const npcs = Array.from({length: 25}, (_, i) => {
-  const hostile = Math.random() > 0.6;
-  const npc = new THREE.Mesh(npcGeometry, hostile ? hostileMaterial : friendlyMaterial);
-  npc.position.set(Math.random() * world.w - world.w / 2, 10, Math.random() * world.h - world.h / 2);
-  npc.castShadow = true;
-  npc.userData = {
+// Better NPC models with face/body
+function createNPC(x, y, z, hostile) {
+  const npcGroup = new THREE.Group();
+  // Body
+  const body = new THREE.Mesh(new THREE.BoxGeometry(10, 20, 10), new THREE.MeshStandardMaterial({ color: hostile ? 0xc62828 : 0x1976d2 }));
+  body.position.y = 10;
+  npcGroup.add(body);
+  // Head
+  const head = new THREE.Mesh(new THREE.SphereGeometry(5, 16, 16), new THREE.MeshStandardMaterial({ color: 0xffd700 }));
+  head.position.y = 20;
+  npcGroup.add(head);
+  // Arms
+  const armGeom = new THREE.CylinderGeometry(2, 2, 10, 8);
+  const armMat = new THREE.MeshStandardMaterial({ color: 0x0000ff });
+  const leftArm = new THREE.Mesh(armGeom, armMat);
+  leftArm.position.set(-6, 10, 0);
+  leftArm.rotation.z = Math.PI / 2;
+  npcGroup.add(leftArm);
+  const rightArm = new THREE.Mesh(armGeom, armMat);
+  rightArm.position.set(6, 10, 0);
+  rightArm.rotation.z = Math.PI / 2;
+  npcGroup.add(rightArm);
+  // Legs
+  const legGeom = new THREE.CylinderGeometry(3, 3, 15, 8);
+  const legMat = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+  const leftLeg = new THREE.Mesh(legGeom, legMat);
+  leftLeg.position.set(-4, -7.5, 0);
+  npcGroup.add(leftLeg);
+  const rightLeg = new THREE.Mesh(legGeom, legMat);
+  rightLeg.position.set(4, -7.5, 0);
+  npcGroup.add(rightLeg);
+
+  npcGroup.position.set(x, y, z);
+  npcGroup.castShadow = true;
+  scene.add(npcGroup);
+
+  // Physics
+  const npcShape = new CANNON.Box(new CANNON.Vec3(5, 10, 5));
+  const npcBody = new CANNON.Body({ mass: 1 });
+  npcBody.addShape(npcShape);
+  npcBody.position.set(x, y + 10, z);
+  physicsWorld.addBody(npcBody);
+
+  npcGroup.userData = {
     health: 50,
     state: "idle",
     hostile,
     hit: 0,
-    name: "NPC_" + i,
-    velocity: new THREE.Vector3()
+    name: "NPC_" + npcs.length,
+    physicsBody: npcBody
   };
-  scene.add(npc);
-  return npc;
-});
+  return npcGroup;
+}
+const npcs = [];
+for (let i = 0; i < 50; i++) { // More NPCs
+  const hostile = Math.random() > 0.5;
+  npcs.push(createNPC(Math.random() * world.w - world.w / 2, 10, Math.random() * world.h - world.h / 2, hostile));
+}
+
+/* ===== JOBS / COLLECTIBLES ===== */
+const collectibles = [];
+function createCollectible(x, z) {
+  const collectible = new THREE.Mesh(new THREE.SphereGeometry(5, 16, 16), new THREE.MeshStandardMaterial({ color: 0xffff00 }));
+  collectible.position.set(x, 10, z);
+  scene.add(collectible);
+  collectibles.push(collectible);
+}
+for (let i = 0; i < 20; i++) {
+  createCollectible(Math.random() * 2000 - 1000, Math.random() * 2000 - 1000);
+}
 
 /* ===== INPUT ===== */
 const keys = {};
@@ -228,11 +485,17 @@ document.onkeydown = e => keys[e.key] = true;
 document.onkeyup = e => keys[e.key] = false;
 runBtn.ontouchstart = () => keys.Shift = true;
 runBtn.ontouchend = () => keys.Shift = false;
-emoBtn.onclick = () => player.emote = 40;
+emoBtn.onclick = () => player.emote = Math.floor(Math.random() * 5) + 1; // Tons of emotes (5 types)
+enterBtn.ontouchstart = () => enterVehicle();
+enterBtn.ontouchend = () => {};
 
-// Mouse look is handled by PointerLockControls
+// Weapon switch
+document.addEventListener('keypress', (e) => {
+  if (e.key === '1') player.currentWeapon = 0;
+  if (e.key === '2') player.currentWeapon = 1;
+});
 
-/* JOYSTICK for movement */
+// Joystick
 let jx = 0, jy = 0;
 joy.ontouchmove = e => {
   const r = joy.getBoundingClientRect(), t = e.touches[0];
@@ -247,24 +510,46 @@ setInterval(() => {
   time += 0.01; if (time >= 24) time = 0;
   timeText.textContent = Math.floor(time) + ":00";
   const night = time < 6 || time > 18;
-  ambientLight.intensity = night ? 0.2 : 0.5;
-  sunLight.intensity = night ? 0.1 : 0.8;
+  ambientLight.intensity = night ? 0.3 : 0.6;
+  hemiLight.intensity = night ? 0.2 : 0.6;
+  sunLight.intensity = night ? 0.2 : 1.0;
   light.style.background = night ? "rgba(0,0,60,.45)" : "transparent";
 }, 100);
 
 /* ===== START ===== */
+let assetsLoaded = false;
+const loader = new THREE.TextureLoader();
+loader.load('https://threejs.org/examples/textures/terrain/grasslight-big.jpg', () => {
+  assetsLoaded = true;
+  document.getElementById('loading').style.display = 'none';
+});
+
 function start() {
   player.name = name.value || "Player";
   uname.textContent = player.name;
   login.style.display = "none";
-  controls.lock(); // Lock pointer on start
+  controls.lock();
+}
+
+function respawn() {
+  player.health = 100;
+  player.alive = true;
+  player.position.set(0, 10, 0);
+  playerBody.position.set(0, 10, 0);
+  player.velocity.set(0,0,0);
+  respawn.style.display = "none";
 }
 
 /* ===== LOOP ===== */
 let last = 0;
+const fixedTimeStep = 1 / 60;
+const maxSubSteps = 3;
 function loop(ts) {
-  const dt = Math.min(32, ts - last); last = ts;
-  update(dt / 16);
+  const dt = (ts - last) / 1000; last = ts;
+  if (player.alive) {
+    update(dt);
+    physicsWorld.step(fixedTimeStep, dt, maxSubSteps);
+  }
   draw();
   requestAnimationFrame(loop);
 }
@@ -272,12 +557,10 @@ requestAnimationFrame(loop);
 
 /* ===== UPDATE ===== */
 function update(dt) {
-  if (!player.alive) return;
-
   // Movement
-  const moveSpeed = keys.Shift && player.stamina > 0 ? 8 : 4;
-  if (keys.Shift) player.stamina -= 0.2 * dt; else player.stamina += 0.12 * dt;
-  player.hunger -= 0.0015 * dt;
+  const moveSpeed = keys.Shift && player.stamina > 0 ? 20 : 10; // Faster
+  if (keys.Shift) player.stamina -= 0.5 * dt; else player.stamina += 0.3 * dt;
+  player.hunger -= 0.004 * dt;
   player.stamina = Math.max(0, Math.min(100, player.stamina));
   player.hunger = Math.max(0, Math.min(100, player.hunger));
 
@@ -288,32 +571,74 @@ function update(dt) {
   const right = new THREE.Vector3();
   right.crossVectors(forward, camera.up).normalize();
 
-  player.velocity.set(0, player.velocity.y, 0); // Reset horizontal velocity
+  player.velocity.set(0, player.velocity.y, 0);
 
-  if (keys.w || keys.ArrowUp || jy < 0) player.velocity.add(forward.multiplyScalar(moveSpeed * dt));
-  if (keys.s || keys.ArrowDown || jy > 0) player.velocity.add(forward.multiplyScalar(-moveSpeed * dt));
-  if (keys.a || keys.ArrowLeft || jx < 0) player.velocity.add(right.multiplyScalar(-moveSpeed * dt));
-  if (keys.d || keys.ArrowRight || jx > 0) player.velocity.add(right.multiplyScalar(moveSpeed * dt));
+  if (!player.inVehicle) {
+    if (keys.w || keys.ArrowUp || jy < 0) player.velocity.add(forward.multiplyScalar(moveSpeed));
+    if (keys.s || keys.ArrowDown || jy > 0) player.velocity.add(forward.multiplyScalar(-moveSpeed));
+    if (keys.a || keys.ArrowLeft || jx < 0) player.velocity.add(right.multiplyScalar(-moveSpeed));
+    if (keys.d || keys.ArrowRight || jx > 0) player.velocity.add(right.multiplyScalar(moveSpeed));
 
-  // Simple gravity and ground clamping
-  player.velocity.y -= 0.98 * dt; // Gravity
-  player.position.add(player.velocity);
+    // Jump
+    if (keys[' '] && playerBody.velocity.y === 0) playerBody.velocity.y = 10;
 
-  if (player.position.y < 10) {
-    player.position.y = 10;
-    player.velocity.y = 0;
+    playerBody.velocity.x = player.velocity.x * dt;
+    playerBody.velocity.z = player.velocity.z * dt;
+    player.position.copy(playerBody.position);
+  } else {
+    const vehicle = player.vehicle.userData.physics;
+    const speed = 1000;
+    vehicle.setSteeringValue(0, 0);
+    vehicle.setSteeringValue(0, 1);
+    vehicle.setSteeringValue(0, 2);
+    vehicle.setSteeringValue(0, 3);
+
+    if (keys.w || keys.ArrowUp || jy < 0) {
+      vehicle.setBrake(0, 0);
+      vehicle.setBrake(0, 1);
+      vehicle.setBrake(0, 2);
+      vehicle.setBrake(0, 3);
+      vehicle.applyEngineForce(speed, 2);
+      vehicle.applyEngineForce(speed, 3);
+    } else if (keys.s || keys.ArrowDown || jy > 0) {
+      vehicle.applyEngineForce(-speed / 2, 2);
+      vehicle.applyEngineForce(-speed / 2, 3);
+    } else {
+      vehicle.applyEngineForce(0, 2);
+      vehicle.applyEngineForce(0, 3);
+    }
+
+    if (keys.a || keys.ArrowLeft || jx < 0) {
+      vehicle.setSteeringValue(0.35, 0);
+      vehicle.setSteeringValue(0.35, 1);
+    } else if (keys.d || keys.ArrowRight || jx > 0) {
+      vehicle.setSteeringValue(-0.35, 0);
+      vehicle.setSteeringValue(-0.35, 1);
+    }
+
+    // Update vehicle position
+    player.vehicle.position.copy(vehicle.chassisBody.position);
+    player.vehicle.quaternion.copy(vehicle.chassisBody.quaternion);
+
+    // Camera follow vehicle
+    const relativeCameraOffset = new THREE.Vector3(0, 20, -50);
+    const cameraOffset = relativeCameraOffset.applyMatrix4(player.vehicle.matrixWorld);
+    camera.position.lerp(cameraOffset, 0.1);
+    camera.lookAt(player.vehicle.position);
   }
 
   camera.position.copy(player.position);
+  camera.position.y += 10; // Eye height
 
-  // Clamp to world bounds
+  // Clamp to world
   player.position.x = Math.max(-world.w / 2, Math.min(world.w / 2, player.position.x));
   player.position.z = Math.max(-world.h / 2, Math.min(world.h / 2, player.position.z));
 
-  // Attack
+  // Attack / Shoot
   if (keys.f && player.attackCD <= 0) {
-    attack();
-    player.attackCD = 20;
+    if (player.currentWeapon === 0) attack();
+    else shootGun();
+    player.attackCD = player.currentWeapon === 0 ? 20 : 10;
   }
   if (player.attackCD > 0) player.attackCD -= dt;
 
@@ -322,54 +647,140 @@ function update(dt) {
     const data = n.userData;
     if (data.health <= 0) return;
 
+    n.position.copy(data.physicsBody.position);
+
     const dx = player.position.x - n.position.x;
     const dz = player.position.z - n.position.z;
     const dist = Math.hypot(dx, dz);
 
     if (data.hostile && dist < 180) {
       const dir = new THREE.Vector3(dx, 0, dz).normalize();
-      data.velocity.add(dir.multiplyScalar(0.4 * dt));
+      data.physicsBody.velocity.set(dir.x * 10, data.physicsBody.velocity.y, dir.z * 10);
       if (dist < 30 && player.hitCD <= 0) {
         damagePlayer(5, dx, dz);
         player.hitCD = 30;
       }
     }
 
-    data.velocity.multiplyScalar(0.85);
-    n.position.add(data.velocity);
-
     if (data.hit > 0) data.hit -= dt;
-    // Simple billboarding for name (optimization: no full text rendering)
   });
 
-  if (player.hitCD > 0) player.hitCD -= dt;
+  // Vehicles update
+  vehicles.forEach(v => {
+    const phys = v.userData.physics;
+    for (let i = 0; i < phys.numWheels; i++) {
+      phys.updateWheelTransform(i);
+      const t = phys.wheelInfos[i].worldTransform;
+      v.userData.wheels[i].position.copy(t.position);
+      v.userData.wheels[i].quaternion.copy(t.quaternion);
+    }
+  });
 
+  // Collectibles
+  collectibles.forEach((c, i) => {
+    const dist = player.position.distanceTo(c.position);
+    if (dist < 20) {
+      player.money += 10;
+      scene.remove(c);
+      collectibles.splice(i, 1);
+    }
+  });
+
+  // Enter vehicle
+  if (keys.e) enterVehicle();
+
+  // Car shop
+  const shopDist = player.position.distanceTo(new THREE.Vector3(0, 0, -500));
+  if (shopDist < 50 && keys.b) buyCar(); // Press B to buy
+
+  if (player.hitCD > 0) player.hitCD -= dt;
   if (player.emote > 0) player.emote -= dt;
+
+  // Death check
+  if (player.health <= 0) {
+    player.alive = false;
+    respawn.style.display = "flex";
+  }
+}
+
+function enterVehicle() {
+  if (player.inVehicle) {
+    player.inVehicle = false;
+    player.position.copy(player.vehicle.position.clone().add(new THREE.Vector3(0, 10, 30)));
+    playerBody.position.copy(player.position);
+    player.vehicle = null;
+  } else {
+    let closest = null;
+    let minDist = Infinity;
+    vehicles.forEach(v => {
+      const dist = player.position.distanceTo(v.position);
+      if (dist < 30 && dist < minDist) {
+        minDist = dist;
+        closest = v;
+      }
+    });
+    if (closest) {
+      player.inVehicle = true;
+      player.vehicle = closest;
+    }
+  }
 }
 
 /* ===== COMBAT ===== */
 function attack() {
   const raycaster = new THREE.Raycaster();
-  raycaster.setFromCamera(new THREE.Vector2(0, 0), camera); // Center of screen
-  const intersects = raycaster.intersectObjects(npcs);
+  raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+  const intersects = raycaster.intersectObjects(npcs.map(n => n.children[0])); // Intersect body
 
   if (intersects.length > 0 && intersects[0].distance < 40) {
-    const n = intersects[0].object;
+    const n = intersects[0].object.parent;
     const data = n.userData;
     data.health -= 20;
     const knockback = new THREE.Vector3().subVectors(n.position, player.position).normalize().multiplyScalar(0.1);
-    data.velocity.add(knockback);
+    data.physicsBody.velocity.add(knockback);
     data.hit = 10;
-    // Camera shake
     camera.position.add(new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).multiplyScalar(2));
-    setTimeout(() => camera.position.copy(player.position), 100);
+    setTimeout(() => camera.position.copy(player.position).add(new THREE.Vector3(0,10,0)), 100);
   }
+}
+
+const bullets = [];
+function shootGun() {
+  const bullet = new THREE.Mesh(new THREE.SphereGeometry(1, 8, 8), new THREE.MeshBasicMaterial({ color: 0x000000 }));
+  bullet.position.copy(camera.position);
+  bullet.velocity = new THREE.Vector3();
+  camera.getWorldDirection(bullet.velocity);
+  bullet.velocity.multiplyScalar(100);
+  bullet.alive = true;
+  scene.add(bullet);
+  bullets.push(bullet);
+}
+
+function updateBullets(dt) {
+  bullets.forEach((b, i) => {
+    if (!b.alive) return;
+    b.position.add(b.velocity.clone().multiplyScalar(dt));
+    if (b.position.y < 0 || Math.abs(b.position.x) > world.w / 2 || Math.abs(b.position.z) > world.h / 2) {
+      scene.remove(b);
+      bullets.splice(i, 1);
+      return;
+    }
+    npcs.forEach(n => {
+      if (n.userData.health <= 0) return;
+      const dist = b.position.distanceTo(n.position);
+      if (dist < 10) {
+        n.userData.health -= 10;
+        b.alive = false;
+        scene.remove(b);
+      }
+    });
+  });
 }
 
 function damagePlayer(d, dx, dz) {
   player.health -= d;
   const knockback = new THREE.Vector3(dx, 0, dz).normalize().multiplyScalar(-0.02);
-  player.velocity.add(knockback);
+  playerBody.velocity.add(knockback);
   hitFlash.style.opacity = 0.5;
   setTimeout(() => hitFlash.style.opacity = 0, 100);
 }
@@ -381,9 +792,10 @@ function draw() {
   stamina.style.width = player.stamina + "%";
   hunger.style.width = player.hunger + "%";
   money.textContent = player.money;
+  weaponText.textContent = player.currentWeapon === 0 ? "Fist" : "Gun";
 
-  // Render scene
-  renderer.render(scene, camera);
+  // Render with post-processing
+  composer.render();
 }
 </script>
 </body>
