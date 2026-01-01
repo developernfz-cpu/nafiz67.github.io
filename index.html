@@ -21,15 +21,6 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 #stamina{background:#fbc02d}
 #hunger{background:#fb8c00}
 
-/* LOGIN */
-#login{
- position:fixed;inset:0;background:#000c;
- display:flex;align-items:center;justify-content:center;z-index:99
-}
-#login .box{
- background:#fff;padding:22px;border-radius:14px;text-align:center
-}
-
 /* RESPAWN */
 #respawn{
  position:fixed;inset:0;background:#000c;
@@ -109,14 +100,6 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 </head>
 <body>
 
-<div id="login">
- <div class="box">
-  <h2>Ultra City Hope - GTA Web</h2>
-  <input id="name" placeholder="Your Name"><br><br>
-  <button onclick="start()">ENTER</button>
- </div>
-</div>
-
 <div id="tutorial">
  <div>
   <h2>Tutorial</h2>
@@ -173,6 +156,25 @@ body{overflow:hidden;font-family:system-ui;background:#87ceeb}
 <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/math/ImprovedNoise.js"></script>
 
 <script>
+/* ===== DOM ELEMENTS ===== */
+const uname = document.getElementById('uname');
+const moneyElement = document.getElementById('money'); // Renamed to avoid conflict with player.money
+const timeText = document.getElementById('timeText');
+const health = document.getElementById('health');
+const stamina = document.getElementById('stamina');
+const hunger = document.getElementById('hunger');
+const weaponText = document.getElementById('weaponText');
+const tutorial = document.getElementById('tutorial');
+const respawn = document.getElementById('respawn');
+const pauseMenu = document.getElementById('pause'); // Renamed to avoid conflict
+const light = document.getElementById('light');
+const hitFlash = document.getElementById('hitFlash');
+const runBtn = document.getElementById('runBtn');
+const emoBtn = document.getElementById('emoBtn');
+const enterBtn = document.getElementById('enterBtn');
+const joy = document.getElementById('joy');
+const bloomStatus = document.getElementById('bloomStatus');
+
 /* ===== CORE ===== */
 const container = document.getElementById('game');
 const scene = new THREE.Scene();
@@ -568,13 +570,13 @@ setInterval(() => {
 }, 100);
 
 /* ===== START ===== */
-function start() {
-  player.name = name.value || "Player";
-  uname.textContent = player.name;
-  login.style.display = "none";
-  tutorial.style.display = "flex";
-  controls.lock();
-}
+player.name = "Player";
+uname.textContent = player.name;
+tutorial.style.display = "flex";
+controls.lock();
+
+/* ===== OTHER FUNCTIONS ===== */
+// (respawn, togglePause, toggleBloom, saveGame, loadGame, loop, update, enterVehicle, attack, shootGun, updateBullets, damagePlayer, draw remain the same)
 
 function respawn() {
   player.health = 100;
@@ -588,7 +590,7 @@ function respawn() {
 let paused = false;
 function togglePause() {
   paused = !paused;
-  pause.style.display = paused ? "flex" : "none";
+  pauseMenu.style.display = paused ? "flex" : "none";
   if (paused) controls.unlock(); else controls.lock();
 }
 
@@ -626,7 +628,6 @@ function loadGame() {
   }
 }
 
-/* ===== LOOP ===== */
 let last = 0;
 const fixedTimeStep = 1 / 60;
 const maxSubSteps = 3;
@@ -641,7 +642,6 @@ function loop(ts) {
 }
 requestAnimationFrame(loop);
 
-/* ===== UPDATE ===== */
 function update(dt) {
   // Movement
   const moveSpeed = keys.Shift && player.stamina > 0 ? 20 : 10; // Faster
@@ -891,7 +891,7 @@ function draw() {
   health.style.width = player.health + "%";
   stamina.style.width = player.stamina + "%";
   hunger.style.width = player.hunger + "%";
-  money.textContent = player.money;
+  moneyElement.textContent = player.money;
   weaponText.textContent = player.currentWeapon === 0 ? "Fist" : "Gun";
 
   // Render with post-processing
