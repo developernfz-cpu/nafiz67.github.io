@@ -1,592 +1,3620 @@
-body {
-        overflow: hidden;
-        font-family: 'Segoe UI', 'Arial', sans-serif;
-        background: #0a0a0a;
-        color: white;
-        touch-action: none;
-    }
-
-    canvas {
-        display: block;
-    }
-
-    /* LOADING SCREEN - Bangladeshi Theme */
-    #loadingScreen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, #006a4e 0%, #006a4e 50%, #f42a41 50%, #f42a41 100%);
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: opacity 0.8s;
-    }
-
-    .bangladeshi-flag {
-        width: 200px;
-        height: 120px;
-        background: #006a4e;
-        border-radius: 5px;
-        position: relative;
-        margin-bottom: 30px;
-        border: 3px solid white;
-        box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
-    .bangladeshi-flag::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 60px;
-        height: 60px;
-        background: #f42a41;
-        border-radius: 50%;
-    }
-
-    .loader {
-        width: 80px;
-        height: 80px;
-        border: 5px solid rgba(255,255,255,0.3);
-        border-top: 5px solid #f42a41;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin-bottom: 20px;
-    }
-
-    #loadingText {
-        font-size: 22px;
-        margin-top: 10px;
-        color: white;
-        font-weight: bold;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-
-    .loading-progress {
-        width: 300px;
-        height: 10px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 5px;
-        margin-top: 20px;
-        overflow: hidden;
-    }
-
-    .loading-bar {
-        height: 100%;
-        background: linear-gradient(90deg, #006a4e, #f42a41);
-        width: 0%;
-        transition: width 0.3s;
-        border-radius: 5px;
-    }
-
-    /* GAME CONTAINER */
-    #gameContainer {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    }
-
-    /* HUD - Bangladeshi Colors */
-    #hud {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 10;
-    }
-
-    .hud-top-left {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-    }
-
-    .hud-top-right {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        text-align: right;
-    }
-
-    .hud-bottom {
-        position: absolute;
-        bottom: 120px;
-        left: 20px;
-        right: 20px;
-    }
-
-    .hud-stat {
-        background: rgba(0, 0, 0, 0.75);
-        border-radius: 15px;
-        padding: 12px 18px;
-        backdrop-filter: blur(10px);
-        border: 2px solid #006a4e;
-        margin-bottom: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        min-width: 200px;
-    }
-
-    .stat-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 5px;
-        color: #f42a41;
-        font-weight: bold;
-    }
-
-    .stat-bar {
-        width: 100%;
-        height: 12px;
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 6px;
-        overflow: hidden;
-    }
-
-    .stat-fill {
-        height: 100%;
-        border-radius: 6px;
-        transition: width 0.3s;
-        box-shadow: 0 0 10px currentColor;
-    }
-
-    #healthBar { 
-        background: linear-gradient(90deg, #f42a41, #ff6b6b);
-        color: #f42a41;
-    }
-    
-    #staminaBar { 
-        background: linear-gradient(90deg, #00a8ff, #4cd137);
-        color: #00a8ff;
-    }
-    
-    #money { 
-        color: #f1c40f;
-        font-weight: bold;
-        font-size: 20px;
-        text-shadow: 0 0 10px gold;
-    }
-
-    #weaponDisplay {
-        background: rgba(0, 0, 0, 0.8);
-        padding: 10px 20px;
-        border-radius: 25px;
-        border: 2px solid #f42a41;
-        display: inline-block;
-        font-size: 16px;
-        font-weight: bold;
-        box-shadow: 0 5px 15px rgba(244,42,65,0.3);
-    }
-
-    #locationDisplay {
-        background: rgba(0, 106, 78, 0.8);
-        padding: 8px 15px;
-        border-radius: 20px;
-        font-size: 14px;
-        border: 2px solid #f42a41;
-        box-shadow: 0 3px 10px rgba(0,106,78,0.5);
-    }
-
-    /* BANGLADESHI THEME CONTROLS - Vibrant and Colorful */
-    #mobileControls {
-        position: fixed;
-        bottom: 30px;
-        left: 30px;
-        right: 30px;
-        z-index: 20;
-        display: flex;
-        justify-content: space-between;
-        pointer-events: none;
-    }
-
-    .control-group {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        pointer-events: auto;
-    }
-
-    /* Bangladeshi Flag Themed Joystick */
-    .joystick {
-        width: 130px;
-        height: 130px;
-        background: radial-gradient(circle, #006a4e 0%, #004d36 100%);
-        border-radius: 50%;
-        position: relative;
-        border: 4px solid #f42a41;
-        box-shadow: 
-            0 8px 25px rgba(0,0,0,0.5),
-            0 0 0 2px rgba(255,255,255,0.2),
-            inset 0 0 20px rgba(0,0,0,0.3);
-    }
-
-    .joystick::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 40px;
-        height: 40px;
-        background: #f42a41;
-        border-radius: 50%;
-        z-index: 1;
-    }
-
-    .joystick-handle {
-        width: 60px;
-        height: 60px;
-        background: radial-gradient(circle, #fff 0%, #ccc 100%);
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border: 4px solid #f42a41;
-        box-shadow: 
-            0 0 20px rgba(244,42,65,0.5),
-            inset 0 5px 15px rgba(255,255,255,0.9);
-        z-index: 2;
-    }
-
-    /* Colorful Action Buttons */
-    .action-button {
-        width: 75px;
-        height: 75px;
-        border-radius: 50%;
-        color: white;
-        font-size: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.1s;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 
-            0 8px 20px rgba(0,0,0,0.4),
-            0 0 0 3px rgba(255,255,255,0.1);
-    }
-
-    .action-button::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(255,255,255,0.1);
-        border-radius: 50%;
-        opacity: 0;
-        transition: opacity 0.2s;
-    }
-
-    .action-button:active {
-        transform: scale(0.9);
-        box-shadow: 
-            0 4px 10px rgba(0,0,0,0.3),
-            0 0 0 3px rgba(255,255,255,0.2);
-    }
-
-    .action-button:active::before {
-        opacity: 1;
-    }
-
-    /* Individual Button Colors */
-    #jumpBtn { 
-        background: linear-gradient(135deg, #4cd137, #2ecc71);
-        border: 4px solid #27ae60;
-    }
-    
-    #attackBtn { 
-        background: linear-gradient(135deg, #e74c3c, #c0392b);
-        border: 4px solid #7f0000;
-        animation: pulse 2s infinite;
-    }
-    
-    #interactBtn { 
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        border: 4px solid #1a5276;
-    }
-    
-    #menuBtn { 
-        background: linear-gradient(135deg, #9b59b6, #8e44ad);
-        border: 4px solid #6c3483;
-    }
-
-    #weaponBtn {
-        background: linear-gradient(135deg, #f39c12, #e67e22);
-        border: 4px solid #d35400;
-        width: 85px;
-        height: 85px;
-        font-size: 32px;
-    }
-
-    /* MISSION NOTIFICATION */
-    #missionNotification {
-        position: fixed;
-        top: 100px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(135deg, #006a4e, #004d36);
-        border-left: 5px solid #f42a41;
-        padding: 18px 30px;
-        border-radius: 15px;
-        z-index: 40;
-        display: none;
-        backdrop-filter: blur(10px);
-        animation: slideDown 0.5s ease-out;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        max-width: 90%;
-        text-align: center;
-        border: 2px solid #f42a41;
-    }
-
-    /* MINIMAP */
-    #miniMap {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 180px;
-        height: 180px;
-        background: rgba(0, 0, 0, 0.7);
-        border-radius: 20px;
-        border: 3px solid #006a4e;
-        z-index: 15;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .mini-map-content {
-        width: 100%;
-        height: 100%;
-        position: relative;
-    }
-
-    .mini-map-player {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: #f42a41;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #f42a41;
-        border: 2px solid white;
-    }
-
-    /* MENUS */
-    .menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 106, 78, 0.95);
-        z-index: 30;
-        display: none;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        backdrop-filter: blur(20px);
-    }
-
-    .menu-content {
-        background: rgba(0, 0, 0, 0.9);
-        border-radius: 25px;
-        padding: 40px;
-        max-width: 500px;
-        width: 90%;
-        border: 4px solid #f42a41;
-        box-shadow: 0 0 50px rgba(244, 42, 65, 0.5);
-        text-align: center;
-    }
-
-    .menu h2 {
-        color: #f42a41;
-        margin-bottom: 30px;
-        text-align: center;
-        font-size: 36px;
-        text-shadow: 0 0 20px rgba(244,42,65,0.7);
-        font-weight: bold;
-    }
-
-    .menu-button {
-        width: 100%;
-        padding: 18px;
-        margin: 12px 0;
-        background: linear-gradient(135deg, #006a4e, #004d36);
-        border: 3px solid #f42a41;
-        color: white;
-        border-radius: 15px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .menu-button:hover {
-        background: linear-gradient(135deg, #00875a, #006a4e);
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(244,42,65,0.3);
-    }
-
-    .menu-button:active {
-        transform: translateY(0);
-    }
-
-    /* ANIMATIONS */
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    @keyframes slideDown {
-        from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
-        to { transform: translateX(-50%) translateY(0); opacity: 1; }
-    }
-
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-        70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
-    }
-
-    /* CROSSHAIR */
-    #crosshair {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 24px;
-        height: 24px;
-        pointer-events: none;
-        z-index: 5;
-    }
-
-    .crosshair-dot {
-        width: 6px;
-        height: 6px;
-        background: #f42a41;
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #f42a41;
-    }
-
-    .crosshair-line {
-        position: absolute;
-        background: #f42a41;
-        border-radius: 1px;
-    }
-
-    .crosshair-horizontal {
-        width: 14px;
-        height: 3px;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .crosshair-vertical {
-        width: 3px;
-        height: 14px;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    /* TIME DISPLAY */
-    #timeDisplay {
-        position: fixed;
-        top: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.8);
-        padding: 10px 25px;
-        border-radius: 25px;
-        border: 2px solid #006a4e;
-        font-size: 16px;
-        font-weight: bold;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-        .joystick {
-            width: 110px;
-            height: 110px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NAFIZ EMPIRE - Bangladeshi Open World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
         }
-        
-        .action-button {
-            width: 65px;
-            height: 65px;
-            font-size: 24px;
+
+        body {
+            overflow: hidden;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: white;
+            touch-action: none;
         }
-        
-        #weaponBtn {
-            width: 70px;
-            height: 70px;
-            font-size: 26px;
+
+        canvas {
+            display: block;
         }
-        
+
+        /* LOADING SCREEN - Bangladeshi Theme */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #006a4e 0%, #006a4e 50%, #f42a41 50%, #f42a41 100%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s;
+        }
+
+        .bangladeshi-flag {
+            width: 200px;
+            height: 120px;
+            background: #006a4e;
+            border-radius: 5px;
+            position: relative;
+            margin-bottom: 30px;
+            border: 3px solid white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .bangladeshi-flag::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: #f42a41;
+            border-radius: 50%;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-top: 5px solid #f42a41;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        #loadingText {
+            font-size: 22px;
+            margin-top: 10px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #006a4e, #f42a41);
+            width: 0%;
+            transition: width 0.3s;
+            border-radius: 5px;
+        }
+
+        /* GAME CONTAINER */
+        #gameContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* HUD - Bangladeshi Colors */
+        #hud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .hud-top-left {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .hud-top-right {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            text-align: right;
+        }
+
+        .hud-bottom {
+            position: absolute;
+            bottom: 120px;
+            left: 20px;
+            right: 20px;
+        }
+
         .hud-stat {
-            padding: 10px 15px;
-            font-size: 14px;
-            min-width: 170px;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 15px;
+            padding: 12px 18px;
+            backdrop-filter: blur(10px);
+            border: 2px solid #006a4e;
+            margin-bottom: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            min-width: 200px;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            color: #f42a41;
+            font-weight: bold;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.3s;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        #healthBar { 
+            background: linear-gradient(90deg, #f42a41, #ff6b6b);
+            color: #f42a41;
         }
         
-        #miniMap {
-            width: 150px;
-            height: 150px;
-            bottom: 25px;
-            right: 25px;
+        #staminaBar { 
+            background: linear-gradient(90deg, #00a8ff, #4cd137);
+            color: #00a8ff;
         }
-    }
+        
+        #money { 
+            color: #f1c40f;
+            font-weight: bold;
+            font-size: 20px;
+            text-shadow: 0 0 10px gold;
+        }
 
-    /* SCORE DISPLAY */
-    #scoreDisplay {
-        position: fixed;
-        top: 80px;
-        right: 20px;
-        background: rgba(0, 0, 0, 0.8);
-        padding: 15px 25px;
-        border-radius: 20px;
-        border: 2px solid #f42a41;
-        font-size: 18px;
-        font-weight: bold;
-        box-shadow: 0 5px 20px rgba(244,42,65,0.3);
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
+        #weaponDisplay {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #f42a41;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(244,42,65,0.3);
+        }
 
-    /* HIT EFFECT */
-    .hit-effect {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 25;
-        opacity: 0;
-        transition: opacity 0.1s;
-        background: radial-gradient(circle, transparent 30%, rgba(244,42,65,0.3) 100%);
-    }
-</style>
+        #ammoDisplay {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 2px solid #f42a41;
+            display: inline-block;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        #locationDisplay {
+            background: rgba(0, 106, 78, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            border: 2px solid #f42a41;
+            box-shadow: 0 3px 10px rgba(0,106,78,0.5);
+        }
+
+        /* BANGLADESHI THEME CONTROLS - Vibrant and Colorful */
+        #mobileControls {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            pointer-events: auto;
+        }
+
+        /* Bangladeshi Flag Themed Joystick */
+        .joystick {
+            width: 130px;
+            height: 130px;
+            background: radial-gradient(circle, #006a4e 0%, #004d36 100%);
+            border-radius: 50%;
+            position: relative;
+            border: 4px solid #f42a41;
+            box-shadow: 
+                0 8px 25px rgba(0,0,0,0.5),
+                0 0 0 2px rgba(255,255,255,0.2),
+                inset 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .joystick::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: #f42a41;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .joystick-handle {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #fff 0%, #ccc 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f42a41;
+            box-shadow: 
+                0 0 20px rgba(244,42,65,0.5),
+                inset 0 5px 15px rgba(255,255,255,0.9);
+            z-index: 2;
+        }
+
+        /* Colorful Action Buttons */
+        .action-button {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            color: white;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.1s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 20px rgba(0,0,0,0.4),
+                0 0 0 3px rgba(255,255,255,0.1);
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .action-button:active {
+            transform: scale(0.9);
+            box-shadow: 
+                0 4px 10px rgba(0,0,0,0.3),
+                0 0 0 3px rgba(255,255,255,0.2);
+        }
+
+        .action-button:active::before {
+            opacity: 1;
+        }
+
+        /* Individual Button Colors */
+        #jumpBtn { 
+            background: linear-gradient(135deg, #4cd137, #2ecc71);
+            border: 4px solid #27ae60;
+        }
+        
+        #attackBtn { 
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: 4px solid #7f0000;
+            animation: pulse 2s infinite;
+        }
+        
+        #interactBtn { 
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border: 4px solid #1a5276;
+        }
+        
+        #menuBtn { 
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            border: 4px solid #6c3483;
+        }
+
+        #weaponBtn {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border: 4px solid #d35400;
+            width: 85px;
+            height: 85px;
+            font-size: 32px;
+        }
+
+        #crouchBtn {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            border: 4px solid #5d6d7e;
+        }
+
+        /* MISSION NOTIFICATION */
+        #missionNotification {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #006a4e, #004d36);
+            border-left: 5px solid #f42a41;
+            padding: 18px 30px;
+            border-radius: 15px;
+            z-index: 40;
+            display: none;
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.5s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 90%;
+            text-align: center;
+            border: 2px solid #f42a41;
+        }
+
+        /* MINIMAP */
+        #miniMap {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 180px;
+            height: 180px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            border: 3px solid #006a4e;
+            z-index: 15;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .mini-map-content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .mini-map-player {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #f42a41;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #f42a41;
+            border: 2px solid white;
+        }
+
+        /* MENUS */
+        .menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 106, 78, 0.95);
+            z-index: 30;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(20px);
+        }
+
+        .menu-content {
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            border: 4px solid #f42a41;
+            box-shadow: 0 0 50px rgba(244, 42, 65, 0.5);
+            text-align: center;
+        }
+
+        .menu h2 {
+            color: #f42a41;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 36px;
+            text-shadow: 0 0 20px rgba(244,42,65,0.7);
+            font-weight: bold;
+        }
+
+        .menu-button {
+            width: 100%;
+            padding: 18px;
+            margin: 12px 0;
+            background: linear-gradient(135deg, #006a4e, #004d36);
+            border: 3px solid #f42a41;
+            color: white;
+            border-radius: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .menu-button:hover {
+            background: linear-gradient(135deg, #00875a, #006a4e);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(244,42,65,0.3);
+        }
+
+        .menu-button:active {
+            transform: translateY(0);
+        }
+
+        /* ANIMATIONS */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+
+        /* CROSSHAIR */
+        #crosshair {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .crosshair-dot {
+            width: 6px;
+            height: 6px;
+            background: #f42a41;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #f42a41;
+        }
+
+        .crosshair-line {
+            position: absolute;
+            background: #f42a41;
+            border-radius: 1px;
+        }
+
+        .crosshair-horizontal {
+            width: 14px;
+            height: 3px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .crosshair-vertical {
+            width: 3px;
+            height: 14px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* TIME DISPLAY */
+        #timeDisplay {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 25px;
+            border-radius: 25px;
+            border: 2px solid #006a4e;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .joystick {
+                width: 110px;
+                height: 110px;
+            }
+            
+            .action-button {
+                width: 65px;
+                height: 65px;
+                font-size: 24px;
+            }
+            
+            #weaponBtn {
+                width: 70px;
+                height: 70px;
+                font-size: 26px;
+            }
+            
+            .hud-stat {
+                padding: 10px 15px;
+                font-size: 14px;
+                min-width: 170px;
+            }
+            
+            #miniMap {
+                width: 150px;
+                height: 150px;
+                bottom: 25px;
+                right: 25px;
+            }
+        }
+
+        /* SCORE DISPLAY */
+        #scoreDisplay {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 25px;
+            border-radius: 20px;
+            border: 2px solid #f42a41;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(244,42,65,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* HIT EFFECT */
+        .hit-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 25;
+            opacity: 0;
+            transition: opacity 0.1s;
+            background: radial-gradient(circle, transparent 30%, rgba(244,42,65,0.3) 100%);
+        }
+
+        /* GUN RECOIL */
+        .gun-recoil {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            transform: translateY(0);
+            transition: transform 0.05s;
+        }
+
+        /* FIRST PERSON WEAPON */
+        #weaponModel {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            width: 300px;
+            height: 300px;
+            pointer-events: none;
+            z-index: 6;
+            transform: perspective(1000px) rotateX(10deg) rotateY(-10deg);
+            transition: transform 0.1s;
+        }
+
+        /* CONTROLS INFO */
+        #controlsInfo {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 12px;
+            border: 1px solid #006a4e;
+            display: none;
+        }
+
+        /* VIEW MODE SWITCHER */
+        #viewSwitch {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 2px solid #f42a41;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- LOADING SCREEN -->
+    <div id="loadingScreen">
+        <div class="bangladeshi-flag"></div>
+        <div class="loader"></div>
+        <h2 style="font-size: 36px; margin-bottom: 10px; color: white; text-shadow: 3px 3px 6px rgba(0,0,0,0.5);">NAFIZ EMPIRE</h2>
+        <p style="color: white; margin-bottom: 20px; font-size: 18px;">বাংলাদেশী ওপেন ওয়ার্ল্ড গেম</p>
+        <div id="loadingText">লোড হচ্ছে...</div>
+        <div class="loading-progress">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+    </div>
+
+    <!-- GAME CONTAINER -->
+    <div id="gameContainer"></div>
+
+    <!-- HUD -->
+    <div id="hud">
+        <!-- Crosshair -->
+        <div id="crosshair">
+            <div class="crosshair-dot"></div>
+            <div class="crosshair-line crosshair-horizontal"></div>
+            <div class="crosshair-line crosshair-vertical"></div>
+        </div>
+
+        <!-- Gun recoil effect -->
+        <div class="gun-recoil" id="gunRecoil"></div>
+
+        <!-- First Person Weapon Model -->
+        <div id="weaponModel"></div>
+
+        <!-- Top Left HUD -->
+        <div class="hud-top-left">
+            <div class="hud-stat">
+                <div class="stat-header">
+                    <span><i class="fas fa-heart"></i> স্বাস্থ্য</span>
+                    <span id="healthValue">100%</span>
+                </div>
+                <div class="stat-bar">
+                    <div id="healthBar" class="stat-fill" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <div class="hud-stat">
+                <div class="stat-header">
+                    <span><i class="fas fa-bolt"></i> শক্তি</span>
+                    <span id="staminaValue">100%</span>
+                </div>
+                <div class="stat-bar">
+                    <div id="staminaBar" class="stat-fill" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <div class="hud-stat">
+                <div class="stat-header">
+                    <span><i class="fas fa-shield-alt"></i> বর্ম</span>
+                    <span id="armorValue">100%</span>
+                </div>
+                <div class="stat-bar">
+                    <div id="armorBar" class="stat-fill" style="width: 100%; background: linear-gradient(90deg, #3498db, #2980b9);"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Right HUD -->
+        <div class="hud-top-right">
+            <div id="weaponDisplay">
+                <i class="fas fa-gun"></i> <span id="weaponName">AK-47</span>
+            </div>
+            <div id="ammoDisplay">
+                <span id="currentAmmo">30</span>/<span id="totalAmmo">120</span>
+            </div>
+            <div style="margin-top: 15px;" id="locationDisplay">
+                <i class="fas fa-map-marker-alt"></i> <span id="locationName">ঢাকা শহর</span>
+            </div>
+        </div>
+
+        <!-- Time Display -->
+        <div id="timeDisplay">
+            <i class="fas fa-clock"></i> <span id="timeText">সকাল ৯:০০</span>
+        </div>
+
+        <!-- Score Display -->
+        <div id="scoreDisplay">
+            <div><i class="fas fa-money-bill-wave"></i> <span id="money">৳ ১০০০</span></div>
+            <div><i class="fas fa-star"></i> <span id="score">স্কোর: ০</span></div>
+            <div><i class="fas fa-skull"></i> <span id="kills">নিপাত: ০</span></div>
+        </div>
+
+        <!-- Mission Notification -->
+        <div id="missionNotification">
+            <strong>মিশন:</strong> শহর ঘুরে দেখুন!
+        </div>
+
+        <!-- Hit Effect -->
+        <div class="hit-effect" id="hitEffect"></div>
+
+        <!-- Minimap -->
+        <div id="miniMap">
+            <div class="mini-map-content">
+                <div class="mini-map-player"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW MODE SWITCH -->
+    <div id="viewSwitch" onclick="toggleViewMode()">
+        <i class="fas fa-eye"></i> তৃতীয় ব্যক্তি
+    </div>
+
+    <!-- CONTROLS INFO -->
+    <div id="controlsInfo">
+        WASD: চলাচল | Space: লাফ | F: আক্রমণ | R: রিলোড | C: বসা | V: দৃশ্য পরিবর্তন
+    </div>
+
+    <!-- BANGLADESHI STYLE MOBILE CONTROLS -->
+    <div id="mobileControls">
+        <div class="control-group">
+            <div class="joystick" id="moveJoystick">
+                <div class="joystick-handle"></div>
+            </div>
+            <div class="action-button" id="jumpBtn">
+                <i class="fas fa-arrow-up"></i>
+            </div>
+            <div class="action-button" id="crouchBtn">
+                <i class="fas fa-arrow-down"></i>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="action-button" id="weaponBtn">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+            <div class="action-button" id="attackBtn">
+                <i class="fas fa-crosshairs"></i>
+            </div>
+            <div class="action-button" id="interactBtn">
+                <i class="fas fa-car-side"></i>
+            </div>
+            <div class="action-button" id="reloadBtn">
+                <i class="fas fa-redo"></i>
+            </div>
+            <div class="action-button" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN MENU -->
+    <div id="mainMenu" class="menu">
+        <div class="menu-content">
+            <h2>NAFIZ EMPIRE</h2>
+            <button class="menu-button" id="resumeBtn">
+                <i class="fas fa-play"></i> গেম চালিয়ে যান
+            </button>
+            <button class="menu-button" id="newGameBtn">
+                <i class="fas fa-plus-circle"></i> নতুন গেম
+            </button>
+            <button class="menu-button" id="settingsBtn">
+                <i class="fas fa-cog"></i> সেটিংস
+            </button>
+            <button class="menu-button" id="missionsBtn">
+                <i class="fas fa-tasks"></i> মিশন
+            </button>
+            <button class="menu-button" id="helpBtn">
+                <i class="fas fa-question-circle"></i> সাহায্য
+            </button>
+        </div>
+    </div>
+
+    <!-- SETTINGS MENU -->
+    <div id="settingsMenu" class="menu">
+        <div class="menu-content">
+            <h2><i class="fas fa-cog"></i> সেটিংস</h2>
+            <button class="menu-button" id="backBtn">
+                <i class="fas fa-arrow-left"></i> পিছনে
+            </button>
+            <div style="margin: 25px 0; color: #f42a41;">
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 18px;">গ্রাফিক্স:</label>
+                    <select id="graphicsQuality" style="width: 100%; padding: 12px; background: #111; color: white; border: 2px solid #006a4e; border-radius: 10px; font-size: 16px;">
+                        <option value="low">লো (মোবাইল)</option>
+                        <option value="medium" selected>মধ্যম</option>
+                        <option value="high">উচ্চ</option>
+                        <option value="ultra">আলট্রা</option>
+                    </select>
+                </div>
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 18px;">নিয়ন্ত্রণ:</label>
+                    <select id="controlType" style="width: 100%; padding: 12px; background: #111; color: white; border: 2px solid #006a4e; border-radius: 10px; font-size: 16px;">
+                        <option value="touch" selected>স্পর্শ নিয়ন্ত্রণ</option>
+                        <option value="keyboard">কীবোর্ড/মাউস</option>
+                        <option value="gamepad">গেমপ্যাড</option>
+                    </select>
+                </div>
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin-bottom: 8px; font-size: 18px;">দৃশ্য মোড:</label>
+                    <select id="viewMode" style="width: 100%; padding: 12px; background: #111; color: white; border: 2px solid #006a4e; border-radius: 10px; font-size: 16px;">
+                        <option value="first">প্রথম ব্যক্তি</option>
+                        <option value="third" selected>তৃতীয় ব্যক্তি</option>
+                    </select>
+                </div>
+            </div>
+            <button class="menu-button" onclick="saveSettings()">
+                <i class="fas fa-save"></i> সেভ করুন
+            </button>
+        </div>
+    </div>
+
+    <!-- MISSIONS MENU -->
+    <div id="missionsMenu" class="menu">
+        <div class="menu-content">
+            <h2><i class="fas fa-tasks"></i> মিশন</h2>
+            <div id="missionsList" style="text-align: left; margin: 20px 0; max-height: 300px; overflow-y: auto;">
+                <!-- Missions will be added here -->
+            </div>
+            <button class="menu-button" id="missionsBackBtn">
+                <i class="fas fa-arrow-left"></i> পিছনে
+            </button>
+        </div>
+    </div>
+
+    <!-- HELP MENU -->
+    <div id="helpMenu" class="menu">
+        <div class="menu-content">
+            <h2><i class="fas fa-question-circle"></i> সাহায্য</h2>
+            <div style="margin: 25px 0; line-height: 1.8; text-align: left;">
+                <p><strong><i class="fas fa-gamepad"></i> মোবাইল নিয়ন্ত্রণ:</strong></p>
+                <p><i class="fas fa-arrows-alt"></i> জয়স্টিক - চলাচল</p>
+                <p><i class="fas fa-arrow-up"></i> সবুজ বাটন - লাফান</p>
+                <p><i class="fas fa-arrow-down"></i> ধূসর বাটন - বসুন</p>
+                <p><i class="fas fa-crosshairs"></i> লাল বাটন - আক্রমণ/শুট</p>
+                <p><i class="fas fa-redo"></i> কমলা বাটন - রিলোড</p>
+                <p><i class="fas fa-car-side"></i> নীল বাটন - গাড়িতে উঠুন</p>
+                <p><i class="fas fa-exchange-alt"></i> হলুদ বাটন - অস্ত্র পরিবর্তন</p>
+                <p><i class="fas fa-bars"></i> বেগুনী বাটন - মেনু</p>
+                
+                <p style="margin-top: 25px;"><strong><i class="fas fa-keyboard"></i> কীবোর্ড:</strong></p>
+                <p>WASD - চলাচল</p>
+                <p>Space - লাফান</p>
+                <p>C - বসুন/উঠুন</p>
+                <p>Left Click - শুট</p>
+                <p>Right Click - লক্ষ্য করুন</p>
+                <p>R - রিলোড</p>
+                <p>F - গাড়িতে উঠুন</p>
+                <p>1-6 - অস্ত্র পরিবর্তন</p>
+                <p>V - দৃশ্য মোড পরিবর্তন</p>
+                <p>ESC - মেনু</p>
+            </div>
+            <button class="menu-button" id="helpBackBtn">
+                <i class="fas fa-arrow-left"></i> পিছনে
+            </button>
+        </div>
+    </div>
+
+    <!-- THREE.JS LIBRARIES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/TextureLoader.min.js"></script>
+
+    <script>
+        // ENHANCED GAME CONFIGURATION
+        const CONFIG = {
+            gameName: "NAFIZ EMPIRE",
+            version: "2.0.0",
+            player: {
+                speed: 5.0,
+                runSpeed: 8.0,
+                jumpForce: 8.0,
+                crouchHeight: 1.0,
+                normalHeight: 1.8,
+                cameraHeight: 1.6
+            },
+            world: {
+                size: 2000,
+                buildings: 100,
+                trees: 300,
+                vehicles: 30,
+                npcs: 50
+            }
+        };
+
+        // ENHANCED GAME STATE
+        const gameState = {
+            isLoaded: false,
+            isPaused: false,
+            gameStarted: false,
+            viewMode: 'third', // 'first' or 'third'
+            player: {
+                health: 100,
+                maxHealth: 100,
+                stamina: 100,
+                maxStamina: 100,
+                armor: 100,
+                maxArmor: 100,
+                money: 1000,
+                score: 0,
+                kills: 0,
+                position: { x: 0, y: 2, z: 0 },
+                rotation: { x: 0, y: 0 },
+                velocity: { x: 0, y: 0, z: 0 },
+                isJumping: false,
+                isCrouching: false,
+                isRunning: false,
+                currentWeapon: 1,
+                weapons: [
+                    { 
+                        name: "মুষ্টি", 
+                        damage: 10, 
+                        icon: "fa-fist-raised",
+                        type: "melee",
+                        ammo: null,
+                        maxAmmo: null,
+                        fireRate: 500
+                    },
+                    { 
+                        name: "AK-47", 
+                        damage: 25, 
+                        icon: "fa-gun",
+                        type: "rifle",
+                        ammo: 30,
+                        maxAmmo: 120,
+                        fireRate: 100,
+                        reloadTime: 2000,
+                        recoil: 0.1
+                    },
+                    { 
+                        name: "পিস্তল", 
+                        damage: 15, 
+                        icon: "fa-gun",
+                        type: "pistol",
+                        ammo: 12,
+                        maxAmmo: 48,
+                        fireRate: 300,
+                        reloadTime: 1500,
+                        recoil: 0.05
+                    },
+                    { 
+                        name: "শটগান", 
+                        damage: 50, 
+                        icon: "fa-gun",
+                        type: "shotgun",
+                        ammo: 8,
+                        maxAmmo: 32,
+                        fireRate: 800,
+                        reloadTime: 2500,
+                        recoil: 0.2
+                    },
+                    { 
+                        name: "ছুরি", 
+                        damage: 20, 
+                        icon: "fa-hat-cowboy-side",
+                        type: "melee",
+                        ammo: null,
+                        maxAmmo: null,
+                        fireRate: 400
+                    },
+                    { 
+                        name: "গ্রেনেড", 
+                        damage: 100, 
+                        icon: "fa-bomb",
+                        type: "explosive",
+                        ammo: 3,
+                        maxAmmo: 9,
+                        fireRate: 1000
+                    }
+                ],
+                inVehicle: false,
+                currentVehicle: null,
+                cameraOffset: { x: 0, y: 1.6, z: 0 }
+            },
+            settings: {
+                graphics: 'medium',
+                controls: 'touch',
+                sound: true,
+                music: true,
+                sensitivity: 0.002
+            },
+            world: {
+                time: 9,
+                isDay: true,
+                weather: 'sunny',
+                locations: [
+                    { name: "ঢাকা শহর", x: 0, z: 0 },
+                    { name: "চট্টগ্রাম পাহাড়", x: 300, z: 300 },
+                    { name: "সিলেট চা বাগান", x: -200, z: 400 },
+                    { name: "কক্সবাজার সমুদ্র", x: 400, z: -300 },
+                    { name: "সাভার সেনানিবাস", x: -150, z: -200 },
+                    { name: "নারায়ণগঞ্জ বন্দর", x: 100, z: -150 }
+                ]
+            },
+            missions: [
+                { id: 1, title: "শহর ঘুরে দেখুন", description: "ঢাকা শহরের ৫টি স্থান ভ্রমণ করুন", completed: false, reward: 500, progress: 0, target: 5 },
+                { id: 2, title: "টাকা সংগ্রহ করুন", description: "৳ ৫০০০ টাকা সংগ্রহ করুন", completed: false, reward: 1000, progress: 0, target: 5000 },
+                { id: 3, title: "গাড়ি চালান", description: "৫টি গাড়িতে চড়ুন", completed: false, reward: 300, progress: 0, target: 5 },
+                { id: 4, title: "শত্রু মারুন", description: "২০টি শত্রু নিপাত করুন", completed: false, reward: 1500, progress: 0, target: 20 },
+                { id: 5, title: "বন্দুক সংগ্রহ", description: "সকল প্রকার বন্দুক সংগ্রহ করুন", completed: false, reward: 2000, progress: 0, target: 6 }
+            ],
+            collectibles: [],
+            vehicles: [],
+            npcs: [],
+            buildings: [],
+            bullets: [],
+            explosions: []
+        };
+
+        // THREE.JS VARIABLES
+        let scene, camera, renderer, controls;
+        let clock, deltaTime;
+        let mixer, animations = {};
+        let playerModel, currentAnimation;
+        let weaponModel, firstPersonCamera;
+        let mouseX = 0, mouseY = 0;
+        let windowHalfX = window.innerWidth / 2;
+        let windowHalfY = window.innerHeight / 2;
+
+        // INPUT MANAGEMENT
+        const keys = {};
+        const touch = {
+            joystick: { x: 0, y: 0, active: false },
+            buttons: {}
+        };
+        let mouseButtons = { left: false, right: false };
+
+        // GAME OBJECTS
+        const gameObjects = {
+            player: null,
+            ground: null,
+            skybox: null,
+            lights: [],
+            buildings: [],
+            trees: [],
+            vehicles: [],
+            collectibles: [],
+            npcs: [],
+            roads: [],
+            trafficLights: [],
+            streetLights: [],
+            bulletHoles: [],
+            bloodSplatters: []
+        };
+
+        // TEXTURES
+        const textures = {
+            road: null,
+            sidewalk: null,
+            grass: null,
+            building1: null,
+            building2: null,
+            tree: null,
+            car: null,
+            skin: null,
+            clothes: null,
+            sky: null
+        };
+
+        // LOADING FUNCTIONS
+        async function initGame() {
+            console.log('Initializing NAFIZ EMPIRE Enhanced...');
+            
+            const loadingText = document.getElementById('loadingText');
+            const loadingBar = document.getElementById('loadingBar');
+            
+            const loadingSteps = [
+                { text: "3D ইঞ্জিন লোড হচ্ছে...", progress: 10 },
+                { text: "টেক্সচার লোড হচ্ছে...", progress: 25 },
+                { text: "বিশ্ব তৈরি হচ্ছে...", progress: 40 },
+                { text: "রাস্তা ও বিল্ডিং তৈরি হচ্ছে...", progress: 55 },
+                { text: "NPC ও গাড়ি তৈরি হচ্ছে...", progress: 70 },
+                { text: "ফিজিক্স সেটআপ হচ্ছে...", progress: 85 },
+                { text: "প্রস্তুত!", progress: 100 }
+            ];
+            
+            for (let i = 0; i < loadingSteps.length; i++) {
+                loadingText.textContent = loadingSteps[i].text;
+                loadingBar.style.width = loadingSteps[i].progress + '%';
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            
+            // Initialize Three.js
+            initThreeJS();
+            
+            // Load textures
+            await loadTextures();
+            
+            // Create world
+            createWorld();
+            
+            // Create player
+            createPlayer();
+            
+            // Create NPCs with realistic faces
+            createRealisticNPCs();
+            
+            // Create environment
+            createEnhancedEnvironment();
+            
+            // Create weapons
+            createWeapons();
+            
+            // Setup controls
+            setupControls();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Start game
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    gameState.isLoaded = true;
+                    gameState.gameStarted = true;
+                    
+                    showNotification('NAFIZ EMPIRE-এ স্বাগতম! শহর ঘুরে দেখুন।');
+                    
+                    // Start game loop
+                    animate();
+                }, 500);
+            }, 1000);
+        }
+        
+        function initThreeJS() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.fog = new THREE.Fog(0x87ceeb, 100, 1000);
+            
+            // Create main camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+            camera.position.set(0, 10, 20);
+            
+            // Create first person camera
+            firstPersonCamera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000);
+            firstPersonCamera.position.set(0, 1.6, 0);
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ 
+                antialias: true, 
+                alpha: true,
+                powerPreference: "high-performance" 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.0;
+            
+            document.getElementById('gameContainer').appendChild(renderer.domElement);
+            
+            // Add window resize listener
+            window.addEventListener('resize', onWindowResize);
+            
+            // Create clock
+            clock = new THREE.Clock();
+        }
+        
+        async function loadTextures() {
+            // Create procedural textures
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Road texture
+            canvas.width = 512;
+            canvas.height = 512;
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // Road markings
+            ctx.fillStyle = '#ffff00';
+            for (let i = 0; i < 8; i++) {
+                ctx.fillRect(i * 64 + 16, 240, 32, 4);
+            }
+            
+            const roadTexture = new THREE.CanvasTexture(canvas);
+            roadTexture.wrapS = THREE.RepeatWrapping;
+            roadTexture.wrapT = THREE.RepeatWrapping;
+            roadTexture.repeat.set(20, 20);
+            textures.road = roadTexture;
+            
+            // Grass texture
+            ctx.fillStyle = '#228B22';
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // Add grass details
+            ctx.fillStyle = '#1c6b1c';
+            for (let i = 0; i < 1000; i++) {
+                ctx.fillRect(Math.random() * 512, Math.random() * 512, 1, 3);
+            }
+            
+            const grassTexture = new THREE.CanvasTexture(canvas);
+            grassTexture.wrapS = THREE.RepeatWrapping;
+            grassTexture.wrapT = THREE.RepeatWrapping;
+            grassTexture.repeat.set(50, 50);
+            textures.grass = grassTexture;
+            
+            // Building textures
+            const buildingColors = ['#8B4513', '#A0522D', '#654321', '#5D4037'];
+            for (let i = 0; i < buildingColors.length; i++) {
+                canvas.width = 256;
+                canvas.height = 256;
+                ctx.fillStyle = buildingColors[i];
+                ctx.fillRect(0, 0, 256, 256);
+                
+                // Window pattern
+                ctx.fillStyle = '#FFD700';
+                const windowSize = 16;
+                const spacing = 32;
+                for (let x = spacing; x < 256 - windowSize; x += spacing) {
+                    for (let y = spacing; y < 256 - windowSize; y += spacing) {
+                        ctx.fillRect(x, y, windowSize, windowSize);
+                    }
+                }
+                
+                textures[`building${i}`] = new THREE.CanvasTexture(canvas);
+            }
+            
+            // Skin texture
+            canvas.width = 128;
+            canvas.height = 128;
+            const skinGradient = ctx.createLinearGradient(0, 0, 128, 128);
+            skinGradient.addColorStop(0, '#f1c27d');
+            skinGradient.addColorStop(1, '#e0ac69');
+            ctx.fillStyle = skinGradient;
+            ctx.fillRect(0, 0, 128, 128);
+            textures.skin = new THREE.CanvasTexture(canvas);
+            
+            // Clothes texture
+            const clothesColors = ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#9b59b6'];
+            canvas.width = 256;
+            canvas.height = 256;
+            ctx.fillStyle = clothesColors[Math.floor(Math.random() * clothesColors.length)];
+            ctx.fillRect(0, 0, 256, 256);
+            
+            // Add pattern
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.lineWidth = 2;
+            for (let i = 0; i < 256; i += 16) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, 256);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(256, i);
+                ctx.stroke();
+            }
+            textures.clothes = new THREE.CanvasTexture(canvas);
+        }
+        
+        function createWorld() {
+            // Create enhanced skybox with clouds
+            const skyGeometry = new THREE.SphereGeometry(1000, 32, 32);
+            const skyMaterial = new THREE.MeshBasicMaterial({
+                color: 0x87ceeb,
+                side: THREE.BackSide,
+                fog: false
+            });
+            gameObjects.skybox = new THREE.Mesh(skyGeometry, skyMaterial);
+            scene.add(gameObjects.skybox);
+            
+            // Add sun
+            const sunGeometry = new THREE.SphereGeometry(20, 16, 16);
+            const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+            sun.position.set(300, 500, 300);
+            scene.add(sun);
+            
+            // Create detailed ground with textures
+            const groundGeometry = new THREE.PlaneGeometry(2000, 2000, 100, 100);
+            const groundMaterial = new THREE.MeshStandardMaterial({
+                map: textures.grass,
+                roughness: 0.8,
+                metalness: 0.2
+            });
+            gameObjects.ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            gameObjects.ground.rotation.x = -Math.PI / 2;
+            gameObjects.ground.receiveShadow = true;
+            scene.add(gameObjects.ground);
+            
+            // Add detailed roads
+            createDetailedRoads();
+            
+            // Add lighting
+            createEnhancedLighting();
+            
+            // Add weather system
+            createWeatherSystem();
+        }
+        
+        function createDetailedRoads() {
+            // Main road network
+            const roadWidth = 20;
+            const roadLength = 800;
+            
+            // Create road material
+            const roadMaterial = new THREE.MeshStandardMaterial({
+                map: textures.road,
+                roughness: 0.7,
+                metalness: 0.1
+            });
+            
+            // Horizontal roads
+            for (let i = -2; i <= 2; i++) {
+                const roadGeometry = new THREE.PlaneGeometry(roadLength, roadWidth);
+                const road = new THREE.Mesh(roadGeometry, roadMaterial);
+                road.rotation.x = -Math.PI / 2;
+                road.position.set(0, 0.1, i * 200);
+                road.receiveShadow = true;
+                scene.add(road);
+                gameObjects.roads.push(road);
+                
+                // Add sidewalks
+                createSidewalk(0, i * 200, roadLength, roadWidth);
+            }
+            
+            // Vertical roads
+            for (let i = -2; i <= 2; i++) {
+                const roadGeometry = new THREE.PlaneGeometry(roadWidth, roadLength);
+                const road = new THREE.Mesh(roadGeometry, roadMaterial);
+                road.rotation.x = -Math.PI / 2;
+                road.position.set(i * 200, 0.1, 0);
+                road.receiveShadow = true;
+                scene.add(road);
+                gameObjects.roads.push(road);
+                
+                // Add sidewalks
+                createSidewalk(i * 200, 0, roadWidth, roadLength);
+            }
+            
+            // Add road markings
+            addRoadMarkings();
+            
+            // Add street lights
+            addStreetLights();
+            
+            // Add traffic lights
+            addTrafficLights();
+        }
+        
+        function createSidewalk(x, z, width, length) {
+            const sidewalkMaterial = new THREE.MeshStandardMaterial({
+                color: 0xcccccc,
+                roughness: 0.9
+            });
+            
+            // Top sidewalk
+            const topSidewalk = new THREE.Mesh(
+                new THREE.PlaneGeometry(width + 4, 3),
+                sidewalkMaterial
+            );
+            topSidewalk.rotation.x = -Math.PI / 2;
+            topSidewalk.position.set(x, 0.11, z + length/2 + 1.5);
+            scene.add(topSidewalk);
+            
+            // Bottom sidewalk
+            const bottomSidewalk = new THREE.Mesh(
+                new THREE.PlaneGeometry(width + 4, 3),
+                sidewalkMaterial
+            );
+            bottomSidewalk.rotation.x = -Math.PI / 2;
+            bottomSidewalk.position.set(x, 0.11, z - length/2 - 1.5);
+            scene.add(bottomSidewalk);
+            
+            // Left sidewalk
+            const leftSidewalk = new THREE.Mesh(
+                new THREE.PlaneGeometry(3, length + 4),
+                sidewalkMaterial
+            );
+            leftSidewalk.rotation.x = -Math.PI / 2;
+            leftSidewalk.position.set(x - width/2 - 1.5, 0.11, z);
+            scene.add(leftSidewalk);
+            
+            // Right sidewalk
+            const rightSidewalk = new THREE.Mesh(
+                new THREE.PlaneGeometry(3, length + 4),
+                sidewalkMaterial
+            );
+            rightSidewalk.rotation.x = -Math.PI / 2;
+            rightSidewalk.position.set(x + width/2 + 1.5, 0.11, z);
+            scene.add(rightSidewalk);
+        }
+        
+        function addRoadMarkings() {
+            const markingMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            
+            // Add center lines
+            for (let i = -400; i <= 400; i += 40) {
+                // Horizontal lines
+                const lineH = new THREE.Mesh(
+                    new THREE.PlaneGeometry(20, 0.5),
+                    markingMaterial
+                );
+                lineH.rotation.x = -Math.PI / 2;
+                lineH.position.set(i, 0.15, 0);
+                scene.add(lineH);
+                
+                // Vertical lines
+                const lineV = new THREE.Mesh(
+                    new THREE.PlaneGeometry(0.5, 20),
+                    markingMaterial
+                );
+                lineV.rotation.x = -Math.PI / 2;
+                lineV.position.set(0, 0.15, i);
+                scene.add(lineV);
+            }
+            
+            // Add pedestrian crossings
+            for (let i = -2; i <= 2; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const crossing = new THREE.Mesh(
+                        new THREE.PlaneGeometry(2, 0.8),
+                        markingMaterial
+                    );
+                    crossing.rotation.x = -Math.PI / 2;
+                    crossing.position.set(j * 4 - 18, 0.15, i * 200 + 10);
+                    scene.add(crossing);
+                }
+            }
+        }
+        
+        function addStreetLights() {
+            for (let i = -400; i <= 400; i += 100) {
+                for (let j = -400; j <= 400; j += 100) {
+                    if (Math.abs(i) < 50 && Math.abs(j) < 50) continue;
+                    
+                    // Lamp post
+                    const postGeometry = new THREE.CylinderGeometry(0.2, 0.3, 8);
+                    const postMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+                    const post = new THREE.Mesh(postGeometry, postMaterial);
+                    post.position.set(i, 4, j);
+                    post.castShadow = true;
+                    scene.add(post);
+                    
+                    // Lamp
+                    const lampGeometry = new THREE.SphereGeometry(0.8, 8, 8);
+                    const lampMaterial = new THREE.MeshBasicMaterial({ 
+                        color: 0xffffcc,
+                        emissive: 0xffffcc,
+                        emissiveIntensity: 0.5
+                    });
+                    const lamp = new THREE.Mesh(lampGeometry, lampMaterial);
+                    lamp.position.set(i, 8, j);
+                    scene.add(lamp);
+                    
+                    // Light
+                    const light = new THREE.PointLight(0xffffcc, 1, 50);
+                    light.position.set(i, 8, j);
+                    scene.add(light);
+                    
+                    gameObjects.streetLights.push({ post, lamp, light });
+                }
+            }
+        }
+        
+        function addTrafficLights() {
+            const positions = [
+                { x: 100, z: 100 },
+                { x: -100, z: 100 },
+                { x: 100, z: -100 },
+                { x: -100, z: -100 }
+            ];
+            
+            positions.forEach(pos => {
+                // Pole
+                const poleGeometry = new THREE.CylinderGeometry(0.15, 0.2, 6);
+                const poleMaterial = new THREE.MeshStandardMaterial({ color: 0x222222 });
+                const pole = new THREE.Mesh(poleGeometry, poleMaterial);
+                pole.position.set(pos.x, 3, pos.z);
+                pole.castShadow = true;
+                scene.add(pole);
+                
+                // Traffic light box
+                const boxGeometry = new THREE.BoxGeometry(0.8, 2, 0.3);
+                const boxMaterial = new THREE.MeshStandardMaterial({ color: 0x111111 });
+                const box = new THREE.Mesh(boxGeometry, boxMaterial);
+                box.position.set(pos.x, 5.5, pos.z);
+                box.castShadow = true;
+                scene.add(box);
+                
+                // Lights
+                const colors = [0xff0000, 0xffff00, 0x00ff00];
+                for (let i = 0; i < 3; i++) {
+                    const lightGeometry = new THREE.CircleGeometry(0.2, 16);
+                    const lightMaterial = new THREE.MeshBasicMaterial({ 
+                        color: colors[i],
+                        emissive: colors[i],
+                        emissiveIntensity: 0.3
+                    });
+                    const light = new THREE.Mesh(lightGeometry, lightMaterial);
+                    light.position.set(pos.x, 6 - i * 0.7, pos.z + 0.16);
+                    light.rotation.x = -Math.PI / 2;
+                    scene.add(light);
+                }
+                
+                gameObjects.trafficLights.push({ pole, box, position: pos });
+            });
+        }
+        
+        function createEnhancedLighting() {
+            // Ambient light
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            // Directional light (sun) with shadows
+            const sunLight = new THREE.DirectionalLight(0xffffff, 1.2);
+            sunLight.position.set(100, 200, 100);
+            sunLight.castShadow = true;
+            sunLight.shadow.mapSize.width = 4096;
+            sunLight.shadow.mapSize.height = 4096;
+            sunLight.shadow.camera.left = -500;
+            sunLight.shadow.camera.right = 500;
+            sunLight.shadow.camera.top = 500;
+            sunLight.shadow.camera.bottom = -500;
+            sunLight.shadow.camera.near = 0.5;
+            sunLight.shadow.camera.far = 1000;
+            sunLight.shadow.bias = -0.0001;
+            scene.add(sunLight);
+            
+            // Hemisphere light for sky color
+            const hemiLight = new THREE.HemisphereLight(0x87ceeb, 0x228B22, 0.4);
+            scene.add(hemiLight);
+            
+            gameObjects.lights.push(ambientLight, sunLight, hemiLight);
+        }
+        
+        function createWeatherSystem() {
+            // Add clouds
+            for (let i = 0; i < 20; i++) {
+                const cloudGeometry = new THREE.SphereGeometry(10 + Math.random() * 20, 8, 8);
+                const cloudMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xffffff,
+                    transparent: true,
+                    opacity: 0.7
+                });
+                const cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
+                cloud.position.set(
+                    (Math.random() - 0.5) * 800,
+                    200 + Math.random() * 100,
+                    (Math.random() - 0.5) * 800
+                );
+                scene.add(cloud);
+            }
+        }
+        
+        function createPlayer() {
+            // Create player body for third person view
+            const bodyGeometry = new THREE.CapsuleGeometry(0.5, 1.8, 8, 16);
+            const bodyMaterial = new THREE.MeshStandardMaterial({
+                color: 0x006a4e,
+                roughness: 0.4,
+                metalness: 0.2
+            });
+            
+            gameObjects.player = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            gameObjects.player.castShadow = true;
+            gameObjects.player.receiveShadow = true;
+            gameObjects.player.position.set(0, 1, 0);
+            scene.add(gameObjects.player);
+            
+            // Create player head
+            const headGeometry = new THREE.SphereGeometry(0.4, 16, 16);
+            const headMaterial = new THREE.MeshStandardMaterial({
+                map: textures.skin,
+                roughness: 0.3
+            });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            head.position.y = 0.9;
+            head.castShadow = true;
+            gameObjects.player.add(head);
+            
+            // Create player clothes
+            const clothesGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 16);
+            const clothesMaterial = new THREE.MeshStandardMaterial({
+                map: textures.clothes,
+                roughness: 0.6
+            });
+            const clothes = new THREE.Mesh(clothesGeometry, clothesMaterial);
+            clothes.position.y = -0.3;
+            clothes.castShadow = true;
+            gameObjects.player.add(clothes);
+        }
+        
+        function createRealisticNPCs() {
+            const npcTypes = [
+                { type: 'civilian', color: 0x3498db, hostile: false },
+                { type: 'police', color: 0x2ecc71, hostile: false },
+                { type: 'gangster', color: 0xe74c3c, hostile: true },
+                { type: 'vendor', color: 0xf39c12, hostile: false },
+                { type: 'worker', color: 0x95a5a6, hostile: false }
+            ];
+            
+            for (let i = 0; i < CONFIG.world.npcs; i++) {
+                const npcType = npcTypes[Math.floor(Math.random() * npcTypes.length)];
+                createRealisticNPC(npcType, i);
+            }
+        }
+        
+        function createRealisticNPC(type, id) {
+            const npcGroup = new THREE.Group();
+            
+            // Body
+            const bodyGeometry = new THREE.CapsuleGeometry(0.45, 1.7, 8, 16);
+            const bodyMaterial = new THREE.MeshStandardMaterial({
+                color: type.color,
+                roughness: 0.5
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.castShadow = true;
+            body.receiveShadow = true;
+            npcGroup.add(body);
+            
+            // Head with face
+            const headGeometry = new THREE.SphereGeometry(0.38, 24, 24);
+            const headMaterial = new THREE.MeshStandardMaterial({
+                map: textures.skin,
+                roughness: 0.3
+            });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            head.position.y = 0.85;
+            head.castShadow = true;
+            npcGroup.add(head);
+            
+            // Face details
+            createFaceDetails(head, type.type);
+            
+            // Clothes
+            const clothesGeometry = new THREE.CylinderGeometry(0.45, 0.45, 1, 16);
+            const clothesMaterial = new THREE.MeshStandardMaterial({
+                color: type.color,
+                roughness: 0.6
+            });
+            const clothes = new THREE.Mesh(clothesGeometry, clothesMaterial);
+            clothes.position.y = -0.35;
+            clothes.castShadow = true;
+            npcGroup.add(clothes);
+            
+            // Hair
+            if (Math.random() > 0.3) {
+                const hairGeometry = new THREE.SphereGeometry(0.42, 8, 8, 0, Math.PI * 2, 0, Math.PI / 2);
+                const hairMaterial = new THREE.MeshStandardMaterial({
+                    color: Math.random() > 0.5 ? 0x000000 : 0x8B4513
+                });
+                const hair = new THREE.Mesh(hairGeometry, hairMaterial);
+                hair.position.y = 1.05;
+                npcGroup.add(hair);
+            }
+            
+            // Position NPC
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 100 + Math.random() * 300;
+            const x = Math.cos(angle) * distance;
+            const z = Math.sin(angle) * distance;
+            
+            npcGroup.position.set(x, 0.85, z);
+            npcGroup.rotation.y = Math.random() * Math.PI * 2;
+            
+            scene.add(npcGroup);
+            
+            // NPC data
+            npcGroup.userData = {
+                id: id,
+                type: type.type,
+                hostile: type.hostile,
+                health: 100,
+                speed: 0.5 + Math.random() * 1.5,
+                direction: Math.random() * Math.PI * 2,
+                lastDirectionChange: 0,
+                walking: true,
+                walkCycle: Math.random() * Math.PI * 2,
+                detectionRange: type.hostile ? 30 : 0,
+                attackRange: type.hostile ? 5 : 0,
+                attackCooldown: 0
+            };
+            
+            gameObjects.npcs.push(npcGroup);
+        }
+        
+        function createFaceDetails(head, type) {
+            // Eyes
+            const eyeGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+            const eyeMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            
+            const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            leftEye.position.set(-0.12, 0.1, 0.35);
+            head.add(leftEye);
+            
+            const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+            rightEye.position.set(0.12, 0.1, 0.35);
+            head.add(rightEye);
+            
+            // Nose
+            const noseGeometry = new THREE.ConeGeometry(0.03, 0.1, 8);
+            const noseMaterial = new THREE.MeshBasicMaterial({ color: 0xff9999 });
+            const nose = new THREE.Mesh(noseGeometry, noseMaterial);
+            nose.position.set(0, 0, 0.4);
+            nose.rotation.x = Math.PI / 2;
+            head.add(nose);
+            
+            // Mouth
+            const mouthGeometry = new THREE.TorusGeometry(0.08, 0.02, 8, 16, Math.PI);
+            const mouthMaterial = new THREE.MeshBasicMaterial({ color: 0xff6666 });
+            const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);
+            mouth.position.set(0, -0.08, 0.35);
+            mouth.rotation.x = Math.PI;
+            head.add(mouth);
+            
+            // Eyebrows based on type
+            const eyebrowGeometry = new THREE.BoxGeometry(0.1, 0.02, 0.01);
+            const eyebrowMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            
+            const leftEyebrow = new THREE.Mesh(eyebrowGeometry, eyebrowMaterial);
+            leftEyebrow.position.set(-0.12, 0.18, 0.36);
+            leftEyebrow.rotation.z = -0.1;
+            head.add(leftEyebrow);
+            
+            const rightEyebrow = new THREE.Mesh(eyebrowGeometry, eyebrowMaterial);
+            rightEyebrow.position.set(0.12, 0.18, 0.36);
+            rightEyebrow.rotation.z = 0.1;
+            head.add(rightEyebrow);
+        }
+        
+        function createEnhancedEnvironment() {
+            // Create detailed Bangladeshi-style buildings
+            for (let i = 0; i < CONFIG.world.buildings; i++) {
+                createDetailedBuilding();
+            }
+            
+            // Create enhanced trees
+            for (let i = 0; i < CONFIG.world.trees; i++) {
+                createDetailedTree();
+            }
+            
+            // Create realistic vehicles
+            for (let i = 0; i < CONFIG.world.vehicles; i++) {
+                createRealisticVehicle();
+            }
+            
+            // Create collectibles
+            for (let i = 0; i < 50; i++) {
+                createCollectible();
+            }
+        }
+        
+        function createDetailedBuilding() {
+            const width = 15 + Math.random() * 25;
+            const height = 20 + Math.random() * 40;
+            const depth = 15 + Math.random() * 25;
+            
+            const geometry = new THREE.BoxGeometry(width, height, depth);
+            const material = new THREE.MeshStandardMaterial({
+                map: textures[`building${Math.floor(Math.random() * 4)}`],
+                roughness: 0.7,
+                metalness: 0.1
+            });
+            
+            const building = new THREE.Mesh(geometry, material);
+            building.castShadow = true;
+            building.receiveShadow = true;
+            
+            // Position building
+            let x, z;
+            do {
+                x = (Math.random() - 0.5) * 800;
+                z = (Math.random() - 0.5) * 800;
+            } while (Math.abs(x) < 100 && Math.abs(z) < 100);
+            
+            building.position.set(x, height / 2, z);
+            scene.add(building);
+            
+            // Add detailed roof (Bangladeshi style)
+            const roofGeometry = new THREE.ConeGeometry(width * 0.9, 6, 4);
+            const roofMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x2c3e50,
+                roughness: 0.8
+            });
+            const roof = new THREE.Mesh(roofGeometry, roofMaterial);
+            roof.position.y = height + 3;
+            roof.castShadow = true;
+            building.add(roof);
+            
+            // Add balcony
+            if (Math.random() > 0.5) {
+                const balconyGeometry = new THREE.BoxGeometry(width * 0.8, 1, 2);
+                const balconyMaterial = new THREE.MeshStandardMaterial({ color: 0x7d6608 });
+                const balcony = new THREE.Mesh(balconyGeometry, balconyMaterial);
+                balcony.position.y = height * 0.7;
+                balcony.position.z = depth / 2 + 1;
+                building.add(balcony);
+            }
+            
+            gameObjects.buildings.push(building);
+        }
+        
+        function createDetailedTree() {
+            // Trunk
+            const trunkHeight = 3 + Math.random() * 4;
+            const trunkGeometry = new THREE.CylinderGeometry(0.6, 0.8, trunkHeight, 8);
+            const trunkMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x8B4513,
+                roughness: 0.9
+            });
+            const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+            trunk.castShadow = true;
+            
+            // Leaves (Bangladeshi mango/banana tree style)
+            const leavesCount = 3 + Math.floor(Math.random() * 4);
+            const leavesGroup = new THREE.Group();
+            
+            for (let i = 0; i < leavesCount; i++) {
+                const leavesGeometry = new THREE.SphereGeometry(2 + Math.random() * 2, 8, 6);
+                const leavesMaterial = new THREE.MeshStandardMaterial({ 
+                    color: 0x228B22,
+                    roughness: 0.8
+                });
+                const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
+                leaves.position.y = trunkHeight / 2 + i * 1.5;
+                leaves.position.x = (Math.random() - 0.5) * 2;
+                leaves.position.z = (Math.random() - 0.5) * 2;
+                leaves.castShadow = true;
+                leavesGroup.add(leaves);
+            }
+            
+            const tree = new THREE.Group();
+            tree.add(trunk);
+            tree.add(leavesGroup);
+            
+            let x, z;
+            do {
+                x = (Math.random() - 0.5) * 900;
+                z = (Math.random() - 0.5) * 900;
+            } while (Math.abs(x) < 100 && Math.abs(z) < 100);
+            
+            tree.position.set(x, 0, z);
+            scene.add(tree);
+            
+            gameObjects.trees.push(tree);
+        }
+        
+        function createRealisticVehicle() {
+            const vehicleTypes = [
+                { name: 'car', scale: 1, speed: 0.2 },
+                { name: 'truck', scale: 1.5, speed: 0.1 },
+                { name: 'bus', scale: 1.8, speed: 0.15 },
+                { name: 'bike', scale: 0.7, speed: 0.25 },
+                { name: 'rickshaw', scale: 0.8, speed: 0.18 }
+            ];
+            
+            const type = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
+            const colors = [0xf42a41, 0x006a4e, 0x3498db, 0xf1c40f, 0xffffff, 0x000000];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            const vehicle = new THREE.Group();
+            
+            // Body
+            const bodyGeometry = new THREE.BoxGeometry(4 * type.scale, 1.5 * type.scale, 8 * type.scale);
+            const bodyMaterial = new THREE.MeshStandardMaterial({ 
+                color: color,
+                roughness: 0.4,
+                metalness: 0.6
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.castShadow = true;
+            vehicle.add(body);
+            
+            // Top
+            const topGeometry = new THREE.BoxGeometry(3 * type.scale, 1.5 * type.scale, 4 * type.scale);
+            const topMaterial = new THREE.MeshStandardMaterial({ 
+                color: color * 0.8,
+                roughness: 0.5
+            });
+            const top = new THREE.Mesh(topGeometry, topMaterial);
+            top.position.y = 1.5 * type.scale;
+            top.castShadow = true;
+            vehicle.add(top);
+            
+            // Windows
+            const windowGeometry = new THREE.BoxGeometry(2.8 * type.scale, 0.8 * type.scale, 3.8 * type.scale);
+            const windowMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x87ceeb,
+                transparent: true,
+                opacity: 0.3,
+                metalness: 0.9,
+                roughness: 0.1
+            });
+            const windows = new THREE.Mesh(windowGeometry, windowMaterial);
+            windows.position.y = 1.5 * type.scale;
+            vehicle.add(windows);
+            
+            // Wheels
+            const wheelGeometry = new THREE.CylinderGeometry(0.8 * type.scale, 0.8 * type.scale, 0.5 * type.scale, 16);
+            const wheelMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x111111,
+                roughness: 0.9
+            });
+            
+            const wheelPositions = [
+                { x: -1.5 * type.scale, z: 3 * type.scale },
+                { x: 1.5 * type.scale, z: 3 * type.scale },
+                { x: -1.5 * type.scale, z: -3 * type.scale },
+                { x: 1.5 * type.scale, z: -3 * type.scale }
+            ];
+            
+            wheelPositions.forEach(pos => {
+                const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+                wheel.rotation.z = Math.PI / 2;
+                wheel.position.set(pos.x, -0.75 * type.scale, pos.z);
+                wheel.castShadow = true;
+                vehicle.add(wheel);
+            });
+            
+            // Headlights
+            const headlightGeometry = new THREE.SphereGeometry(0.3 * type.scale, 8, 8);
+            const headlightMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xffffcc,
+                emissive: 0xffffcc,
+                emissiveIntensity: 0.5
+            });
+            
+            const leftHeadlight = new THREE.Mesh(headlightGeometry, headlightMaterial);
+            leftHeadlight.position.set(-1.2 * type.scale, 0.5 * type.scale, 4 * type.scale);
+            vehicle.add(leftHeadlight);
+            
+            const rightHeadlight = new THREE.Mesh(headlightGeometry, headlightMaterial);
+            rightHeadlight.position.set(1.2 * type.scale, 0.5 * type.scale, 4 * type.scale);
+            vehicle.add(rightHeadlight);
+            
+            // Taillights
+            const taillightMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xff0000,
+                emissive: 0xff0000,
+                emissiveIntensity: 0.3
+            });
+            
+            const leftTaillight = new THREE.Mesh(headlightGeometry, taillightMaterial);
+            leftTaillight.position.set(-1.2 * type.scale, 0.5 * type.scale, -4 * type.scale);
+            vehicle.add(leftTaillight);
+            
+            const rightTaillight = new THREE.Mesh(headlightGeometry, taillightMaterial);
+            rightTaillight.position.set(1.2 * type.scale, 0.5 * type.scale, -4 * type.scale);
+            vehicle.add(rightTaillight);
+            
+            // Position vehicle
+            let x, z;
+            do {
+                x = (Math.random() - 0.5) * 700;
+                z = (Math.random() - 0.5) * 700;
+            } while (Math.abs(x) < 50 && Math.abs(z) < 50);
+            
+            vehicle.position.set(x, 1 * type.scale, z);
+            vehicle.rotation.y = Math.random() * Math.PI * 2;
+            scene.add(vehicle);
+            
+            // Store vehicle data
+            const vehicleData = {
+                mesh: vehicle,
+                type: type.name,
+                color: color,
+                speed: type.speed,
+                direction: Math.random() * Math.PI * 2,
+                userInVehicle: false,
+                wheels: vehicle.children.filter(child => child.geometry === wheelGeometry)
+            };
+            
+            gameObjects.vehicles.push(vehicleData);
+        }
+        
+        function createCollectible() {
+            const types = [
+                { color: 0xf1c40f, value: 100, icon: 'fa-money-bill', type: 'money' },
+                { color: 0xe74c3c, value: 25, icon: 'fa-heart', type: 'health' },
+                { color: 0x3498db, value: 30, icon: 'fa-bolt', type: 'stamina' },
+                { color: 0x9b59b6, value: 50, icon: 'fa-shield-alt', type: 'armor' },
+                { color: 0x2ecc71, value: 20, icon: 'fa-gun', type: 'ammo' }
+            ];
+            
+            const type = types[Math.floor(Math.random() * types.length)];
+            
+            const geometry = new THREE.SphereGeometry(0.5, 16, 16);
+            const material = new THREE.MeshStandardMaterial({
+                color: type.color,
+                emissive: type.color,
+                emissiveIntensity: 0.5,
+                roughness: 0.3,
+                metalness: 0.7
+            });
+            
+            const collectible = new THREE.Mesh(geometry, material);
+            collectible.castShadow = true;
+            
+            const x = (Math.random() - 0.5) * 800;
+            const z = (Math.random() - 0.5) * 800;
+            collectible.position.set(x, 2, z);
+            
+            collectible.userData = {
+                type: type,
+                originalY: 2,
+                floatSpeed: 0.5 + Math.random() * 0.5,
+                floatHeight: 0.3 + Math.random() * 0.4,
+                rotationSpeed: 0.02 + Math.random() * 0.03
+            };
+            
+            scene.add(collectible);
+            gameObjects.collectibles.push(collectible);
+        }
+        
+        function createWeapons() {
+            // Create AK-47 model for first person view
+            const weaponGroup = new THREE.Group();
+            
+            // Main body
+            const bodyGeometry = new THREE.BoxGeometry(0.8, 0.2, 2);
+            const bodyMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x444444,
+                roughness: 0.7,
+                metalness: 0.8
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            weaponGroup.add(body);
+            
+            // Barrel
+            const barrelGeometry = new THREE.CylinderGeometry(0.05, 0.05, 1.5, 8);
+            const barrelMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x222222,
+                roughness: 0.5,
+                metalness: 0.9
+            });
+            const barrel = new THREE.Mesh(barrelGeometry, barrelMaterial);
+            barrel.rotation.z = Math.PI / 2;
+            barrel.position.x = 0.4;
+            barrel.position.y = 0.1;
+            weaponGroup.add(barrel);
+            
+            // Magazine
+            const magGeometry = new THREE.BoxGeometry(0.3, 0.6, 0.4);
+            const magMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x006a4e,
+                roughness: 0.6
+            });
+            const magazine = new THREE.Mesh(magGeometry, magMaterial);
+            magazine.position.set(0, -0.2, 0.5);
+            weaponGroup.add(magazine);
+            
+            // Stock
+            const stockGeometry = new THREE.BoxGeometry(0.6, 0.15, 0.8);
+            const stockMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x8B4513,
+                roughness: 0.9
+            });
+            const stock = new THREE.Mesh(stockGeometry, stockMaterial);
+            stock.position.set(0, 0.1, -1.2);
+            weaponGroup.add(stock);
+            
+            // Sights
+            const sightGeometry = new THREE.BoxGeometry(0.1, 0.05, 0.1);
+            const sightMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xf42a41,
+                emissive: 0xf42a41,
+                emissiveIntensity: 0.2
+            });
+            const frontSight = new THREE.Mesh(sightGeometry, sightMaterial);
+            frontSight.position.set(0.5, 0.2, 1.2);
+            weaponGroup.add(frontSight);
+            
+            const rearSight = new THREE.Mesh(sightGeometry, sightMaterial);
+            rearSight.position.set(-0.2, 0.2, 0.8);
+            weaponGroup.add(rearSight);
+            
+            weaponModel = weaponGroup;
+            weaponModel.visible = false;
+            scene.add(weaponModel);
+        }
+        
+        function setupControls() {
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (gameState.isLoaded && !gameState.isPaused) {
+                    keys[e.key.toLowerCase()] = true;
+                    
+                    switch(e.key) {
+                        case 'Escape':
+                            toggleMenu();
+                            break;
+                        case 'v':
+                            toggleViewMode();
+                            break;
+                        case 'c':
+                            toggleCrouch();
+                            break;
+                        case 'r':
+                            reloadWeapon();
+                            break;
+                        case ' ':
+                            if (gameState.player.inVehicle) {
+                                // Handbrake for vehicle
+                            } else {
+                                jump();
+                            }
+                            break;
+                        case '1': case '2': case '3': case '4': case '5': case '6':
+                            const weaponIndex = parseInt(e.key) - 1;
+                            if (weaponIndex < gameState.player.weapons.length) {
+                                switchWeapon(weaponIndex);
+                            }
+                            break;
+                    }
+                }
+            });
+            
+            document.addEventListener('keyup', (e) => {
+                keys[e.key.toLowerCase()] = false;
+            });
+            
+            // Mouse controls
+            document.addEventListener('mousedown', (e) => {
+                if (gameState.isLoaded && !gameState.isPaused) {
+                    if (e.button === 0) mouseButtons.left = true;
+                    if (e.button === 2) mouseButtons.right = true;
+                }
+            });
+            
+            document.addEventListener('mouseup', (e) => {
+                if (e.button === 0) mouseButtons.left = false;
+                if (e.button === 2) mouseButtons.right = false;
+            });
+            
+            document.addEventListener('mousemove', (e) => {
+                if (gameState.isLoaded && !gameState.isPaused && document.pointerLockElement) {
+                    mouseX += e.movementX * gameState.settings.sensitivity;
+                    mouseY += e.movementY * gameState.settings.sensitivity;
+                    
+                    // Limit vertical look
+                    mouseY = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, mouseY));
+                }
+            });
+            
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+            
+            // Pointer lock for first person
+            renderer.domElement.addEventListener('click', () => {
+                if (gameState.viewMode === 'first' && !gameState.isPaused) {
+                    renderer.domElement.requestPointerLock();
+                }
+            });
+            
+            // Touch joystick
+            const joystick = document.getElementById('moveJoystick');
+            const handle = joystick.querySelector('.joystick-handle');
+            
+            let joystickActive = false;
+            let joystickCenter = { x: 0, y: 0 };
+            
+            joystick.addEventListener('touchstart', (e) => {
+                if (gameState.settings.controls === 'touch') {
+                    const rect = joystick.getBoundingClientRect();
+                    joystickCenter.x = rect.left + rect.width / 2;
+                    joystickCenter.y = rect.top + rect.height / 2;
+                    joystickActive = true;
+                    e.preventDefault();
+                }
+            });
+            
+            joystick.addEventListener('touchmove', (e) => {
+                if (gameState.settings.controls === 'touch' && joystickActive) {
+                    const touch = e.touches[0];
+                    const dx = touch.clientX - joystickCenter.x;
+                    const dy = touch.clientY - joystickCenter.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const maxDistance = 40;
+                    
+                    if (distance > maxDistance) {
+                        touch.joystick.x = (dx / distance) * (maxDistance / 40);
+                        touch.joystick.y = (dy / distance) * (maxDistance / 40);
+                        handle.style.transform = `translate(-50%, -50%) translate(${(dx / distance) * 30}px, ${(dy / distance) * 30}px)`;
+                    } else {
+                        touch.joystick.x = dx / 40;
+                        touch.joystick.y = dy / 40;
+                        handle.style.transform = `translate(-50%, -50%) translate(${dx * 0.75}px, ${dy * 0.75}px)`;
+                    }
+                    
+                    touch.joystick.active = true;
+                    e.preventDefault();
+                }
+            });
+            
+            joystick.addEventListener('touchend', () => {
+                if (gameState.settings.controls === 'touch') {
+                    joystickActive = false;
+                    touch.joystick.x = 0;
+                    touch.joystick.y = 0;
+                    touch.joystick.active = false;
+                    handle.style.transform = 'translate(-50%, -50%)';
+                }
+            });
+            
+            // Touch buttons
+            ['jumpBtn', 'crouchBtn', 'attackBtn', 'reloadBtn', 'interactBtn', 'menuBtn', 'weaponBtn'].forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                btn.addEventListener('touchstart', (e) => {
+                    touch.buttons[btnId.replace('Btn', '')] = true;
+                    e.preventDefault();
+                });
+                
+                btn.addEventListener('touchend', (e) => {
+                    touch.buttons[btnId.replace('Btn', '')] = false;
+                    e.preventDefault();
+                });
+            });
+            
+            // Gamepad support
+            setInterval(checkGamepads, 100);
+        }
+        
+        function checkGamepads() {
+            if (gameState.settings.controls !== 'gamepad' || !gameState.isLoaded || gameState.isPaused) return;
+            
+            const gamepads = navigator.getGamepads();
+            if (!gamepads[0]) return;
+            
+            const gp = gamepads[0];
+            
+            // Left stick for movement
+            if (Math.abs(gp.axes[0]) > 0.1 || Math.abs(gp.axes[1]) > 0.1) {
+                touch.joystick.x = gp.axes[0];
+                touch.joystick.y = -gp.axes[1];
+                touch.joystick.active = true;
+            } else {
+                touch.joystick.active = false;
+            }
+            
+            // Right stick for camera
+            if (Math.abs(gp.axes[2]) > 0.1 || Math.abs(gp.axes[3]) > 0.1) {
+                mouseX += gp.axes[2] * 0.1;
+                mouseY += gp.axes[3] * 0.1;
+                mouseY = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, mouseY));
+            }
+            
+            // Buttons
+            if (gp.buttons[0].pressed) touch.buttons.attack = true; // A button
+            if (gp.buttons[1].pressed) touch.buttons.jump = true; // B button
+            if (gp.buttons[2].pressed) touch.buttons.interact = true; // X button
+            if (gp.buttons[3].pressed) touch.buttons.reload = true; // Y button
+        }
+        
+        function setupEventListeners() {
+            // Button event listeners
+            document.getElementById('resumeBtn').onclick = () => {
+                toggleMenu();
+            };
+            
+            document.getElementById('newGameBtn').onclick = () => {
+                if (confirm('নতুন গেম শুরু করতে চান? বর্তমান প্রোগ্রেস নষ্ট হবে।')) {
+                    location.reload();
+                }
+            };
+            
+            document.getElementById('settingsBtn').onclick = () => {
+                document.getElementById('mainMenu').style.display = 'none';
+                document.getElementById('settingsMenu').style.display = 'flex';
+            };
+            
+            document.getElementById('missionsBtn').onclick = () => {
+                showMissions();
+                document.getElementById('mainMenu').style.display = 'none';
+                document.getElementById('missionsMenu').style.display = 'flex';
+            };
+            
+            document.getElementById('helpBtn').onclick = () => {
+                document.getElementById('mainMenu').style.display = 'none';
+                document.getElementById('helpMenu').style.display = 'flex';
+            };
+            
+            document.getElementById('backBtn').onclick = () => {
+                document.getElementById('settingsMenu').style.display = 'none';
+                document.getElementById('mainMenu').style.display = 'flex';
+            };
+            
+            document.getElementById('missionsBackBtn').onclick = () => {
+                document.getElementById('missionsMenu').style.display = 'none';
+                document.getElementById('mainMenu').style.display = 'flex';
+            };
+            
+            document.getElementById('helpBackBtn').onclick = () => {
+                document.getElementById('helpMenu').style.display = 'none';
+                document.getElementById('mainMenu').style.display = 'flex';
+            };
+            
+            // View mode switcher
+            document.getElementById('viewSwitch').addEventListener('touchstart', toggleViewMode);
+            
+            // Prevent default touch behaviors
+            document.addEventListener('touchmove', (e) => {
+                if (e.scale !== 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            firstPersonCamera.aspect = window.innerWidth / window.innerHeight;
+            firstPersonCamera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+        }
+        
+        // ENHANCED GAME LOGIC FUNCTIONS
+        function updatePlayer() {
+            if (!gameState.isLoaded || gameState.isPaused) return;
+            
+            const player = gameObjects.player;
+            const playerState = gameState.player;
+            
+            // Handle view mode
+            if (gameState.viewMode === 'first') {
+                updateFirstPersonView();
+            } else {
+                updateThirdPersonView();
+            }
+            
+            // Movement
+            let moveX = 0, moveZ = 0;
+            
+            if (gameState.settings.controls === 'keyboard') {
+                if (keys['w'] || keys['arrowup']) moveZ = -1;
+                if (keys['s'] || keys['arrowdown']) moveZ = 1;
+                if (keys['a'] || keys['arrowleft']) moveX = -1;
+                if (keys['d'] || keys['arrowright']) moveX = 1;
+            } else {
+                moveX = touch.joystick.x;
+                moveZ = touch.joystick.y;
+            }
+            
+            // Check if player is in vehicle
+            if (playerState.inVehicle && playerState.currentVehicle) {
+                updateVehicleControls(moveX, moveZ);
+                return;
+            }
+            
+            // Normalize diagonal movement
+            if (moveX !== 0 || moveZ !== 0) {
+                const length = Math.sqrt(moveX * moveX + moveZ * moveZ);
+                moveX /= length;
+                moveZ /= length;
+            }
+            
+            // Check for running
+            const isRunning = (keys['shift'] || touch.buttons.run) && playerState.stamina > 0;
+            const speed = isRunning ? CONFIG.player.runSpeed : CONFIG.player.speed;
+            
+            if (isRunning && (moveX !== 0 || moveZ !== 0)) {
+                playerState.stamina = Math.max(0, playerState.stamina - 20 * deltaTime);
+            } else {
+                playerState.stamina = Math.min(playerState.maxStamina, playerState.stamina + 10 * deltaTime);
+            }
+            
+            // Apply movement based on camera direction
+            const cameraDirection = new THREE.Vector3();
+            const activeCamera = gameState.viewMode === 'first' ? firstPersonCamera : camera;
+            activeCamera.getWorldDirection(cameraDirection);
+            cameraDirection.y = 0;
+            cameraDirection.normalize();
+            
+            const rightVector = new THREE.Vector3();
+            rightVector.crossVectors(activeCamera.up, cameraDirection).normalize();
+            
+            const moveVector = new THREE.Vector3();
+            moveVector.addScaledVector(cameraDirection, -moveZ);
+            moveVector.addScaledVector(rightVector, moveX);
+            moveVector.normalize();
+            
+            const moveDistance = speed * deltaTime;
+            moveVector.multiplyScalar(moveDistance);
+            
+            // Check collisions
+            const newPosition = player.position.clone().add(moveVector);
+            if (checkCollision(newPosition)) {
+                player.position.copy(newPosition);
+                playerState.position = player.position.clone();
+            }
+            
+            // Jump
+            if ((keys[' '] || touch.buttons.jump) && !playerState.isJumping && player.position.y <= 1.1) {
+                playerState.velocity.y = CONFIG.player.jumpForce;
+                playerState.isJumping = true;
+                touch.buttons.jump = false;
+            }
+            
+            // Apply gravity
+            playerState.velocity.y -= 9.8 * deltaTime;
+            player.position.y += playerState.velocity.y * deltaTime;
+            
+            // Ground collision
+            if (player.position.y <= 1) {
+                player.position.y = 1;
+                playerState.velocity.y = 0;
+                playerState.isJumping = false;
+            }
+            
+            // Crouch
+            if ((keys['c'] || touch.buttons.crouch) && !playerState.isCrouching) {
+                playerState.isCrouching = true;
+                player.scale.y = 0.7;
+                player.position.y = 0.85;
+            } else if (!keys['c'] && !touch.buttons.crouch && playerState.isCrouching) {
+                playerState.isCrouching = false;
+                player.scale.y = 1;
+                player.position.y = 1;
+            }
+            
+            // Update player rotation based on look direction
+            player.rotation.y = mouseX;
+            
+            // Handle shooting
+            if (mouseButtons.left || touch.buttons.attack) {
+                fireWeapon();
+                mouseButtons.left = false;
+                touch.buttons.attack = false;
+            }
+            
+            // Handle reload
+            if ((keys['r'] || touch.buttons.reload) && gameState.player.weapons[gameState.player.currentWeapon].type !== 'melee') {
+                reloadWeapon();
+                keys['r'] = false;
+                touch.buttons.reload = false;
+            }
+            
+            // Check collectibles
+            checkCollectibles();
+            
+            // Update NPCs
+            updateNPCs();
+            
+            // Update vehicles
+            updateVehicles();
+            
+            // Update floating objects
+            updateFloatingObjects();
+            
+            // Update bullets and explosions
+            updateBullets();
+            updateExplosions();
+            
+            // Update UI
+            updateUI();
+        }
+        
+        function updateFirstPersonView() {
+            // Update camera rotation based on mouse input
+            firstPersonCamera.rotation.order = 'YXZ';
+            firstPersonCamera.rotation.y = mouseX;
+            firstPersonCamera.rotation.x = mouseY;
+            
+            // Update camera position to player position
+            firstPersonCamera.position.copy(gameObjects.player.position);
+            firstPersonCamera.position.y += playerState.isCrouching ? 0.8 : CONFIG.player.cameraHeight;
+            
+            // Update weapon position
+            if (weaponModel) {
+                weaponModel.visible = true;
+                weaponModel.position.copy(firstPersonCamera.position);
+                weaponModel.position.x += 0.3;
+                weaponModel.position.y -= 0.2;
+                weaponModel.position.z -= 0.5;
+                
+                weaponModel.rotation.copy(firstPersonCamera.rotation);
+                weaponModel.rotation.x += 0.1;
+                weaponModel.rotation.y += 0.1;
+                
+                // Weapon sway based on movement
+                const time = Date.now() * 0.001;
+                if (keys['w'] || keys['a'] || keys['s'] || keys['d'] || touch.joystick.active) {
+                    weaponModel.position.x += Math.sin(time * 10) * 0.01;
+                    weaponModel.position.y += Math.cos(time * 5) * 0.01;
+                }
+            }
+            
+            // Hide player model in first person
+            gameObjects.player.visible = false;
+        }
+        
+        function updateThirdPersonView() {
+            // Update camera position behind player
+            const playerPos = gameObjects.player.position;
+            const cameraDistance = 8;
+            const cameraHeight = 4;
+            
+            const cameraOffset = new THREE.Vector3(
+                0,
+                cameraHeight,
+                cameraDistance
+            );
+            
+            // Rotate camera offset based on mouse input
+            cameraOffset.applyAxisAngle(new THREE.Vector3(0, 1, 0), mouseX);
+            cameraOffset.applyAxisAngle(new THREE.Vector3(1, 0, 0), mouseY * 0.5);
+            
+            camera.position.copy(playerPos).add(cameraOffset);
+            camera.lookAt(playerPos.x, playerPos.y + 2, playerPos.z);
+            
+            // Show player model
+            gameObjects.player.visible = true;
+            weaponModel.visible = false;
+        }
+        
+        function updateVehicleControls(moveX, moveZ) {
+            const vehicle = playerState.currentVehicle;
+            const mesh = vehicle.mesh;
+            
+            // Vehicle controls
+            const acceleration = 0.1;
+            const turning = 0.05;
+            
+            // Forward/backward
+            if (moveZ < 0) {
+                // Forward
+                vehicle.speed = Math.min(1, vehicle.speed + acceleration);
+            } else if (moveZ > 0) {
+                // Backward
+                vehicle.speed = Math.max(-0.5, vehicle.speed - acceleration);
+            } else {
+                // Slow down
+                vehicle.speed *= 0.95;
+                if (Math.abs(vehicle.speed) < 0.01) vehicle.speed = 0;
+            }
+            
+            // Turning
+            if (moveX !== 0) {
+                const turnDirection = vehicle.speed > 0 ? 1 : vehicle.speed < 0 ? -1 : 0;
+                mesh.rotation.y += moveX * turning * turnDirection;
+            }
+            
+            // Move vehicle
+            const forward = new THREE.Vector3(0, 0, -1);
+            forward.applyQuaternion(mesh.quaternion);
+            forward.multiplyScalar(vehicle.speed);
+            
+            mesh.position.add(forward);
+            
+            // Update player position to vehicle position
+            gameObjects.player.position.copy(mesh.position);
+            gameObjects.player.position.y = 2;
+            
+            // Rotate player with vehicle
+            gameObjects.player.rotation.y = mesh.rotation.y;
+            
+            // Animate wheels
+            vehicle.wheels.forEach(wheel => {
+                wheel.rotation.x += vehicle.speed * 2;
+            });
+        }
+        
+        function fireWeapon() {
+            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+            
+            // Check ammo
+            if (weapon.type !== 'melee' && weapon.ammo <= 0) {
+                showNotification('গুলি শেষ! R চাপুন রিলোড করতে');
+                return;
+            }
+            
+            // Reduce ammo
+            if (weapon.type !== 'melee') {
+                weapon.ammo--;
+                updateAmmoDisplay();
+            }
+            
+            // Recoil effect
+            if (weapon.recoil) {
+                const recoilElement = document.getElementById('gunRecoil');
+                recoilElement.style.transform = `translateY(${weapon.recoil * 10}px)`;
+                setTimeout(() => {
+                    recoilElement.style.transform = 'translateY(0)';
+                }, 50);
+            }
+            
+            // Muzzle flash
+            createMuzzleFlash();
+            
+            // Raycast for bullet hit detection
+            const raycaster = new THREE.Raycaster();
+            const camera = gameState.viewMode === 'first' ? firstPersonCamera : camera;
+            
+            raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+            
+            const intersects = raycaster.intersectObjects(gameObjects.npcs, true);
+            
+            if (intersects.length > 0) {
+                const hitObject = intersects[0].object;
+                let npc = hitObject;
+                
+                // Find the NPC group
+                while (npc.parent && !npc.userData.type) {
+                    npc = npc.parent;
+                }
+                
+                if (npc.userData.type) {
+                    // Apply damage
+                    npc.userData.health -= weapon.damage;
+                    
+                    // Create blood splatter
+                    createBloodSplatter(intersects[0].point);
+                    
+                    // Check if NPC is dead
+                    if (npc.userData.health <= 0) {
+                        killNPC(npc);
+                    } else {
+                        // NPC reacts to being hit
+                        npc.userData.hitReaction = 1.0;
+                    }
+                }
+            } else {
+                // Create bullet hole on surfaces
+                const surfaceIntersects = raycaster.intersectObjects(
+                    [...gameObjects.buildings, ...gameObjects.roads, gameObjects.ground],
+                    true
+                );
+                
+                if (surfaceIntersects.length > 0) {
+                    createBulletHole(surfaceIntersects[0]);
+                }
+            }
+            
+            // Create bullet casing
+            createBulletCasing();
+            
+            // Update score for shooting
+            if (weapon.type !== 'melee') {
+                gameState.player.score += 10;
+            }
+        }
+        
+        function createMuzzleFlash() {
+            const flashGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+            const flashMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffff00,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const flash = new THREE.Mesh(flashGeometry, flashMaterial);
+            
+            // Position flash at weapon barrel
+            flash.position.copy(weaponModel.position);
+            flash.position.z += 1.5;
+            flash.position.x += 0.4;
+            
+            scene.add(flash);
+            
+            // Animate and remove flash
+            setTimeout(() => {
+                scene.remove(flash);
+            }, 50);
+        }
+        
+        function createBulletHole(intersect) {
+            const holeGeometry = new THREE.CircleGeometry(0.02, 8);
+            const holeMaterial = new THREE.MeshBasicMaterial({
+                color: 0x000000,
+                side: THREE.DoubleSide
+            });
+            
+            const bulletHole = new THREE.Mesh(holeGeometry, holeMaterial);
+            
+            // Position at intersection point
+            bulletHole.position.copy(intersect.point);
+            bulletHole.lookAt(intersect.point.clone().add(intersect.face.normal));
+            bulletHole.position.add(intersect.face.normal.clone().multiplyScalar(0.01));
+            
+            scene.add(bulletHole);
+            gameObjects.bulletHoles.push(bulletHole);
+            
+            // Limit number of bullet holes
+            if (gameObjects.bulletHoles.length > 50) {
+                scene.remove(gameObjects.bulletHoles.shift());
+            }
+        }
+        
+        function createBloodSplatter(position) {
+            const splatterGeometry = new THREE.CircleGeometry(0.1, 8);
+            const splatterMaterial = new THREE.MeshBasicMaterial({
+                color: 0x8b0000,
+                transparent: true,
+                opacity: 0.7,
+                side: THREE.DoubleSide
+            });
+            
+            const splatter = new THREE.Mesh(splatterGeometry, splatterMaterial);
+            splatter.position.copy(position);
+            splatter.position.y += 0.01; // Slightly above surface
+            
+            // Random rotation
+            splatter.rotation.x = Math.PI / 2;
+            splatter.rotation.z = Math.random() * Math.PI * 2;
+            
+            scene.add(splatter);
+            gameObjects.bloodSplatters.push(splatter);
+            
+            // Limit number of blood splatters
+            if (gameObjects.bloodSplatters.length > 30) {
+                scene.remove(gameObjects.bloodSplatters.shift());
+            }
+        }
+        
+        function createBulletCasing() {
+            const casingGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.1, 8);
+            const casingMaterial = new THREE.MeshBasicMaterial({ color: 0xffd700 });
+            
+            const casing = new THREE.Mesh(casingGeometry, casingMaterial);
+            
+            // Position casing at weapon ejection port
+            casing.position.copy(weaponModel.position);
+            casing.position.x -= 0.2;
+            casing.position.y -= 0.1;
+            
+            // Random rotation
+            casing.rotation.x = Math.random() * Math.PI;
+            casing.rotation.y = Math.random() * Math.PI;
+            
+            // Add physics
+            casing.userData = {
+                velocity: new THREE.Vector3(
+                    (Math.random() - 0.5) * 2,
+                    2 + Math.random(),
+                    (Math.random() - 0.5) * 2
+                ),
+                gravity: 9.8,
+                lifetime: 0
+            };
+            
+            scene.add(casing);
+            gameObjects.bullets.push(casing);
+        }
+        
+        function killNPC(npc) {
+            // Remove NPC from scene
+            scene.remove(npc);
+            
+            // Remove from gameObjects
+            const index = gameObjects.npcs.indexOf(npc);
+            if (index > -1) {
+                gameObjects.npcs.splice(index, 1);
+            }
+            
+            // Update player stats
+            gameState.player.kills++;
+            gameState.player.score += 100;
+            gameState.player.money += 50;
+            
+            // Show notification
+            showNotification(`শত্রু নিপাত! +৳50, +100 স্কোর`);
+            
+            // Update mission progress
+            updateMissionProgress(4, 1);
+            
+            // Create death effect
+            createDeathEffect(npc.position);
+        }
+        
+        function createDeathEffect(position) {
+            // Create blood pool
+            const bloodGeometry = new THREE.CircleGeometry(0.5, 16);
+            const bloodMaterial = new THREE.MeshBasicMaterial({
+                color: 0x8b0000,
+                transparent: true,
+                opacity: 0.5
+            });
+            
+            const bloodPool = new THREE.Mesh(bloodGeometry, bloodMaterial);
+            bloodPool.position.copy(position);
+            bloodPool.position.y = 0.01;
+            bloodPool.rotation.x = -Math.PI / 2;
+            
+            scene.add(bloodPool);
+            
+            // Remove after some time
+            setTimeout(() => {
+                scene.remove(bloodPool);
+            }, 30000);
+        }
+        
+        function updateBullets() {
+            for (let i = gameObjects.bullets.length - 1; i >= 0; i--) {
+                const bullet = gameObjects.bullets[i];
+                
+                if (bullet.userData.lifetime > 5) {
+                    scene.remove(bullet);
+                    gameObjects.bullets.splice(i, 1);
+                    continue;
+                }
+                
+                // Apply gravity
+                bullet.userData.velocity.y -= bullet.userData.gravity * deltaTime;
+                
+                // Update position
+                bullet.position.add(bullet.userData.velocity.clone().multiplyScalar(deltaTime));
+                
+                // Update rotation
+                bullet.rotation.x += 1 * deltaTime;
+                bullet.rotation.y += 1 * deltaTime;
+                
+                // Check ground collision
+                if (bullet.position.y <= 0.1) {
+                    bullet.position.y = 0.1;
+                    bullet.userData.velocity.y = 0;
+                    bullet.userData.velocity.x *= 0.9;
+                    bullet.userData.velocity.z *= 0.9;
+                }
+                
+                bullet.userData.lifetime += deltaTime;
+            }
+        }
+        
+        function updateExplosions() {
+            // Update explosion animations
+            for (let i = gameState.explosions.length - 1; i >= 0; i--) {
+                const explosion = gameState.explosions[i];
+                explosion.lifetime -= deltaTime;
+                
+                if (explosion.lifetime <= 0) {
+                    scene.remove(explosion.mesh);
+                    gameState.explosions.splice(i, 1);
+                } else {
+                    // Scale explosion
+                    const scale = 1 + (1 - explosion.lifetime) * 5;
+                    explosion.mesh.scale.set(scale, scale, scale);
+                    explosion.mesh.material.opacity = explosion.lifetime;
+                }
+            }
+        }
+        
+        function checkCollision(position) {
+            // Simple collision detection with buildings
+            for (const building of gameObjects.buildings) {
+                const buildingBox = new THREE.Box3().setFromObject(building);
+                buildingBox.expandByScalar(-1); // Shrink box slightly for better collision
+                
+                if (buildingBox.containsPoint(position)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        function updateNPCs() {
+            const playerPos = gameObjects.player.position;
+            
+            gameObjects.npcs.forEach(npc => {
+                const data = npc.userData;
+                
+                // Update hit reaction
+                if (data.hitReaction > 0) {
+                    data.hitReaction -= deltaTime;
+                    npc.position.y = 0.85 + Math.sin(data.hitReaction * 10) * 0.1;
+                }
+                
+                // Calculate distance to player
+                const dx = playerPos.x - npc.position.x;
+                const dz = playerPos.z - npc.position.z;
+                const distance = Math.sqrt(dx * dx + dz * dz);
+                
+                // NPC behavior based on type
+                if (data.hostile && distance < data.detectionRange) {
+                    // Hostile NPC: chase player
+                    data.direction = Math.atan2(dx, dz);
+                    data.walking = true;
+                    
+                    // Attack player if in range
+                    if (distance < data.attackRange && data.attackCooldown <= 0) {
+                        damagePlayer(10);
+                        data.attackCooldown = 2; // 2 second cooldown
+                        showNotification('শত্রু দ্বারা আক্রান্ত!');
+                    }
+                } else {
+                    // Civilian NPC: wander randomly
+                    data.lastDirectionChange += deltaTime;
+                    if (data.lastDirectionChange > 3 + Math.random() * 5) {
+                        data.direction = Math.random() * Math.PI * 2;
+                        data.lastDirectionChange = 0;
+                        data.walking = Math.random() > 0.3;
+                    }
+                }
+                
+                // Update attack cooldown
+                if (data.attackCooldown > 0) {
+                    data.attackCooldown -= deltaTime;
+                }
+                
+                // Move NPC if walking
+                if (data.walking) {
+                    const moveX = Math.sin(data.direction) * data.speed * deltaTime;
+                    const moveZ = Math.cos(data.direction) * data.speed * deltaTime;
+                    
+                    const newX = npc.position.x + moveX;
+                    const newZ = npc.position.z + moveZ;
+                    
+                    // Check boundaries
+                    if (Math.abs(newX) < 800 && Math.abs(newZ) < 800) {
+                        npc.position.x = newX;
+                        npc.position.z = newZ;
+                    } else {
+                        data.direction += Math.PI; // Turn around
+                    }
+                    
+                    // Walking animation
+                    data.walkCycle += deltaTime * 5;
+                    npc.position.y = 0.85 + Math.sin(data.walkCycle) * 0.05;
+                }
+                
+                // Rotate NPC towards movement direction
+                npc.rotation.y = data.direction;
+            });
+        }
+        
+        function updateVehicles() {
+            const playerPos = gameObjects.player.position;
+            
+            gameObjects.vehicles.forEach(vehicle => {
+                if (vehicle.userInVehicle) return;
+                
+                const mesh = vehicle.mesh;
+                
+                // Simple AI for vehicles
+                const time = Date.now() * 0.001;
+                vehicle.direction += Math.sin(time + vehicle.mesh.id) * 0.01;
+                
+                // Move vehicle
+                const moveX = Math.sin(vehicle.direction) * vehicle.speed * deltaTime * 60;
+                const moveZ = Math.cos(vehicle.direction) * vehicle.speed * deltaTime * 60;
+                
+                const newX = mesh.position.x + moveX;
+                const newZ = mesh.position.z + moveZ;
+                
+                // Check road boundaries
+                if (Math.abs(newX) > 400 || Math.abs(newZ) > 400) {
+                    vehicle.direction += Math.PI / 2;
+                } else {
+                    mesh.position.x = newX;
+                    mesh.position.z = newZ;
+                }
+                
+                // Rotate vehicle
+                mesh.rotation.y = vehicle.direction;
+                
+                // Animate wheels
+                vehicle.wheels.forEach(wheel => {
+                    wheel.rotation.x += vehicle.speed * 2;
+                });
+                
+                // Check if player is near vehicle
+                const dx = playerPos.x - mesh.position.x;
+                const dz = playerPos.z - mesh.position.z;
+                const distance = Math.sqrt(dx * dx + dz * dz);
+                
+                if (distance < 10 && !gameState.player.inVehicle && (keys['f'] || touch.buttons.interact)) {
+                    enterVehicle(vehicle);
+                    keys['f'] = false;
+                    touch.buttons.interact = false;
+                }
+            });
+        }
+        
+        function enterVehicle(vehicle) {
+            gameState.player.inVehicle = true;
+            gameState.player.currentVehicle = vehicle;
+            vehicle.userInVehicle = true;
+            
+            // Position player in vehicle
+            gameObjects.player.position.copy(vehicle.mesh.position);
+            gameObjects.player.position.y = 2;
+            
+            showNotification('গাড়িতে উঠলেন! W/S চালান, A/D ঘুরান, Space ব্রেক');
+            updateMissionProgress(3, 1);
+        }
+        
+        function exitVehicle() {
+            if (!gameState.player.inVehicle) return;
+            
+            const vehicle = gameState.player.currentVehicle;
+            vehicle.userInVehicle = false;
+            gameState.player.inVehicle = false;
+            gameState.player.currentVehicle = null;
+            
+            // Position player next to vehicle
+            const offset = new THREE.Vector3(3, 0, 0);
+            offset.applyQuaternion(vehicle.mesh.quaternion);
+            gameObjects.player.position.copy(vehicle.mesh.position).add(offset);
+            gameObjects.player.position.y = 1;
+            
+            showNotification('গাড়ি থেকে নামলেন');
+        }
+        
+        function updateFloatingObjects() {
+            const time = Date.now() * 0.001;
+            
+            gameObjects.collectibles.forEach(collectible => {
+                const data = collectible.userData;
+                collectible.position.y = data.originalY + Math.sin(time * data.floatSpeed) * data.floatHeight;
+                collectible.rotation.y += data.rotationSpeed;
+                
+                // Check for collection
+                const dx = gameObjects.player.position.x - collectible.position.x;
+                const dz = gameObjects.player.position.z - collectible.position.z;
+                const distance = Math.sqrt(dx * dx + dz * dz);
+                
+                if (distance < 2) {
+                    collectItem(collectible);
+                }
+            });
+        }
+        
+        function collectItem(collectible) {
+            const data = collectible.userData.type;
+            
+            switch(data.type) {
+                case 'money':
+                    gameState.player.money += data.value;
+                    showNotification(`+৳${data.value} টাকা!`);
+                    updateMissionProgress(2, data.value);
+                    break;
+                case 'health':
+                    gameState.player.health = Math.min(gameState.player.maxHealth, gameState.player.health + data.value);
+                    showNotification(`+${data.value} স্বাস্থ্য!`);
+                    break;
+                case 'stamina':
+                    gameState.player.stamina = Math.min(gameState.player.maxStamina, gameState.player.stamina + data.value);
+                    showNotification(`+${data.value} শক্তি!`);
+                    break;
+                case 'armor':
+                    gameState.player.armor = Math.min(gameState.player.maxArmor, gameState.player.armor + data.value);
+                    showNotification(`+${data.value} বর্ম!`);
+                    break;
+                case 'ammo':
+                    // Add ammo to current weapon
+                    const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+                    if (weapon.maxAmmo) {
+                        weapon.maxAmmo = Math.min(weapon.maxAmmo + data.value, 999);
+                        showNotification(`+${data.value} গুলি!`);
+                    }
+                    break;
+            }
+            
+            // Remove collectible
+            scene.remove(collectible);
+            const index = gameObjects.collectibles.indexOf(collectible);
+            if (index > -1) {
+                gameObjects.collectibles.splice(index, 1);
+            }
+        }
+        
+        function reloadWeapon() {
+            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+            
+            if (weapon.type === 'melee') {
+                showNotification('এই অস্ত্রের রিলোডের প্রয়োজন নেই');
+                return;
+            }
+            
+            if (weapon.ammo === weapon.maxAmmo) {
+                showNotification('অস্ত্র ইতিমধ্যে পূর্ণ');
+                return;
+            }
+            
+            if (weapon.maxAmmo <= 0) {
+                showNotification('কোন গুলি নেই!');
+                return;
+            }
+            
+            // Reload animation
+            showNotification('রিলোড হচ্ছে...');
+            
+            setTimeout(() => {
+                const ammoNeeded = weapon.maxAmmo - weapon.ammo;
+                const ammoAvailable = Math.min(ammoNeeded, weapon.maxAmmo);
+                
+                weapon.ammo += ammoAvailable;
+                weapon.maxAmmo -= ammoAvailable;
+                
+                showNotification('রিলোড সম্পন্ন!');
+                updateAmmoDisplay();
+            }, weapon.reloadTime || 1000);
+        }
+        
+        function switchWeapon(index) {
+            if (index < gameState.player.weapons.length) {
+                gameState.player.currentWeapon = index;
+                const weapon = gameState.player.weapons[index];
+                
+                // Update weapon model based on weapon type
+                updateWeaponModel(weapon);
+                
+                showNotification(`অস্ত্র পরিবর্তন: ${weapon.name}`);
+                updateWeaponDisplay();
+                updateAmmoDisplay();
+                
+                // Update mission progress
+                updateMissionProgress(5, 0.1);
+            }
+        }
+        
+        function updateWeaponModel(weapon) {
+            // In a full implementation, you would load different 3D models for each weapon
+            // For now, we'll just adjust the existing model's scale and color
+            
+            if (weaponModel) {
+                switch(weapon.type) {
+                    case 'pistol':
+                        weaponModel.scale.set(0.8, 0.8, 0.8);
+                        break;
+                    case 'shotgun':
+                        weaponModel.scale.set(1.2, 1.2, 1.2);
+                        break;
+                    case 'rifle':
+                        weaponModel.scale.set(1, 1, 1);
+                        break;
+                    default:
+                        weaponModel.scale.set(0.5, 0.5, 0.5);
+                }
+            }
+        }
+        
+        function damagePlayer(amount) {
+            // Reduce armor first
+            if (gameState.player.armor > 0) {
+                const armorDamage = Math.min(amount, gameState.player.armor);
+                gameState.player.armor -= armorDamage;
+                amount -= armorDamage;
+            }
+            
+            // Then reduce health
+            if (amount > 0) {
+                gameState.player.health = Math.max(0, gameState.player.health - amount);
+            }
+            
+            // Show hit effect
+            showHitEffect();
+            
+            // Check for death
+            if (gameState.player.health <= 0) {
+                gameOver();
+            }
+        }
+        
+        function jump() {
+            if (!gameState.player.isJumping && gameObjects.player.position.y <= 1.1) {
+                gameState.player.velocity.y = CONFIG.player.jumpForce;
+                gameState.player.isJumping = true;
+            }
+        }
+        
+        function toggleCrouch() {
+            gameState.player.isCrouching = !gameState.player.isCrouching;
+            
+            if (gameState.player.isCrouching) {
+                gameObjects.player.scale.y = 0.7;
+                gameObjects.player.position.y = 0.85;
+            } else {
+                gameObjects.player.scale.y = 1;
+                gameObjects.player.position.y = 1;
+            }
+        }
+        
+        function toggleViewMode() {
+            gameState.viewMode = gameState.viewMode === 'first' ? 'third' : 'first';
+            
+            // Update UI
+            const viewSwitch = document.getElementById('viewSwitch');
+            const icon = viewSwitch.querySelector('i');
+            const text = viewSwitch.querySelector('span') || viewSwitch;
+            
+            if (gameState.viewMode === 'first') {
+                icon.className = 'fas fa-eye';
+                viewSwitch.innerHTML = '<i class="fas fa-eye"></i> প্রথম ব্যক্তি';
+                
+                // Request pointer lock
+                if (!gameState.isPaused) {
+                    renderer.domElement.requestPointerLock();
+                }
+            } else {
+                icon.className = 'fas fa-user';
+                viewSwitch.innerHTML = '<i class="fas fa-user"></i> তৃতীয় ব্যক্তি';
+                
+                // Exit pointer lock
+                document.exitPointerLock();
+            }
+            
+            // Show notification
+            showNotification(`দৃশ্য মোড: ${gameState.viewMode === 'first' ? 'প্রথম ব্যক্তি' : 'তৃতীয় ব্যক্তি'}`);
+        }
+        
+        function gameOver() {
+            showNotification('গেম ওভার! মেনুতে যান');
+            gameState.isPaused = true;
+            toggleMenu();
+            
+            // Show game over stats
+            const menuContent = document.querySelector('.menu-content');
+            const statsHTML = `
+                <div style="margin: 20px 0; padding: 15px; background: rgba(244,42,65,0.2); border-radius: 10px;">
+                    <h3 style="color: #f42a41; margin-bottom: 10px;">গেম ওভার স্ট্যাটস</h3>
+                    <p>স্কোর: ${gameState.player.score}</p>
+                    <p>টাকা: ৳${gameState.player.money}</p>
+                    <p>নিপাত: ${gameState.player.kills}</p>
+                    <p>সম্পন্ন মিশন: ${gameState.missions.filter(m => m.completed).length}</p>
+                </div>
+            `;
+            
+            menuContent.insertAdjacentHTML('afterbegin', statsHTML);
+        }
+        
+        // UI FUNCTIONS
+        function updateUI() {
+            // Update health bar
+            const healthPercent = (gameState.player.health / gameState.player.maxHealth) * 100;
+            document.getElementById('healthBar').style.width = `${healthPercent}%`;
+            document.getElementById('healthValue').textContent = `${Math.round(gameState.player.health)}`;
+            
+            // Update stamina bar
+            const staminaPercent = (gameState.player.stamina / gameState.player.maxStamina) * 100;
+            document.getElementById('staminaBar').style.width = `${staminaPercent}%`;
+            document.getElementById('staminaValue').textContent = `${Math.round(gameState.player.stamina)}`;
+            
+            // Update armor bar
+            const armorPercent = (gameState.player.armor / gameState.player.maxArmor) * 100;
+            document.getElementById('armorBar').style.width = `${armorPercent}%`;
+            document.getElementById('armorValue').textContent = `${Math.round(gameState.player.armor)}`;
+            
+            // Update money
+            document.getElementById('money').textContent = `৳ ${gameState.player.money}`;
+            
+            // Update score
+            document.getElementById('score').textContent = `স্কোর: ${gameState.player.score}`;
+            
+            // Update kills
+            document.getElementById('kills').textContent = `নিপাত: ${gameState.player.kills}`;
+            
+            // Update time
+            updateTime();
+            
+            // Update location
+            updateLocation();
+            
+            // Update minimap
+            updateMinimap();
+        }
+        
+        function updateTime() {
+            gameState.world.time += deltaTime * 0.05;
+            if (gameState.world.time >= 24) gameState.world.time = 0;
+            
+            const hour = Math.floor(gameState.world.time);
+            const minute = Math.floor((gameState.world.time % 1) * 60);
+            const period = hour < 12 ? 'সকাল' : hour < 18 ? 'দুপুর' : 'রাত';
+            
+            gameState.world.isDay = hour >= 6 && hour < 18;
+            
+            // Update lighting based on time
+            updateLightingBasedOnTime();
+            
+            document.getElementById('timeText').textContent = `${period} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+        }
+        
+        function updateLightingBasedOnTime() {
+            const time = gameState.world.time;
+            let sunIntensity = 1.0;
+            let ambientIntensity = 0.6;
+            
+            if (time < 6 || time > 20) {
+                // Night
+                sunIntensity = 0.1;
+                ambientIntensity = 0.2;
+                scene.fog.color.setHex(0x1a237e);
+                gameObjects.skybox.material.color.setHex(0x1a237e);
+            } else if (time < 8 || time > 18) {
+                // Dawn/dusk
+                sunIntensity = 0.5;
+                ambientIntensity = 0.4;
+                scene.fog.color.setHex(0xff7e5f);
+                gameObjects.skybox.material.color.setHex(0xff7e5f);
+            } else {
+                // Day
+                sunIntensity = 1.0;
+                ambientIntensity = 0.6;
+                scene.fog.color.setHex(0x87ceeb);
+                gameObjects.skybox.material.color.setHex(0x87ceeb);
+            }
+            
+            // Update lights
+            gameObjects.lights.forEach(light => {
+                if (light.isDirectionalLight) {
+                    light.intensity = sunIntensity;
+                } else if (light.isAmbientLight) {
+                    light.intensity = ambientIntensity;
+                }
+            });
+            
+            // Update street lights
+            gameObjects.streetLights.forEach(light => {
+                light.light.intensity = time < 18 && time > 6 ? 0.1 : 1.0;
+                light.lamp.material.emissiveIntensity = time < 18 && time > 6 ? 0.1 : 0.5;
+            });
+        }
+        
+        function updateLocation() {
+            const playerPos = gameObjects.player.position;
+            let closestLocation = gameState.world.locations[0];
+            let closestDistance = Infinity;
+            
+            gameState.world.locations.forEach(location => {
+                const dx = playerPos.x - location.x;
+                const dz = playerPos.z - location.z;
+                const distance = Math.sqrt(dx * dx + dz * dz);
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestLocation = location;
+                }
+            });
+            
+            if (closestDistance < 150) {
+                document.getElementById('locationName').textContent = closestLocation.name;
+                
+                // Update mission progress for location exploration
+                if (closestDistance < 50) {
+                    updateMissionProgress(1, 0.01);
+                }
+            } else {
+                document.getElementById('locationName').textContent = 'মুক্ত প্রান্তর';
+            }
+        }
+        
+        function updateMinimap() {
+            const playerDot = document.querySelector('.mini-map-player');
+            const playerPos = gameObjects.player.position;
+            
+            // Convert world coordinates to minimap coordinates
+            const mapSize = 800; // World size
+            const minimapSize = 180; // Minimap size in pixels
+            
+            const mapX = (playerPos.x / mapSize) * (minimapSize * 0.9) + minimapSize / 2;
+            const mapY = (playerPos.z / mapSize) * (minimapSize * 0.9) + minimapSize / 2;
+            
+            playerDot.style.left = `${mapX}px`;
+            playerDot.style.top = `${mapY}px`;
+            
+            // Rotate player dot based on camera direction
+            const camera = gameState.viewMode === 'first' ? firstPersonCamera : camera;
+            playerDot.style.transform = `translate(-50%, -50%) rotate(${camera.rotation.y}rad)`;
+        }
+        
+        function updateWeaponDisplay() {
+            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+            document.getElementById('weaponName').textContent = weapon.name;
+            document.getElementById('weaponDisplay').innerHTML = `<i class="fas ${weapon.icon}"></i> ${weapon.name}`;
+        }
+        
+        function updateAmmoDisplay() {
+            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+            
+            if (weapon.type === 'melee') {
+                document.getElementById('ammoDisplay').style.display = 'none';
+            } else {
+                document.getElementById('ammoDisplay').style.display = 'inline-block';
+                document.getElementById('currentAmmo').textContent = weapon.ammo;
+                document.getElementById('totalAmmo').textContent = weapon.maxAmmo;
+            }
+        }
+        
+        function updateMissionProgress(missionId, amount) {
+            const mission = gameState.missions.find(m => m.id === missionId);
+            if (mission && !mission.completed) {
+                mission.progress += amount;
+                
+                if (mission.progress >= mission.target) {
+                    mission.completed = true;
+                    mission.progress = mission.target;
+                    gameState.player.money += mission.reward;
+                    gameState.player.score += mission.reward * 10;
+                    showNotification(`মিশন সম্পন্ন! +৳${mission.reward} পুরস্কার এবং +${mission.reward * 10} স্কোর`);
+                }
+            }
+        }
+        
+        function showMissions() {
+            const missionsList = document.getElementById('missionsList');
+            missionsList.innerHTML = '';
+            
+            gameState.missions.forEach(mission => {
+                const progressPercent = (mission.progress / mission.target) * 100;
+                const missionElement = document.createElement('div');
+                missionElement.style.background = 'rgba(0,0,0,0.5)';
+                missionElement.style.padding = '15px';
+                missionElement.style.margin = '10px 0';
+                missionElement.style.borderRadius = '10px';
+                missionElement.style.border = '2px solid ' + (mission.completed ? '#00ff00' : '#f42a41');
+                
+                missionElement.innerHTML = `
+                    <div style="font-weight: bold; color: ${mission.completed ? '#00ff00' : '#f42a41'}; margin-bottom: 8px;">
+                        ${mission.title} ${mission.completed ? '✓' : ''}
+                    </div>
+                    <div style="font-size: 14px; margin-bottom: 10px; color: #ccc;">
+                        ${mission.description}
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="width: 70%; height: 8px; background: #333; border-radius: 4px; overflow: hidden;">
+                            <div style="width: ${progressPercent}%; height: 100%; background: ${mission.completed ? '#00ff00' : '#f42a41'};"></div>
+                        </div>
+                        <div style="font-size: 14px; color: #f1c40f;">
+                            ${Math.round(mission.progress)}/${mission.target}
+                        </div>
+                    </div>
+                    <div style="margin-top: 8px; color: #f1c40f;">
+                        পুরস্কার: ৳${mission.reward}
+                    </div>
+                `;
+                
+                missionsList.appendChild(missionElement);
+            });
+        }
+        
+        function showNotification(text) {
+            const notification = document.getElementById('missionNotification');
+            notification.innerHTML = `<strong>${text}</strong>`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        function showHitEffect() {
+            const hitEffect = document.getElementById('hitEffect');
+            hitEffect.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                hitEffect.style.opacity = '0';
+            }, 100);
+        }
+        
+        function toggleMenu() {
+            gameState.isPaused = !gameState.isPaused;
+            const menu = document.getElementById('mainMenu');
+            
+            if (gameState.isPaused) {
+                menu.style.display = 'flex';
+                
+                // Exit pointer lock when menu is open
+                document.exitPointerLock();
+            } else {
+                menu.style.display = 'none';
+                
+                // Re-enter pointer lock if in first person view
+                if (gameState.viewMode === 'first') {
+                    renderer.domElement.requestPointerLock();
+                }
+            }
+        }
+        
+        function saveSettings() {
+            gameState.settings.graphics = document.getElementById('graphicsQuality').value;
+            gameState.settings.controls = document.getElementById('controlType').value;
+            gameState.viewMode = document.getElementById('viewMode').value;
+            
+            // Apply graphics settings
+            switch(gameState.settings.graphics) {
+                case 'low':
+                    renderer.setPixelRatio(1);
+                    renderer.shadowMap.enabled = false;
+                    break;
+                case 'medium':
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+                    renderer.shadowMap.enabled = true;
+                    break;
+                case 'high':
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                    renderer.shadowMap.enabled = true;
+                    break;
+                case 'ultra':
+                    renderer.setPixelRatio(window.devicePixelRatio);
+                    renderer.shadowMap.enabled = true;
+                    break;
+            }
+            
+            // Apply view mode
+            if (gameState.viewMode === 'first') {
+                toggleViewMode();
+            }
+            
+            document.getElementById('settingsMenu').style.display = 'none';
+            document.getElementById('mainMenu').style.display = 'flex';
+            
+            showNotification('সেটিংস সেভ করা হয়েছে!');
+        }
+        
+        // ANIMATION LOOP
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            deltaTime = clock.getDelta();
+            deltaTime = Math.min(deltaTime, 0.033); // Cap at 30 FPS for physics
+            
+            if (gameState.isLoaded && !gameState.isPaused) {
+                updatePlayer();
+            }
+            
+            // Render with appropriate camera
+            if (gameState.viewMode === 'first') {
+                renderer.render(scene, firstPersonCamera);
+            } else {
+                renderer.render(scene, camera);
+            }
+        }
+        
+        // START THE GAME
+        document.addEventListener('DOMContentLoaded', initGame);
+        
+        // Add fullscreen support
+        document.addEventListener('dblclick', () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+        
+        // Show controls info on hover
+        document.addEventListener('mousemove', (e) => {
+            const controlsInfo = document.getElementById('controlsInfo');
+            if (e.clientY > window.innerHeight - 100) {
+                controlsInfo.style.display = 'block';
+            } else {
+                controlsInfo.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
