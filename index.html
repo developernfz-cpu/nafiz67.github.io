@@ -11,7 +11,6 @@
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none;
             user-select: none;
         }
 
@@ -35,11 +34,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, 
-                #006a4e 0%, #00563d 25%, 
-                #f42a41 25%, #d92338 50%,
-                #006a4e 50%, #00563d 75%,
-                #f42a41 75%, #d92338 100%);
+            background: linear-gradient(135deg, #006a4e 0%, #00563d 25%, #f42a41 25%, #d92338 50%, #006a4e 50%, #00563d 75%, #f42a41 75%, #d92338 100%);
             background-size: 400% 400%;
             animation: gradientBG 8s ease infinite;
             z-index: 1000;
@@ -64,10 +59,7 @@
             position: relative;
             margin-bottom: 40px;
             border: 5px solid rgba(255,255,255,0.3);
-            box-shadow: 
-                0 20px 40px rgba(0,0,0,0.6),
-                0 0 0 10px rgba(244,42,65,0.2),
-                inset 0 0 30px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 10px rgba(244,42,65,0.2), inset 0 0 30px rgba(0,0,0,0.4);
             transform-style: preserve-3d;
             perspective: 1000px;
             animation: flagFloat 6s ease-in-out infinite;
@@ -88,9 +80,7 @@
             height: 100px;
             background: #f42a41;
             border-radius: 50%;
-            box-shadow: 
-                0 0 40px rgba(244,42,65,0.8),
-                inset 0 0 20px rgba(255,255,255,0.3);
+            box-shadow: 0 0 40px rgba(244,42,65,0.8), inset 0 0 20px rgba(255,255,255,0.3);
             animation: pulse 2s ease-in-out infinite;
         }
 
@@ -142,12 +132,7 @@
 
         .loading-bar {
             height: 100%;
-            background: linear-gradient(90deg, 
-                #006a4e 0%, 
-                #00a86b 25%,
-                #f42a41 50%,
-                #ff6b8b 75%,
-                #ffd700 100%);
+            background: linear-gradient(90deg, #006a4e 0%, #00a86b 25%, #f42a41 50%, #ff6b8b 75%, #ffd700 100%);
             width: 0%;
             transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 10px;
@@ -162,10 +147,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(255,255,255,0.3) 50%,
-                transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
             animation: shimmer 2s infinite;
         }
 
@@ -230,10 +212,7 @@
             padding: 15px 25px;
             backdrop-filter: blur(15px) saturate(180%);
             border: 2px solid #006a4e;
-            box-shadow: 
-                0 10px 30px rgba(0,0,0,0.4),
-                0 0 0 1px rgba(255,255,255,0.1),
-                inset 0 0 20px rgba(0,106,78,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.1), inset 0 0 20px rgba(0,106,78,0.3);
             min-width: 250px;
             position: relative;
             overflow: hidden;
@@ -277,9 +256,7 @@
         .stat-bar {
             width: 100%;
             height: 14px;
-            background: linear-gradient(90deg, 
-                rgba(0,0,0,0.3) 0%,
-                rgba(0,0,0,0.1) 100%);
+            background: linear-gradient(90deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
             border-radius: 8px;
             overflow: hidden;
             position: relative;
@@ -291,9 +268,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 
-                0 0 20px currentColor,
-                inset 0 2px 4px rgba(255,255,255,0.2);
+            box-shadow: 0 0 20px currentColor, inset 0 2px 4px rgba(255,255,255,0.2);
         }
 
         .stat-fill::after {
@@ -303,10 +278,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg,
-                rgba(255,255,255,0) 0%,
-                rgba(255,255,255,0.3) 50%,
-                rgba(255,255,255,0) 100%);
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
             animation: barShine 2s infinite;
         }
 
@@ -316,26 +288,17 @@
         }
 
         #healthBar { 
-            background: linear-gradient(90deg, 
-                #f42a41 0%,
-                #ff6b6b 50%,
-                #ff8e8e 100%);
+            background: linear-gradient(90deg, #f42a41 0%, #ff6b6b 50%, #ff8e8e 100%);
             color: #f42a41;
         }
         
         #staminaBar { 
-            background: linear-gradient(90deg, 
-                #00a8ff 0%,
-                #4cd137 50%,
-                #7bed9f 100%);
+            background: linear-gradient(90deg, #00a8ff 0%, #4cd137 50%, #7bed9f 100%);
             color: #00a8ff;
         }
         
         #armorBar { 
-            background: linear-gradient(90deg, 
-                #9b59b6 0%,
-                #8e44ad 50%,
-                #af7ac5 100%);
+            background: linear-gradient(90deg, #9b59b6 0%, #8e44ad 50%, #af7ac5 100%);
             color: #9b59b6;
         }
 
@@ -362,9 +325,7 @@
         }
 
         #weaponDisplay {
-            background: linear-gradient(135deg, 
-                rgba(0,0,0,0.9) 0%,
-                rgba(20,20,30,0.9) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,30,0.9) 100%);
             padding: 15px 30px;
             border-radius: 25px;
             border: 3px solid #f42a41;
@@ -373,9 +334,7 @@
             gap: 15px;
             font-size: 18px;
             font-weight: bold;
-            box-shadow: 
-                0 10px 30px rgba(244,42,65,0.3),
-                0 0 0 2px rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(244,42,65,0.3), 0 0 0 2px rgba(255,255,255,0.1);
             min-width: 200px;
             backdrop-filter: blur(10px);
         }
@@ -402,16 +361,12 @@
         }
 
         #locationDisplay {
-            background: linear-gradient(135deg, 
-                rgba(0,106,78,0.9) 0%,
-                rgba(0,86,61,0.9) 100%);
+            background: linear-gradient(135deg, rgba(0,106,78,0.9) 0%, rgba(0,86,61,0.9) 100%);
             padding: 12px 25px;
             border-radius: 20px;
             font-size: 16px;
             border: 2px solid #f42a41;
-            box-shadow: 
-                0 8px 25px rgba(0,106,78,0.4),
-                0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 8px 25px rgba(0,106,78,0.4), 0 0 0 1px rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
@@ -436,9 +391,7 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, 
-                rgba(0,0,0,0.9) 0%,
-                rgba(20,20,40,0.9) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,40,0.9) 100%);
             padding: 12px 30px;
             border-radius: 25px;
             border: 2px solid #006a4e;
@@ -474,9 +427,7 @@
             top: 120px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, 
-                rgba(0,106,78,0.95) 0%,
-                rgba(0,86,61,0.95) 100%);
+            background: linear-gradient(135deg, rgba(0,106,78,0.95) 0%, rgba(0,86,61,0.95) 100%);
             border-left: 6px solid #f42a41;
             padding: 20px 35px;
             border-radius: 20px;
@@ -484,23 +435,15 @@
             display: none;
             backdrop-filter: blur(20px);
             animation: slideDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 
-                0 15px 40px rgba(0,0,0,0.6),
-                0 0 0 2px rgba(255,255,255,0.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 0 2px rgba(255,255,255,0.1);
             max-width: 500px;
             text-align: center;
             border: 2px solid #f42a41;
         }
 
         @keyframes slideDown {
-            from { 
-                transform: translateX(-50%) translateY(-100px) scale(0.9); 
-                opacity: 0; 
-            }
-            to { 
-                transform: translateX(-50%) translateY(0) scale(1); 
-                opacity: 1; 
-            }
+            from { transform: translateX(-50%) translateY(-100px) scale(0.9); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
         }
 
         #missionNotification::before {
@@ -557,19 +500,11 @@
         .joystick {
             width: 160px;
             height: 160px;
-            background: radial-gradient(circle at 30% 30%, 
-                #006a4e 0%,
-                #00563d 30%,
-                #00432c 70%,
-                #003020 100%);
+            background: radial-gradient(circle at 30% 30%, #006a4e 0%, #00563d 30%, #00432c 70%, #003020 100%);
             border-radius: 50%;
             position: relative;
             border: 6px solid #f42a41;
-            box-shadow: 
-                0 15px 40px rgba(0,0,0,0.6),
-                0 0 0 3px rgba(255,255,255,0.2),
-                inset 0 0 40px rgba(0,0,0,0.5),
-                0 0 60px rgba(244,42,65,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 0 3px rgba(255,255,255,0.2), inset 0 0 40px rgba(0,0,0,0.5), 0 0 60px rgba(244,42,65,0.3);
             transform-style: preserve-3d;
             perspective: 500px;
         }
@@ -582,15 +517,10 @@
             transform: translate(-50%, -50%);
             width: 60px;
             height: 60px;
-            background: radial-gradient(circle at 40% 40%,
-                #f42a41 0%,
-                #d92338 50%,
-                #b81c2f 100%);
+            background: radial-gradient(circle at 40% 40%, #f42a41 0%, #d92338 50%, #b81c2f 100%);
             border-radius: 50%;
             z-index: 1;
-            box-shadow: 
-                0 0 40px rgba(244,42,65,0.8),
-                inset 0 5px 20px rgba(255,255,255,0.4);
+            box-shadow: 0 0 40px rgba(244,42,65,0.8), inset 0 5px 20px rgba(255,255,255,0.4);
             animation: innerPulse 3s infinite;
         }
 
@@ -602,21 +532,14 @@
         .joystick-handle {
             width: 80px;
             height: 80px;
-            background: radial-gradient(circle at 40% 40%,
-                #ffffff 0%,
-                #e0e0e0 30%,
-                #c0c0c0 70%,
-                #a0a0a0 100%);
+            background: radial-gradient(circle at 40% 40%, #ffffff 0%, #e0e0e0 30%, #c0c0c0 70%, #a0a0a0 100%);
             border-radius: 50%;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             border: 5px solid #f42a41;
-            box-shadow: 
-                0 0 40px rgba(244,42,65,0.6),
-                inset 0 8px 30px rgba(255,255,255,0.9),
-                0 10px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 0 40px rgba(244,42,65,0.6), inset 0 8px 30px rgba(255,255,255,0.9), 0 10px 30px rgba(0,0,0,0.4);
             z-index: 2;
             transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: move;
@@ -636,10 +559,7 @@
             position: relative;
             overflow: hidden;
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 
-                0 12px 35px rgba(0,0,0,0.5),
-                0 0 0 4px rgba(255,255,255,0.15),
-                inset 0 0 30px rgba(255,255,255,0.1);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.5), 0 0 0 4px rgba(255,255,255,0.15), inset 0 0 30px rgba(255,255,255,0.1);
             transform-style: preserve-3d;
             perspective: 500px;
         }
@@ -651,10 +571,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 30%,
-                rgba(255,255,255,0.3) 0%,
-                rgba(255,255,255,0.1) 40%,
-                transparent 70%);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 40%, transparent 70%);
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -681,10 +598,7 @@
 
         .action-button:active {
             transform: scale(0.85) translateZ(-20px);
-            box-shadow: 
-                0 6px 20px rgba(0,0,0,0.4),
-                0 0 0 3px rgba(255,255,255,0.2),
-                inset 0 0 40px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 0 3px rgba(255,255,255,0.2), inset 0 0 40px rgba(0,0,0,0.3);
         }
 
         .action-button:active::before {
@@ -704,22 +618,12 @@
 
         /* Individual Button Themes */
         #jumpBtn { 
-            background: linear-gradient(135deg, 
-                #27ae60 0%,
-                #2ecc71 25%,
-                #4cd137 50%,
-                #7bed9f 75%,
-                #55efc4 100%);
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 25%, #4cd137 50%, #7bed9f 75%, #55efc4 100%);
             border: 5px solid #2ecc71;
         }
         
         #attackBtn { 
-            background: linear-gradient(135deg, 
-                #c0392b 0%,
-                #e74c3c 25%,
-                #ff6b6b 50%,
-                #ff8e8e 75%,
-                #ffafaf 100%);
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 25%, #ff6b6b 50%, #ff8e8e 75%, #ffafaf 100%);
             border: 5px solid #ff0000;
             animation: attackPulse 1.5s infinite;
         }
@@ -730,32 +634,17 @@
         }
         
         #interactBtn { 
-            background: linear-gradient(135deg, 
-                #2980b9 0%,
-                #3498db 25%,
-                #00a8ff 50%,
-                #74b9ff 75%,
-                #a29bfe 100%);
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 25%, #00a8ff 50%, #74b9ff 75%, #a29bfe 100%);
             border: 5px solid #3498db;
         }
         
         #menuBtn { 
-            background: linear-gradient(135deg, 
-                #8e44ad 0%,
-                #9b59b6 25%,
-                #a29bfe 50%,
-                #c8a2c8 75%,
-                #d6a2e8 100%);
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 25%, #a29bfe 50%, #c8a2c8 75%, #d6a2e8 100%);
             border: 5px solid #9b59b6;
         }
 
         #weaponBtn {
-            background: linear-gradient(135deg, 
-                #e67e22 0%,
-                #f39c12 25%,
-                #fdcb6e 50%,
-                #ffeaa7 75%,
-                #ffeb3b 100%);
+            background: linear-gradient(135deg, #e67e22 0%, #f39c12 25%, #fdcb6e 50%, #ffeaa7 75%, #ffeb3b 100%);
             border: 5px solid #f39c12;
             width: 100px;
             height: 100px;
@@ -763,12 +652,7 @@
         }
 
         #runBtn {
-            background: linear-gradient(135deg, 
-                #00b894 0%,
-                #00cec9 25%,
-                #81ecec 50%,
-                #a3f7bf 75%,
-                #55efc4 100%);
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 25%, #81ecec 50%, #a3f7bf 75%, #55efc4 100%);
             border: 5px solid #00cec9;
             width: 90px;
             height: 90px;
@@ -796,10 +680,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 
-                0 0 20px #f42a41,
-                0 0 40px rgba(244,42,65,0.5),
-                inset 0 0 10px rgba(255,255,255,0.3);
+            box-shadow: 0 0 20px #f42a41, 0 0 40px rgba(244,42,65,0.5), inset 0 0 10px rgba(255,255,255,0.3);
             animation: crosshairPulse 2s infinite;
         }
 
@@ -821,11 +702,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            background: linear-gradient(90deg,
-                transparent 0%,
-                #f42a41 20%,
-                #f42a41 80%,
-                transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, #f42a41 20%, #f42a41 80%, transparent 100%);
         }
 
         .crosshair-vertical {
@@ -834,11 +711,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            background: linear-gradient(0deg,
-                transparent 0%,
-                #f42a41 20%,
-                #f42a41 80%,
-                transparent 100%);
+            background: linear-gradient(0deg, transparent 0%, #f42a41 20%, #f42a41 80%, transparent 100%);
         }
 
         /* MINIMAP */
@@ -848,17 +721,12 @@
             right: 40px;
             width: 220px;
             height: 220px;
-            background: linear-gradient(135deg, 
-                rgba(0,0,0,0.9) 0%,
-                rgba(20,30,40,0.9) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,30,40,0.9) 100%);
             border-radius: 25px;
             border: 4px solid #006a4e;
             z-index: 15;
             overflow: hidden;
-            box-shadow: 
-                0 15px 40px rgba(0,0,0,0.6),
-                0 0 0 2px rgba(255,255,255,0.1),
-                inset 0 0 30px rgba(0,106,78,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 0 2px rgba(255,255,255,0.1), inset 0 0 30px rgba(0,106,78,0.3);
             backdrop-filter: blur(10px);
         }
 
@@ -886,10 +754,7 @@
             background: #f42a41;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 
-                0 0 15px #f42a41,
-                0 0 30px rgba(244,42,65,0.5),
-                inset 0 0 10px rgba(255,255,255,0.5);
+            box-shadow: 0 0 15px #f42a41, 0 0 30px rgba(244,42,65,0.5), inset 0 0 10px rgba(255,255,255,0.5);
             border: 2px solid white;
             z-index: 10;
             animation: playerBlip 2s infinite;
@@ -941,11 +806,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center, 
-                rgba(244,42,65,0) 0%,
-                rgba(244,42,65,0.4) 40%,
-                rgba(244,42,65,0.2) 70%,
-                transparent 100%);
+            background: radial-gradient(circle at center, rgba(244,42,65,0) 0%, rgba(244,42,65,0.4) 40%, rgba(244,42,65,0.2) 70%, transparent 100%);
         }
 
         .hit-effect::after {
@@ -955,9 +816,7 @@
             left: 50%;
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, 
-                rgba(255,255,255,0.8) 0%,
-                rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
             transform: translate(-50%, -50%);
             border-radius: 50%;
             animation: hitFlash 0.3s;
@@ -975,10 +834,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(ellipse at center,
-                rgba(0,106,78,0.95) 0%,
-                rgba(0,86,61,0.95) 40%,
-                rgba(0,66,47,0.95) 100%);
+            background: radial-gradient(ellipse at center, rgba(0,106,78,0.95) 0%, rgba(0,86,61,0.95) 40%, rgba(0,66,47,0.95) 100%);
             z-index: 30;
             display: none;
             flex-direction: column;
@@ -994,18 +850,13 @@
         }
 
         .menu-content {
-            background: linear-gradient(135deg, 
-                rgba(0,0,0,0.95) 0%,
-                rgba(20,20,40,0.95) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(20,20,40,0.95) 100%);
             border-radius: 35px;
             padding: 50px;
             max-width: 600px;
             width: 90%;
             border: 4px solid #f42a41;
-            box-shadow: 
-                0 30px 80px rgba(244,42,65,0.4),
-                0 0 0 2px rgba(255,255,255,0.1),
-                inset 0 0 50px rgba(0,106,78,0.2);
+            box-shadow: 0 30px 80px rgba(244,42,65,0.4), 0 0 0 2px rgba(255,255,255,0.1), inset 0 0 50px rgba(0,106,78,0.2);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -1018,20 +869,7 @@
             left: -50%;
             right: -50%;
             bottom: -50%;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0%,
-                rgba(244,42,65,0.1) 10%,
-                transparent 20%,
-                rgba(0,106,78,0.1) 30%,
-                transparent 40%,
-                rgba(244,42,65,0.1) 50%,
-                transparent 60%,
-                rgba(0,106,78,0.1) 70%,
-                transparent 80%,
-                rgba(244,42,65,0.1) 90%,
-                transparent 100%
-            );
+            background: conic-gradient(from 0deg, transparent 0%, rgba(244,42,65,0.1) 10%, transparent 20%, rgba(0,106,78,0.1) 30%, transparent 40%, rgba(244,42,65,0.1) 50%, transparent 60%, rgba(0,106,78,0.1) 70%, transparent 80%, rgba(244,42,65,0.1) 90%, transparent 100%);
             animation: menuRotate 20s linear infinite;
             z-index: -1;
         }
@@ -1046,9 +884,7 @@
             margin-bottom: 40px;
             text-align: center;
             font-size: 48px;
-            text-shadow: 
-                0 0 30px rgba(244,42,65,0.8),
-                0 0 60px rgba(244,42,65,0.5);
+            text-shadow: 0 0 30px rgba(244,42,65,0.8), 0 0 60px rgba(244,42,65,0.5);
             font-weight: bold;
             background: linear-gradient(45deg, #f42a41, #ff6b6b, #ffd700);
             -webkit-background-clip: text;
@@ -1066,9 +902,7 @@
             width: 100%;
             padding: 22px;
             margin: 15px 0;
-            background: linear-gradient(135deg, 
-                rgba(0,106,78,0.8) 0%,
-                rgba(0,86,61,0.8) 100%);
+            background: linear-gradient(135deg, rgba(0,106,78,0.8) 0%, rgba(0,86,61,0.8) 100%);
             border: 3px solid #f42a41;
             color: white;
             border-radius: 20px;
@@ -1092,21 +926,14 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(255,255,255,0.2) 50%,
-                transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
             transition: left 0.6s;
         }
 
         .menu-button:hover {
-            background: linear-gradient(135deg, 
-                rgba(0,135,90,0.9) 0%,
-                rgba(0,106,78,0.9) 100%);
+            background: linear-gradient(135deg, rgba(0,135,90,0.9) 0%, rgba(0,106,78,0.9) 100%);
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 
-                0 15px 35px rgba(244,42,65,0.4),
-                0 0 0 2px rgba(255,255,255,0.2);
+            box-shadow: 0 15px 35px rgba(244,42,65,0.4), 0 0 0 2px rgba(255,255,255,0.2);
         }
 
         .menu-button:hover::before {
@@ -1122,7 +949,7 @@
             filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
         }
 
-        /* RESPONSIVE DESIGN - UPDATED FOR PC */
+        /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
             .joystick {
                 width: 130px;
@@ -1204,12 +1031,10 @@
 
         /* PC-SPECIFIC STYLES */
         @media (min-width: 769px) {
-            /* Hide mobile controls on PC */
             #mobileControls {
                 display: none !important;
             }
             
-            /* Adjust HUD for PC */
             .hud-top-left {
                 top: 10px;
                 left: 10px;
@@ -1251,7 +1076,6 @@
                 height: 16px;
             }
             
-            /* Make menus larger for PC */
             .menu-content {
                 max-width: 800px;
                 padding: 60px;
@@ -1264,19 +1088,6 @@
             .menu-button {
                 padding: 25px;
                 font-size: 24px;
-            }
-        }
-
-        /* Chromebook specific */
-        @media (max-width: 1366px) and (min-width: 768px) {
-            #miniMap {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .hud-stat {
-                min-width: 180px;
-                padding: 10px 15px;
             }
         }
 
@@ -1303,9 +1114,7 @@
             top: 50%;
             right: 20px;
             transform: translateY(-50%);
-            background: linear-gradient(135deg, 
-                rgba(0,106,78,0.95) 0%,
-                rgba(0,86,61,0.95) 100%);
+            background: linear-gradient(135deg, rgba(0,106,78,0.95) 0%, rgba(0,86,61,0.95) 100%);
             padding: 20px;
             border-radius: 15px;
             border-left: 6px solid #ffd700;
@@ -1356,46 +1165,6 @@
             50% { opacity: 1; }
         }
 
-        /* BLOOM EFFECT */
-        .bloom-layer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-            mix-blend-mode: screen;
-            opacity: 0.3;
-            filter: blur(20px);
-            background: radial-gradient(circle at 50% 50%, 
-                rgba(244,42,65,0.3) 0%,
-                rgba(0,106,78,0.2) 30%,
-                transparent 70%);
-        }
-
-        /* FOG EFFECT */
-        .fog-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, 
-                transparent 0%,
-                rgba(0,106,78,0.1) 40%,
-                rgba(0,86,61,0.2) 100%);
-            pointer-events: none;
-            z-index: 4;
-            animation: fogMove 30s linear infinite;
-        }
-
-        @keyframes fogMove {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 50px) scale(1.1); }
-            100% { transform: translate(0, 0) scale(1); }
-        }
-
         /* Control visibility toggle */
         .control-visibility-toggle {
             position: fixed;
@@ -1418,10 +1187,25 @@
                 display: block;
             }
         }
+
+        /* BETTER PERFORMANCE */
+        .performance-warning {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #f42a41;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- ADVANCED LOADING SCREEN -->
+    <!-- LOADING SCREEN -->
     <div id="loadingScreen">
         <div class="bangladeshi-flag"></div>
         <div class="loader"></div>
@@ -1444,13 +1228,9 @@
     <!-- GAME CONTAINER -->
     <div id="gameContainer"></div>
 
-    <!-- VISUAL EFFECTS -->
-    <div class="bloom-layer"></div>
-    <div class="fog-overlay"></div>
-
-    <!-- ADVANCED HUD -->
+    <!-- HUD -->
     <div id="hud">
-        <!-- First Person Crosshair -->
+        <!-- Crosshair -->
         <div id="crosshair">
             <div class="crosshair-dot"></div>
             <div class="crosshair-line crosshair-horizontal"></div>
@@ -1559,7 +1339,7 @@
         </div>
     </div>
 
-    <!-- PREMIUM MOBILE CONTROLS -->
+    <!-- MOBILE CONTROLS -->
     <div id="mobileControls">
         <div class="control-group">
             <div class="joystick" id="moveJoystick">
@@ -1589,7 +1369,7 @@
         </div>
     </div>
 
-    <!-- MAIN MENU -->
+    <!-- MENUS -->
     <div id="mainMenu" class="menu">
         <div class="menu-content">
             <h2>NAFIZ EMPIRE</h2>
@@ -1617,296 +1397,15 @@
         </div>
     </div>
 
-    <!-- SETTINGS MENU -->
-    <div id="settingsMenu" class="menu">
-        <div class="menu-content">
-            <h2><i class="fas fa-sliders"></i> উন্নত সেটিংস</h2>
-            <button class="menu-button" id="backBtn">
-                <i class="fas fa-arrow-left-long"></i> প্রধান মেনু
-            </button>
-            
-            <div style="margin: 30px 0; color: #f42a41; text-align: left;">
-                <div style="margin: 20px 0; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px;">
-                    <label style="display: block; margin-bottom: 10px; font-size: 20px; color: #00a8ff;">
-                        <i class="fas fa-display"></i> গ্রাফিক্স সেটিংস
-                    </label>
-                    <select id="graphicsQuality" style="width: 100%; padding: 15px; background: #111; color: white; border: 2px solid #006a4e; border-radius: 12px; font-size: 18px; margin-bottom: 15px;">
-                        <option value="low">লো (মোবাইল অপটিমাইজড)</option>
-                        <option value="medium" selected>মিডিয়াম (ব্যালেন্সড)</option>
-                        <option value="high">হাই (বিস্তারিত)</option>
-                        <option value="ultra">আল্ট্রা (বাংলাদেশী ডিটেইল)</option>
-                    </select>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-                        <div>
-                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">টেক্সচার কুয়ালিটি</label>
-                            <select style="width: 100%; padding: 12px; background: #222; color: white; border: 1px solid #006a4e; border-radius: 8px;">
-                                <option>লো</option>
-                                <option selected>মিডিয়াম</option>
-                                <option>হাই</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">শেডো কুয়ালিটি</label>
-                            <select style="width: 100%; padding: 12px; background: #222; color: white; border: 1px solid #006a4e; border-radius: 8px;">
-                                <option>অফ</option>
-                                <option>লো</option>
-                                <option selected>মিডিয়াম</option>
-                                <option>হাই</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">এন্টি-এলিয়াসিং</label>
-                            <select style="width: 100%; padding: 12px; background: #222; color: white; border: 1px solid #006a4e; border-radius: 8px;">
-                                <option>অফ</option>
-                                <option>2x</option>
-                                <option selected>4x</option>
-                                <option>8x</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 8px; font-size: 16px;">ব্লুম ইফেক্ট</label>
-                            <select style="width: 100%; padding: 12px; background: #222; color: white; border: 1px solid #006a4e; border-radius: 8px;">
-                                <option>অফ</option>
-                                <option selected>অন</option>
-                                <option>হাই</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="margin: 20px 0; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px;">
-                    <label style="display: block; margin-bottom: 10px; font-size: 20px; color: #00a8ff;">
-                        <i class="fas fa-gamepad"></i> কন্ট্রোল সেটিংস
-                    </label>
-                    <select id="controlType" style="width: 100%; padding: 15px; background: #111; color: white; border: 2px solid #006a4e; border-radius: 12px; font-size: 18px; margin-bottom: 15px;">
-                        <option value="touch">টাচ কন্ট্রোল (মোবাইল)</option>
-                        <option value="keyboard" selected>কীবোর্ড + মাউস (পিসি)</option>
-                        <option value="gamepad">গেমপ্যাড</option>
-                        <option value="hybrid">হাইব্রিড মোড</option>
-                    </select>
-                    
-                    <div style="margin-top: 20px;">
-                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
-                            <input type="checkbox" id="vibration" checked style="width: 20px; height: 20px;">
-                            <span>ভাইব্রেশন ফিডব্যাক</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
-                            <input type="checkbox" id="autoRun" checked style="width: 20px; height: 20px;">
-                            <span>অটো রান</span>
-                        </label>
-                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
-                            <input type="checkbox" id="aimAssist" checked style="width: 20px; height: 20px;">
-                            <span>এম এসিস্ট</span>
-                        </label>
-                    </div>
-                </div>
-                
-                <div style="margin: 20px 0; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px;">
-                    <label style="display: block; margin-bottom: 10px; font-size: 20px; color: #00a8ff;">
-                        <i class="fas fa-volume-high"></i> অডিও সেটিংস
-                    </label>
-                    <div style="margin: 15px 0;">
-                        <label style="display: block; margin-bottom: 8px;">ব্যাকগ্রাউন্ড মিউজিক</label>
-                        <input type="range" min="0" max="100" value="70" style="width: 100%;">
-                    </div>
-                    <div style="margin: 15px 0;">
-                        <label style="display: block; margin-bottom: 8px;">সাউন্ড ইফেক্ট</label>
-                        <input type="range" min="0" max="100" value="90" style="width: 100%;">
-                    </div>
-                    <div style="margin: 15px 0;">
-                        <label style="display: block; margin-bottom: 8px;">ভয়েস</label>
-                        <input type="range" min="0" max="100" value="80" style="width: 100%;">
-                    </div>
-                </div>
-            </div>
-            
-            <button class="menu-button" onclick="saveSettings()" style="background: linear-gradient(135deg, #f42a41, #ff6b6b);">
-                <i class="fas fa-save"></i> সব সেটিংস সেভ করুন
-            </button>
-        </div>
-    </div>
-
-    <!-- MISSIONS MENU -->
-    <div id="missionsMenu" class="menu">
-        <div class="menu-content">
-            <h2><i class="fas fa-flag-checkered"></i> মিশন গ্যালারি</h2>
-            <div id="missionsList" style="text-align: left; margin: 25px 0; max-height: 400px; overflow-y: auto; padding-right: 10px;">
-                <!-- Missions will be loaded here -->
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
-                <div style="background: rgba(0,106,78,0.3); padding: 15px; border-radius: 12px; text-align: center;">
-                    <div style="color: #ffd700; font-size: 24px; font-weight: bold;">১৫</div>
-                    <div style="color: #ccc; font-size: 14px;">মোট মিশন</div>
-                </div>
-                <div style="background: rgba(244,42,65,0.3); padding: 15px; border-radius: 12px; text-align: center;">
-                    <div style="color: #00ff00; font-size: 24px; font-weight: bold;">৩</div>
-                    <div style="color: #ccc; font-size: 14px;">সম্পন্ন মিশন</div>
-                </div>
-            </div>
-            <button class="menu-button" id="missionsBackBtn">
-                <i class="fas fa-arrow-left-long"></i> পিছনে
-            </button>
-        </div>
-    </div>
-
-    <!-- INVENTORY MENU -->
-    <div id="inventoryMenu" class="menu">
-        <div class="menu-content">
-            <h2><i class="fas fa-warehouse"></i> ইনভেন্টরি</h2>
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 25px 0;">
-                <!-- Inventory items will be loaded here -->
-            </div>
-            <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px; margin: 20px 0;">
-                <div style="color: #f42a41; font-size: 18px; margin-bottom: 10px;">ইনভেন্টরি স্ট্যাটাস</div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span>অস্ত্র:</span>
-                    <span style="color: #00a8ff;">৫/১০</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span>হেলথ কিট:</span>
-                    <span style="color: #00ff00;">৩</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                    <span>আর্মার:</span>
-                    <span style="color: #9b59b6;">২</span>
-                </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span>বিশেষ আইটেম:</span>
-                    <span style="color: #ffd700;">৭</span>
-                </div>
-            </div>
-            <button class="menu-button" id="inventoryBackBtn">
-                <i class="fas fa-arrow-left-long"></i> পিছনে
-            </button>
-        </div>
-    </div>
-
-    <!-- HELP MENU -->
-    <div id="helpMenu" class="menu">
-        <div class="menu-content">
-            <h2><i class="fas fa-graduation-cap"></i> ট্রেনিং মোড</h2>
-            <div style="margin: 25px 0; line-height: 2; text-align: left; max-height: 400px; overflow-y: auto; padding-right: 15px;">
-                <div style="background: rgba(0,106,78,0.2); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
-                    <div style="color: #f42a41; font-size: 20px; margin-bottom: 15px;">
-                        <i class="fas fa-mobile-screen-button"></i> মোবাইল কন্ট্রোল
-                    </div>
-                    <div style="display: grid; grid-template-columns: auto 1fr; gap: 15px; align-items: center;">
-                        <div style="background: rgba(0,106,78,0.5); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                            <i class="fas fa-arrows-up-down-left-right"></i>
-                        </div>
-                        <div>
-                            <div style="color: #00a8ff; font-weight: bold;">জয়স্টিক</div>
-                            <div style="color: #ccc; font-size: 14px;">চরিত্র নিয়ন্ত্রণ এবং চলাচল</div>
-                        </div>
-                        <div style="background: linear-gradient(135deg, #27ae60, #2ecc71); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                            <i class="fas fa-up-long"></i>
-                        </div>
-                        <div>
-                            <div style="color: #00ff00; font-weight: bold;">লাফান</div>
-                            <div style="color: #ccc; font-size: 14px;">বাধা অতিক্রম এবং উঁচু স্থানে উঠুন</div>
-                        </div>
-                        <div style="background: linear-gradient(135deg, #c0392b, #e74c3c); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                            <i class="fas fa-crosshairs"></i>
-                        </div>
-                        <div>
-                            <div style="color: #ff6b6b; font-weight: bold;">আক্রমণ</div>
-                            <div style="color: #ccc; font-size: 14px;">শত্রুদের আক্রমণ করুন এবং গুলি চালান</div>
-                        </div>
-                        <div style="background: linear-gradient(135deg, #2980b9, #3498db); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                            <i class="fas fa-handshake-angle"></i>
-                        </div>
-                        <div>
-                            <div style="color: #74b9ff; font-weight: bold;">ইন্টারেক্ট</div>
-                            <div style="color: #ccc; font-size: 14px;">গাড়ি, দরজা এবং এনপিসি এর সাথে যোগাযোগ</div>
-                        </div>
-                        <div style="background: linear-gradient(135deg, #e67e22, #f39c12); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                            <i class="fas fa-repeat"></i>
-                        </div>
-                        <div>
-                            <div style="color: #fdcb6e; font-weight: bold;">অস্ত্র পরিবর্তন</div>
-                            <div style="color: #ccc; font-size: 14px;">বিভিন্ন অস্ত্রের মধ্যে স্যুইচ করুন</div>
-                        </div>
-                        <div style="background: linear-gradient(135deg, #8e44ad, #9b59b6); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;">
-                            <i class="fas fa-gear"></i>
-                        </div>
-                        <div>
-                            <div style="color: #a29bfe; font-weight: bold;">মেনু</div>
-                            <div style="color: #ccc; font-size: 14px;">গেম সেটিংস এবং অপশন</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="background: rgba(244,42,65,0.1); padding: 20px; border-radius: 15px;">
-                    <div style="color: #00a8ff; font-size: 20px; margin-bottom: 15px;">
-                        <i class="fas fa-keyboard"></i> পিসি কন্ট্রোল
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">W, A, S, D</div>
-                            <div style="color: #ccc; font-size: 14px;">চলাচল</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">Space</div>
-                            <div style="color: #ccc; font-size: 14px;">লাফান</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">Shift</div>
-                            <div style="color: #ccc; font-size: 14px;">দৌড়ান</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">Ctrl</div>
-                            <div style="color: #ccc; font-size: 14px;">বসুন/সামনে হেলুন</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">F</div>
-                            <div style="color: #ccc; font-size: 14px;">আক্রমণ/গুলি</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">E</div>
-                            <div style="color: #ccc; font-size: 14px;">ইন্টারেক্ট</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">1-8</div>
-                            <div style="color: #ccc; font-size: 14px;">অস্ত্র সিলেক্ট</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">ESC</div>
-                            <div style="color: #ccc; font-size: 14px;">পস মেনু</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">Tab</div>
-                            <div style="color: #ccc; font-size: 14px;">ম্যাপ দেখুন</div>
-                        </div>
-                        <div>
-                            <div style="color: #ffd700; font-weight: bold;">M</div>
-                            <div style="color: #ccc; font-size: 14px;">মিউজিক অন/অফ</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="background: rgba(0,168,255,0.1); padding: 20px; border-radius: 15px; margin-top: 20px;">
-                    <div style="color: #4cd137; font-size: 20px; margin-bottom: 15px;">
-                        <i class="fas fa-lightbulb"></i> গেমিং টিপস
-                    </div>
-                    <ul style="color: #ccc; padding-left: 20px;">
-                        <li style="margin-bottom: 10px;">💡 রাতের বেলা আলোযুক্ত এলাকায় যান, বিপদ কম</li>
-                        <li style="margin-bottom: 10px;">💡 গাড়ি চালানোর সময় স্পিড লিমিট মেনে চলুন</li>
-                        <li style="margin-bottom: 10px;">💡 দোকানে গিয়ে হেলথ কিট এবং অস্ত্র কিনুন</li>
-                        <li style="margin-bottom: 10px;">💡 মিশন সম্পন্ন করে টাকা এবং এক্সপি অর্জন করুন</li>
-                        <li style="margin-bottom: 10px;">💡 গোপন জায়গা খুঁজে বিশেষ পুরস্কার পান</li>
-                        <li style="margin-bottom: 10px;">💡 এনপিসি দের সাথে কথা বলে তথ্য সংগ্রহ করুন</li>
-                    </ul>
-                </div>
-            </div>
-            <button class="menu-button" id="helpBackBtn">
-                <i class="fas fa-arrow-left-long"></i> পিছনে
-            </button>
-        </div>
-    </div>
-
-    <!-- DEBUG INFO (Hidden by default) -->
+    <!-- DEBUG INFO -->
     <div id="debugInfo"></div>
+
+    <!-- PERFORMANCE WARNING -->
+    <div class="performance-warning" id="performanceWarning">
+        <h3>Performance Warning</h3>
+        <p>Your device may struggle with high settings</p>
+        <button onclick="document.getElementById('performanceWarning').style.display='none'">Continue Anyway</button>
+    </div>
 
     <!-- THREE.JS LIBRARIES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -1917,7 +1416,6 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/FXAAShader.min.js"></script>
 
     <!-- CANNON.js Physics -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
@@ -1926,11 +1424,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script>
 
     <script>
-        // GAME CONFIGURATION - UPGRADED VERSION
+        // GAME CONFIGURATION - OPTIMIZED
         const CONFIG = {
-            gameName: "NAFIZ EMPIRE",
-            version: "3.0.0",
-            developer: "Bangladeshi Gaming Studio",
+            gameName: "NAFIZ EMPIRE PRO",
+            version: "4.0.0",
             player: {
                 speed: 5.0,
                 runSpeed: 8.0,
@@ -1941,20 +1438,26 @@
                 eyeHeight: 1.6
             },
             world: {
-                size: 1500,
-                buildings: 40,
-                trees: 200,
-                vehicles: 25,
-                npcs: 40,
-                detailLevel: 'medium'
+                size: 2000,
+                groundDetail: 128,
+                renderDistance: 500,
+                lodDistance: 100
             },
             graphics: {
-                shadows: false,
-                bloom: false,
-                antialiasing: false,
-                reflections: false,
+                shadows: true,
+                bloom: true,
+                antialiasing: true,
+                reflections: true,
                 particles: true,
-                weatherEffects: true
+                weatherEffects: true,
+                textureQuality: 'medium'
+            },
+            performance: {
+                maxFPS: 60,
+                minFPS: 30,
+                adaptiveQuality: true,
+                culling: true,
+                occlusion: true
             }
         };
 
@@ -1965,6 +1468,12 @@
             gameStarted: false,
             firstPerson: true,
             debugMode: false,
+            performance: {
+                fps: 60,
+                drawCalls: 0,
+                triangles: 0,
+                memory: 0
+            },
             player: {
                 health: 100,
                 maxHealth: 100,
@@ -1984,222 +1493,160 @@
                 isCrouching: false,
                 currentWeapon: 0,
                 weapons: [
-                    { 
-                        name: "এম-১৬ রাইফেল", 
-                        damage: 35, 
-                        icon: "fa-gun",
-                        ammo: 30,
-                        maxAmmo: 120,
-                        fireRate: 0.1,
-                        range: 100,
-                        accuracy: 0.9
-                    },
-                    { 
-                        name: "একে-৪৭", 
-                        damage: 30, 
-                        icon: "fa-gun",
-                        ammo: 30,
-                        maxAmmo: 90,
-                        fireRate: 0.15,
-                        range: 80,
-                        accuracy: 0.85
-                    },
-                    { 
-                        name: "স্নাইপার রাইফেল", 
-                        damage: 80, 
-                        icon: "fa-crosshairs",
-                        ammo: 10,
-                        maxAmmo: 30,
-                        fireRate: 1.5,
-                        range: 300,
-                        accuracy: 0.95
-                    },
-                    { 
-                        name: "পিস্তল", 
-                        damage: 25, 
-                        icon: "fa-gun",
-                        ammo: 12,
-                        maxAmmo: 48,
-                        fireRate: 0.3,
-                        range: 50,
-                        accuracy: 0.8
-                    },
-                    { 
-                        name: "বোমা", 
-                        damage: 100, 
-                        icon: "fa-bomb",
-                        ammo: 3,
-                        maxAmmo: 9,
-                        fireRate: 2.0,
-                        range: 20,
-                        accuracy: 0.7
-                    }
-                ],
-                inventory: {
-                    healthKits: 3,
-                    armorKits: 2,
-                    grenades: 5,
-                    specialItems: []
-                },
-                inVehicle: false,
-                currentVehicle: null,
-                inBuilding: null,
-                wantedLevel: 0
-            },
-            settings: {
-                graphics: 'medium',
-                controls: 'keyboard',
-                sound: true,
-                music: true,
-                vibration: true,
-                autoRun: true,
-                aimAssist: true,
-                language: 'bn'
+                    { name: "এম-১৬ রাইফেল", damage: 35, icon: "fa-gun", ammo: 30, maxAmmo: 120 },
+                    { name: "একে-৪৭", damage: 30, icon: "fa-gun", ammo: 30, maxAmmo: 90 },
+                    { name: "স্নাইপার রাইফেল", damage: 80, icon: "fa-crosshairs", ammo: 10, maxAmmo: 30 },
+                    { name: "পিস্তল", damage: 25, icon: "fa-gun", ammo: 12, maxAmmo: 48 }
+                ]
             },
             world: {
                 time: 11.5,
                 isDay: true,
                 weather: 'sunny',
-                temperature: 28,
-                humidity: 65,
-                locations: [
-                    { name: "ঢাকা সেনানিবাস", x: 0, z: 0, type: 'military', importance: 'high' },
-                    { name: "শেখ মুজিবুর রহমানের মূর্তি", x: 300, z: 200, type: 'monument', importance: 'high' },
-                    { name: "জাতীয় সংসদ ভবন", x: -400, z: 100, type: 'government', importance: 'high' },
-                    { name: "লালবাগ কেল্লা", x: 200, z: -300, type: 'historical', importance: 'medium' },
-                    { name: "আহসান মঞ্জিল", x: -150, z: 350, type: 'historical', importance: 'medium' },
-                    { name: "বাংলাদেশ ব্যাংক", x: 450, z: -100, type: 'bank', importance: 'high' },
-                    { name: "চট্টগ্রাম পাহাড়", x: 800, z: 800, type: 'nature', importance: 'medium' },
-                    { name: "সেন্ট মার্টিন দ্বীপ", x: 1200, z: -900, type: 'nature', importance: 'low' },
-                    { name: "সিলেট চা বাগান", x: -700, z: 600, type: 'nature', importance: 'medium' },
-                    { name: "কক্সবাজার সমুদ্র সৈকত", x: 1000, z: -1200, type: 'nature', importance: 'high' }
-                ]
+                sunAngle: 0,
+                moonAngle: 0,
+                cloudCover: 0.3,
+                fogDensity: 0.0001
             },
-            missions: [
-                { 
-                    id: 1, 
-                    title: "প্রথম পদক্ষেপ", 
-                    description: "শহরের কেন্দ্রস্থলে যান এবং গাইডের সাথে কথা বলুন",
-                    completed: false, 
-                    reward: 500, 
-                    exp: 100,
-                    progress: 0, 
-                    target: 1,
-                    type: 'tutorial',
-                    location: { x: 0, z: 0 }
-                },
-                { 
-                    id: 2, 
-                    title: "টাকা সংগ্রহ", 
-                    description: "৳ ৫০,০০০ টাকা সংগ্রহ করুন বিভিন্ন কাজ করে",
-                    completed: false, 
-                    reward: 2000, 
-                    exp: 250,
-                    progress: 0, 
-                    target: 50000,
-                    type: 'money',
-                    location: { x: 450, z: -100 }
-                },
-                { 
-                    id: 3, 
-                    title: "গাড়ি চালানো", 
-                    description: "৫টি ভিন্ন গাড়িতে চড়ে শহর ঘুরে দেখুন",
-                    completed: false, 
-                    reward: 800, 
-                    exp: 150,
-                    progress: 0, 
-                    target: 5,
-                    type: 'vehicle',
-                    location: { x: 100, z: -200 }
-                },
-                { 
-                    id: 4, 
-                    title: "শত্রু নিধন", 
-                    description: "২০টি শত্রু সৈন্য নিপাত করুন",
-                    completed: false, 
-                    reward: 1500, 
-                    exp: 300,
-                    progress: 0, 
-                    target: 20,
-                    type: 'combat',
-                    location: { x: 0, z: 0 }
-                },
-                { 
-                    id: 5, 
-                    title: "ঐতিহাসিক স্থান পরিদর্শন", 
-                    description: "সব ঐতিহাসিক স্থান ভ্রমণ করুন",
-                    completed: false, 
-                    reward: 1200, 
-                    exp: 200,
-                    progress: 0, 
-                    target: 3,
-                    type: 'exploration',
-                    location: { x: 200, z: -300 }
-                }
-            ],
-            achievements: [
-                { id: 1, title: "প্রথম রক্ত", description: "প্রথম শত্রু বধ", unlocked: false },
-                { id: 2, title: "ধনকুবের", description: "৳ ১,০০,০০০ টাকা সংগ্রহ", unlocked: false },
-                { id: 3, title: "গাড়ি প্রেমিক", description: "১০টি গাড়ি কেনা", unlocked: false },
-                { id: 4, title: "এক্সপ্লোরার", description: "সব ল্যান্ডমার্ক আবিষ্কার", unlocked: false },
-                { id: 5, title: "বাংলাদেশের বন্ধু", description: "৫০টি সাহায্যের কাজ সম্পন্ন", unlocked: false }
-            ],
-            collectibles: [],
-            vehicles: [],
-            npcs: [],
-            buildings: [],
-            particles: [],
-            projectiles: []
+            controls: {
+                forward: false,
+                backward: false,
+                left: false,
+                right: false,
+                jump: false,
+                run: false,
+                attack: false,
+                interact: false
+            }
         };
 
         // THREE.JS VARIABLES
         let scene, camera, renderer, controls, composer;
-        let clock, deltaTime;
+        let clock, deltaTime, lastFrameTime = 0;
         let physicsWorld;
         let playerBody, playerMesh;
+        let sunLight, moonLight, ambientLight;
+        let skybox, clouds = [];
+        let ground, roads = [];
         let isPointerLocked = false;
 
-        // INPUT MANAGEMENT
+        // INPUT MANAGEMENT - FIXED
         const keys = {};
         const mouse = { x: 0, y: 0, dx: 0, dy: 0 };
-        const touch = {
-            joystick: { x: 0, y: 0, active: false },
-            look: { x: 0, y: 0, active: false },
-            buttons: {}
-        };
 
-        // GAME OBJECTS
-        const gameObjects = {
-            player: null,
-            ground: null,
-            skybox: null,
-            lights: [],
-            buildings: [],
-            trees: [],
-            vehicles: [],
-            collectibles: [],
-            npcs: [],
-            particles: [],
-            projectiles: [],
-            effects: []
-        };
+        // TEXTURE GENERATORS
+        function createGrassTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            // Base green
+            ctx.fillStyle = '#2E8B57';
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // Grass details
+            ctx.fillStyle = '#228B22';
+            for(let i = 0; i < 5000; i++) {
+                ctx.fillRect(
+                    Math.random() * 512,
+                    Math.random() * 512,
+                    1 + Math.random() * 2,
+                    1 + Math.random() * 2
+                );
+            }
+            
+            // Darker patches
+            ctx.fillStyle = '#006400';
+            for(let i = 0; i < 100; i++) {
+                const x = Math.random() * 512;
+                const y = Math.random() * 512;
+                ctx.beginPath();
+                ctx.ellipse(x, y, 10 + Math.random() * 20, 5 + Math.random() * 10, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            return new THREE.CanvasTexture(canvas);
+        }
 
-        // LOADING FUNCTIONS
+        function createRoadTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            // Asphalt base
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // Asphalt texture
+            ctx.fillStyle = '#2a2a2a';
+            for(let i = 0; i < 2000; i++) {
+                ctx.fillRect(
+                    Math.random() * 512,
+                    Math.random() * 512,
+                    1 + Math.random() * 3,
+                    1 + Math.random() * 3
+                );
+            }
+            
+            // Road markings
+            ctx.fillStyle = '#ffff00';
+            // Center line
+            for(let x = 0; x < 512; x += 40) {
+                ctx.fillRect(256 - 2, x, 4, 20);
+            }
+            
+            // Side lines
+            ctx.fillRect(64, 0, 4, 512);
+            ctx.fillRect(448, 0, 4, 512);
+            
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        function createDirtTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 512;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            
+            // Dirt base
+            const gradient = ctx.createLinearGradient(0, 0, 512, 512);
+            gradient.addColorStop(0, '#8B4513');
+            gradient.addColorStop(1, '#A0522D');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 512, 512);
+            
+            // Dirt details
+            ctx.fillStyle = '#654321';
+            for(let i = 0; i < 3000; i++) {
+                ctx.fillRect(
+                    Math.random() * 512,
+                    Math.random() * 512,
+                    1 + Math.random() * 4,
+                    1 + Math.random() * 4
+                );
+            }
+            
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // INITIALIZATION
         async function initGame() {
-            console.log('🚀 NAFIZ EMPIRE - Ultimate Bangladeshi Open World Loading...');
+            console.log('🚀 NAFIZ EMPIRE PRO - Loading...');
             
             const loadingText = document.getElementById('loadingText');
             const loadingBar = document.getElementById('loadingBar');
             const tips = [
                 "গ্রাফিক্স ইঞ্জিন লোড হচ্ছে...",
-                "ফিজিক্স ইঞ্জিন সেটআপ হচ্ছে...",
+                "টেক্সচার তৈরি হচ্ছে...",
                 "বিশ্ব তৈরি হচ্ছে...",
-                "খেলোয়াড় তৈরি হচ্ছে...",
-                "পরিবেশ তৈরি হচ্ছে...",
-                "এআই সিস্টেম ইনিশিয়ালাইজিং...",
-                "নিয়ন্ত্রণ ব্যবস্থা সেটআপ হচ্ছে...",
-                "ইভেন্ট লিসেনার সেটআপ হচ্ছে...",
-                "অডিও সিস্টেম প্রস্তুত হচ্ছে...",
+                "ফিজিক্স ইঞ্জিন সেটআপ হচ্ছে...",
+                "লাইটিং সিস্টেম তৈরি হচ্ছে...",
+                "ক্লাউড সিস্টেম তৈরি হচ্ছে...",
+                "কন্ট্রোল সিস্টেম সেটআপ হচ্ছে...",
+                "এআই সিস্টেম প্রস্তুত হচ্ছে...",
+                "অপ্টিমাইজেশন সম্পন্ন হচ্ছে...",
                 "প্রস্তুত! বাংলাদেশে আপনাকে স্বাগতম! 🇧🇩"
             ];
             
@@ -2208,254 +1655,227 @@
                 loadingText.textContent = tips[0];
                 loadingBar.style.width = '10%';
                 await initThreeJS();
-                await new Promise(resolve => setTimeout(resolve, 300));
                 
-                // Step 2: Initialize Physics
+                // Step 2: Create textures
                 loadingText.textContent = tips[1];
                 loadingBar.style.width = '20%';
-                await initPhysicsWorld();
-                await new Promise(resolve => setTimeout(resolve, 300));
+                const textures = await createTextures();
                 
-                // Step 3: Create World
+                // Step 3: Create world
                 loadingText.textContent = tips[2];
                 loadingBar.style.width = '30%';
-                await createWorld();
-                await new Promise(resolve => setTimeout(resolve, 300));
+                await createWorld(textures);
                 
-                // Step 4: Create Player
+                // Step 4: Setup physics
                 loadingText.textContent = tips[3];
                 loadingBar.style.width = '40%';
-                await createPlayer();
-                await new Promise(resolve => setTimeout(resolve, 300));
+                await initPhysicsWorld();
                 
-                // Step 5: Create Environment
+                // Step 5: Create player
                 loadingText.textContent = tips[4];
                 loadingBar.style.width = '50%';
-                await createEnvironment();
-                await new Promise(resolve => setTimeout(resolve, 300));
+                await createPlayer();
                 
-                // Step 6: Setup Controls
+                // Step 6: Create lighting
                 loadingText.textContent = tips[5];
                 loadingBar.style.width = '60%';
-                await setupControls();
-                await new Promise(resolve => setTimeout(resolve, 300));
+                createLighting();
                 
-                // Step 7: Setup Event Listeners
+                // Step 7: Create clouds
                 loadingText.textContent = tips[6];
                 loadingBar.style.width = '70%';
-                await setupEventListeners();
-                await new Promise(resolve => setTimeout(resolve, 300));
+                createCloudSystem();
                 
-                // Step 8: Create Landmarks
+                // Step 8: Setup controls
                 loadingText.textContent = tips[7];
                 loadingBar.style.width = '80%';
-                await createLandmarks();
-                await new Promise(resolve => setTimeout(resolve, 300));
+                setupControls();
+                setupEventListeners();
                 
-                // Step 9: Try Audio
+                // Step 9: Optimization
                 loadingText.textContent = tips[8];
                 loadingBar.style.width = '90%';
-                try {
-                    await initAudio();
-                } catch (e) {
-                    console.log("Audio initialization skipped:", e);
-                }
-                await new Promise(resolve => setTimeout(resolve, 300));
+                optimizeScene();
                 
                 // Final Step
                 loadingText.textContent = tips[9];
                 loadingBar.style.width = '100%';
-                await new Promise(resolve => setTimeout(resolve, 1000));
                 
                 // Complete loading
-                document.getElementById('loadingScreen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loadingScreen').style.display = 'none';
-                    gameState.isLoaded = true;
-                    gameState.gameStarted = true;
-                    
-                    // Auto-detect device type
-                    detectDeviceType();
-                    
-                    // Show welcome message
-                    showNotification('🇧🇩 NAFIZ EMPIRE এ স্বাগতম! বাংলাদেশের সেরা ওপেন ওয়ার্ল্ড গেমিং এক্সপেরিয়েন্স!');
-                    
-                    // Show first mission
-                    setTimeout(() => {
-                        showMissionNotification('প্রথম পদক্ষেপ', 'শহরের কেন্দ্রস্থলে যান এবং গাইডের সাথে কথা বলুন');
-                    }, 2000);
-                    
-                    // Start game loop
-                    animate();
-                }, 500);
-                
-            } catch (error) {
-                console.error('Error during initialization:', error);
-                loadingText.textContent = 'লোডিং সম্পন্ন! কিছু ইফেক্ট বন্ধ থাকতে পারে...';
-                loadingBar.style.width = '100%';
-                
                 setTimeout(() => {
                     document.getElementById('loadingScreen').style.opacity = '0';
                     setTimeout(() => {
                         document.getElementById('loadingScreen').style.display = 'none';
                         gameState.isLoaded = true;
                         gameState.gameStarted = true;
-                        showNotification('গেম লোডেড! কিছু ফিচার সীমিত থাকতে পারে।');
+                        
+                        // Auto-detect device
                         detectDeviceType();
+                        
+                        // Show welcome
+                        showNotification('🇧🇩 NAFIZ EMPIRE PRO এ স্বাগতম!');
+                        
+                        // Start game loop
                         animate();
                     }, 500);
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Initialization error:', error);
+                loadingText.textContent = 'লোডিং সম্পন্ন!';
+                loadingBar.style.width = '100%';
+                
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    gameState.isLoaded = true;
+                    gameState.gameStarted = true;
+                    showNotification('গেম লোডেড!');
+                    animate();
                 }, 1000);
             }
         }
         
-        function detectDeviceType() {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            
-            if (isMobile || (hasTouch && window.innerWidth < 768)) {
-                // Mobile device
-                gameState.settings.controls = 'touch';
-                document.getElementById('controlType').value = 'touch';
-                document.getElementById('mobileControls').style.display = 'flex';
-            } else {
-                // PC/Chromebook
-                gameState.settings.controls = 'keyboard';
-                document.getElementById('controlType').value = 'keyboard';
-                document.getElementById('mobileControls').style.display = 'none';
+        async function initThreeJS() {
+            return new Promise((resolve) => {
+                scene = new THREE.Scene();
+                scene.fog = new THREE.Fog(0x87ceeb, 100, 2000);
                 
-                // Enable mouse controls
-                setupMouseControls();
-            }
-        }
-        
-        function initThreeJS() {
-            return new Promise((resolve, reject) => {
-                try {
-                    scene = new THREE.Scene();
-                    scene.fog = new THREE.Fog(0x87ceeb, 100, 2000);
-                    
-                    camera = new THREE.PerspectiveCamera(
-                        CONFIG.player.fov, 
-                        window.innerWidth / window.innerHeight, 
-                        0.1, 
-                        3000
-                    );
-                    camera.position.set(0, CONFIG.player.eyeHeight, 0);
-                    
-                    renderer = new THREE.WebGLRenderer({ 
-                        antialias: false,
-                        alpha: true,
-                        powerPreference: "high-performance"
-                    });
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                    renderer.setPixelRatio(1);
-                    renderer.shadowMap.enabled = false;
-                    renderer.outputEncoding = THREE.sRGBEncoding;
-                    document.getElementById('gameContainer').appendChild(renderer.domElement);
-                    
+                camera = new THREE.PerspectiveCamera(
+                    CONFIG.player.fov,
+                    window.innerWidth / window.innerHeight,
+                    0.1,
+                    3000
+                );
+                camera.position.set(0, CONFIG.player.eyeHeight, 0);
+                
+                renderer = new THREE.WebGLRenderer({
+                    antialias: CONFIG.graphics.antialiasing,
+                    alpha: false,
+                    powerPreference: "high-performance"
+                });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                renderer.shadowMap.enabled = CONFIG.graphics.shadows;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                renderer.outputEncoding = THREE.sRGBEncoding;
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1.0;
+                
+                document.getElementById('gameContainer').appendChild(renderer.domElement);
+                
+                // Simple composer for bloom
+                if (CONFIG.graphics.bloom) {
                     composer = new THREE.EffectComposer(renderer);
                     const renderPass = new THREE.RenderPass(scene, camera);
                     composer.addPass(renderPass);
                     
-                    window.addEventListener('resize', onWindowResize);
-                    
-                    clock = new THREE.Clock();
-                    
-                    controls = new THREE.PointerLockControls(camera, document.body);
-                    
-                    console.log("Three.js initialized successfully");
-                    resolve();
-                } catch (error) {
-                    console.error("Three.js initialization failed:", error);
-                    reject(error);
+                    const bloomPass = new THREE.UnrealBloomPass(
+                        new THREE.Vector2(window.innerWidth, window.innerHeight),
+                        1.5, 0.4, 0.85
+                    );
+                    composer.addPass(bloomPass);
                 }
+                
+                window.addEventListener('resize', onWindowResize);
+                
+                clock = new THREE.Clock();
+                
+                console.log("Three.js initialized");
+                resolve();
             });
         }
         
-        function initPhysicsWorld() {
-            physicsWorld = new CANNON.World();
-            physicsWorld.gravity.set(0, -9.82, 0);
-            physicsWorld.broadphase = new CANNON.NaiveBroadphase();
-            physicsWorld.solver.iterations = 8;
-            
-            const groundMaterial = new CANNON.Material("ground");
-            const playerMaterial = new CANNON.Material("player");
-            
-            const playerGroundContact = new CANNON.ContactMaterial(
-                playerMaterial,
-                groundMaterial,
-                {
-                    friction: 0.5,
-                    restitution: 0.3
-                }
-            );
-            physicsWorld.addContactMaterial(playerGroundContact);
-            
-            return Promise.resolve();
+        async function createTextures() {
+            return {
+                grass: createGrassTexture(),
+                road: createRoadTexture(),
+                dirt: createDirtTexture()
+            };
         }
         
-        function createWorld() {
-            return new Promise((resolve, reject) => {
-                try {
-                    scene.background = new THREE.Color(0x87ceeb);
+        async function createWorld(textures) {
+            return new Promise((resolve) => {
+                // Create realistic ground
+                const groundSize = CONFIG.world.size;
+                const segments = CONFIG.world.groundDetail;
+                
+                const groundGeometry = new THREE.PlaneGeometry(groundSize, groundSize, segments, segments);
+                
+                // Add realistic terrain with hills and valleys
+                const vertices = groundGeometry.attributes.position.array;
+                for (let i = 0; i < vertices.length; i += 3) {
+                    const x = vertices[i];
+                    const z = vertices[i + 2];
                     
-                    const groundSize = CONFIG.world.size;
-                    const groundGeometry = new THREE.PlaneGeometry(groundSize, groundSize, 32, 32);
+                    // Base height
+                    let height = 0;
                     
-                    const vertices = groundGeometry.attributes.position.array;
-                    for (let i = 0; i < vertices.length; i += 3) {
-                        const x = vertices[i];
-                        const z = vertices[i + 2];
-                        
-                        let height = 0;
-                        const centerDistance = Math.sqrt(x * x + z * z);
-                        height += Math.max(0, 50 - centerDistance / 10) * Math.random() * 0.3;
-                        height += Math.sin(x * 0.01) * Math.cos(z * 0.01) * 15;
-                        
-                        vertices[i + 1] = height;
-                    }
+                    // Add hills
+                    const hill1 = Math.sin(x * 0.001) * Math.cos(z * 0.001) * 20;
+                    const hill2 = Math.sin(x * 0.002 + 2) * Math.cos(z * 0.002 + 2) * 15;
+                    const hill3 = Math.sin(x * 0.003) * Math.cos(z * 0.003) * 10;
                     
-                    groundGeometry.computeVertexNormals();
+                    height += hill1 + hill2 + hill3;
                     
-                    const groundMaterial = new THREE.MeshStandardMaterial({
-                        color: 0x00a86b,
-                        roughness: 0.8,
-                        metalness: 0.2
-                    });
+                    // Add some randomness
+                    height += (Math.random() - 0.5) * 5;
                     
-                    gameObjects.ground = new THREE.Mesh(groundGeometry, groundMaterial);
-                    gameObjects.ground.rotation.x = -Math.PI / 2;
-                    scene.add(gameObjects.ground);
-                    
-                    const groundShape = new CANNON.Plane();
-                    const groundBody = new CANNON.Body({ mass: 0 });
-                    groundBody.addShape(groundShape);
-                    groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
-                    physicsWorld.addBody(groundBody);
-                    
-                    createRoads();
-                    createLighting();
-                    
-                    resolve();
-                } catch (error) {
-                    reject(error);
+                    vertices[i + 1] = height;
                 }
+                
+                groundGeometry.computeVertexNormals();
+                
+                // Create material with textures
+                const groundMaterial = new THREE.MeshStandardMaterial({
+                    map: textures.grass,
+                    normalScale: new THREE.Vector2(0.5, 0.5),
+                    roughness: 0.8,
+                    metalness: 0.1
+                });
+                
+                textures.grass.wrapS = textures.grass.wrapT = THREE.RepeatWrapping;
+                textures.grass.repeat.set(groundSize / 100, groundSize / 100);
+                
+                ground = new THREE.Mesh(groundGeometry, groundMaterial);
+                ground.rotation.x = -Math.PI / 2;
+                ground.receiveShadow = true;
+                scene.add(ground);
+                
+                // Create roads
+                createRoadNetwork(textures.road);
+                
+                // Add water areas
+                createWaterBodies();
+                
+                // Add vegetation
+                createVegetation();
+                
+                // Add buildings
+                createCityLayout();
+                
+                resolve();
             });
         }
         
-        function createRoads() {
-            const roadMaterial = new THREE.MeshStandardMaterial({ 
-                color: 0x333333,
+        function createRoadNetwork(roadTexture) {
+            roadTexture.wrapS = roadTexture.wrapT = THREE.RepeatWrapping;
+            roadTexture.repeat.set(50, 1);
+            
+            const roadMaterial = new THREE.MeshStandardMaterial({
+                map: roadTexture,
                 roughness: 0.9,
                 metalness: 0.1
             });
             
-            const roads = [
-                { start: { x: -500, z: 0 }, end: { x: 500, z: 0 }, width: 15 },
-                { start: { x: 0, z: -500 }, end: { x: 0, z: 500 }, width: 15 }
+            // Main roads
+            const mainRoads = [
+                { start: { x: -800, z: 0 }, end: { x: 800, z: 0 }, width: 20 },
+                { start: { x: 0, z: -800 }, end: { x: 0, z: 800 }, width: 20 },
+                { start: { x: -600, z: -600 }, end: { x: 600, z: 600 }, width: 15 },
+                { start: { x: -600, z: 600 }, end: { x: 600, z: -600 }, width: 15 }
             ];
             
-            roads.forEach(road => {
+            mainRoads.forEach(road => {
                 const length = Math.sqrt(
                     Math.pow(road.end.x - road.start.x, 2) + 
                     Math.pow(road.end.z - road.start.z, 2)
@@ -2466,7 +1886,7 @@
                 
                 roadMesh.position.set(
                     (road.start.x + road.end.x) / 2,
-                    0.1,
+                    0.02,
                     (road.start.z + road.end.z) / 2
                 );
                 
@@ -2474,171 +1894,183 @@
                 roadMesh.rotation.y = -angle;
                 roadMesh.rotation.x = -Math.PI / 2;
                 
+                roadMesh.receiveShadow = true;
                 scene.add(roadMesh);
+                roads.push(roadMesh);
             });
+            
+            // Side roads
+            for(let i = 0; i < 20; i++) {
+                const x = (Math.random() - 0.5) * 1500;
+                const z = (Math.random() - 0.5) * 1500;
+                createIntersection(x, z);
+            }
         }
         
-        function createLighting() {
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambientLight);
+        function createIntersection(x, z) {
+            const roadMaterial = new THREE.MeshStandardMaterial({
+                color: 0x333333,
+                roughness: 0.9
+            });
             
-            const sunLight = new THREE.DirectionalLight(0xfff4e6, 1.0);
-            sunLight.position.set(100, 200, 100);
-            scene.add(sunLight);
+            // Create cross intersection
+            const road1 = new THREE.Mesh(
+                new THREE.PlaneGeometry(15, 50),
+                roadMaterial
+            );
+            road1.position.set(x, 0.02, z);
+            road1.rotation.x = -Math.PI / 2;
+            scene.add(road1);
             
-            const hemiLight = new THREE.HemisphereLight(0x87ceeb, 0x006a4e, 0.4);
-            scene.add(hemiLight);
+            const road2 = road1.clone();
+            road2.rotation.y = Math.PI / 2;
+            scene.add(road2);
             
-            gameObjects.lights.push(ambientLight, sunLight, hemiLight);
+            // Add intersection markings
+            const markingMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            const marking = new THREE.Mesh(
+                new THREE.BoxGeometry(2, 0.1, 2),
+                markingMaterial
+            );
+            marking.position.set(x, 0.03, z);
+            scene.add(marking);
         }
         
-        function createPlayer() {
-            return new Promise((resolve, reject) => {
-                try {
-                    const playerShape = new CANNON.Sphere(0.5);
-                    playerBody = new CANNON.Body({ 
-                        mass: 70,
-                        material: new CANNON.Material({ friction: 0.3 })
+        function createWaterBodies() {
+            const waterGeometry = new THREE.PlaneGeometry(300, 300, 32, 32);
+            const waterMaterial = new THREE.MeshStandardMaterial({
+                color: 0x0077be,
+                roughness: 0.1,
+                metalness: 0.9,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const water = new THREE.Mesh(waterGeometry, waterMaterial);
+            water.position.set(400, 0.01, 400);
+            water.rotation.x = -Math.PI / 2;
+            scene.add(water);
+            
+            // Add another lake
+            const lake = water.clone();
+            lake.position.set(-400, 0.01, -400);
+            scene.add(lake);
+        }
+        
+        function createVegetation() {
+            // Trees
+            for(let i = 0; i < 500; i++) {
+                const x = (Math.random() - 0.5) * 1800;
+                const z = (Math.random() - 0.5) * 1800;
+                
+                // Don't place trees on roads or water
+                if(Math.abs(x) < 850 && Math.abs(z) < 850) continue;
+                
+                const treeGroup = new THREE.Group();
+                
+                // Trunk
+                const trunkHeight = 3 + Math.random() * 4;
+                const trunkGeometry = new THREE.CylinderGeometry(0.3, 0.4, trunkHeight, 8);
+                const trunkMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
+                const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                treeGroup.add(trunk);
+                
+                // Leaves
+                const leafColors = [0x228B22, 0x32CD32, 0x3CB371];
+                for(let j = 0; j < 3; j++) {
+                    const leafSize = 2 + Math.random() * 1.5;
+                    const leafGeometry = new THREE.SphereGeometry(leafSize, 8, 7);
+                    const leafMaterial = new THREE.MeshStandardMaterial({
+                        color: leafColors[Math.floor(Math.random() * leafColors.length)],
+                        roughness: 0.8
                     });
-                    playerBody.addShape(playerShape);
-                    playerBody.position.set(0, 2, 0);
-                    playerBody.linearDamping = 0.9;
-                    playerBody.angularDamping = 0.9;
-                    physicsWorld.addBody(playerBody);
-                    
-                    const playerGeometry = new THREE.SphereGeometry(0.5, 8, 8);
-                    const playerMaterial = new THREE.MeshStandardMaterial({ 
-                        color: 0xf42a41,
-                        roughness: 0.5,
-                        metalness: 0.1
-                    });
-                    
-                    playerMesh = new THREE.Mesh(playerGeometry, playerMaterial);
-                    playerMesh.visible = false;
-                    scene.add(playerMesh);
-                    
-                    resolve();
-                } catch (error) {
-                    reject(error);
+                    const leaves = new THREE.Mesh(leafGeometry, leafMaterial);
+                    leaves.position.y = trunkHeight - leafSize/2 + 1 + j * 1.5;
+                    treeGroup.add(leaves);
                 }
-            });
+                
+                treeGroup.position.set(x, 0, z);
+                scene.add(treeGroup);
+            }
+            
+            // Grass patches
+            for(let i = 0; i < 1000; i++) {
+                const x = (Math.random() - 0.5) * 1900;
+                const z = (Math.random() - 0.5) * 1900;
+                
+                const grass = new THREE.Mesh(
+                    new THREE.PlaneGeometry(2, 2),
+                    new THREE.MeshStandardMaterial({ 
+                        color: 0x228B22,
+                        side: THREE.DoubleSide
+                    })
+                );
+                grass.position.set(x, 0.01, z);
+                grass.rotation.x = -Math.PI / 2;
+                scene.add(grass);
+            }
         }
         
-        function createEnvironment() {
-            return new Promise((resolve, reject) => {
-                try {
-                    console.log('Creating Bangladeshi environment...');
+        function createCityLayout() {
+            // Create buildings in a grid pattern
+            const gridSize = 100;
+            const spacing = 40;
+            
+            for(let x = -gridSize; x <= gridSize; x += spacing) {
+                for(let z = -gridSize; z <= gridSize; z += spacing) {
+                    // Skip center and roads
+                    if(Math.abs(x) < 30 && Math.abs(z) < 30) continue;
+                    if(Math.abs(x) < 15 || Math.abs(z) < 15) continue;
                     
-                    // Create realistic buildings
-                    for (let i = 0; i < 25; i++) {
-                        createRealisticBuilding(
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.6,
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.6,
-                            ['house', 'apartment', 'shop'][Math.floor(Math.random() * 3)]
-                        );
-                    }
-                    
-                    // Create realistic trees
-                    for (let i = 0; i < 150; i++) {
-                        createRealisticTree(
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.7,
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.7
-                        );
-                    }
-                    
-                    // Create vehicles
-                    for (let i = 0; i < 20; i++) {
-                        createRealisticVehicle(
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.6,
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.6
-                        );
-                    }
-                    
-                    // Create NPCs with realistic faces
-                    for (let i = 0; i < 30; i++) {
-                        createRealisticNPC(
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.5,
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.5,
-                            i < 10 ? 'enemy' : 'civilian'
-                        );
-                    }
-                    
-                    // Create collectibles
-                    for (let i = 0; i < 30; i++) {
-                        createCollectible(
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.6,
-                            (Math.random() - 0.5) * CONFIG.world.size * 0.6
-                        );
-                    }
-                    
-                    resolve();
-                } catch (error) {
-                    reject(error);
+                    createBuilding(x, 0, z);
                 }
-            });
+            }
+            
+            // Create special buildings
+            createSpecialBuilding(0, 0, 0, 0x006a4e, "Government Building");
+            createSpecialBuilding(200, 0, 200, 0xf42a41, "Hospital");
+            createSpecialBuilding(-200, 0, 200, 0xffd700, "School");
+            createSpecialBuilding(200, 0, -200, 0x1e90ff, "Police Station");
+            createSpecialBuilding(-200, 0, -200, 0x8b4513, "Market");
         }
         
-        function createRealisticBuilding(x, z, type = 'house') {
+        function createBuilding(x, y, z) {
             const buildingGroup = new THREE.Group();
             
-            let width, depth, height;
-            
-            switch(type) {
-                case 'house':
-                    width = 8 + Math.random() * 4;
-                    depth = 8 + Math.random() * 4;
-                    height = 4 + Math.random() * 3;
-                    break;
-                case 'apartment':
-                    width = 15 + Math.random() * 10;
-                    depth = 12 + Math.random() * 8;
-                    height = 8 + Math.random() * 12;
-                    break;
-                case 'shop':
-                    width = 12 + Math.random() * 6;
-                    depth = 10 + Math.random() * 6;
-                    height = 5 + Math.random() * 4;
-                    break;
-                default:
-                    width = 10;
-                    depth = 10;
-                    height = 6;
-            }
+            const width = 10 + Math.random() * 10;
+            const depth = 10 + Math.random() * 10;
+            const height = 8 + Math.random() * 20;
             
             // Main structure
             const buildingGeometry = new THREE.BoxGeometry(width, height, depth);
             const buildingMaterial = new THREE.MeshStandardMaterial({
-                color: 0x8B4513,
-                roughness: 0.7,
-                metalness: 0.1
+                color: Math.random() > 0.5 ? 0x808080 : 0xa0a0a0,
+                roughness: 0.7
             });
             
             const building = new THREE.Mesh(buildingGeometry, buildingMaterial);
             building.position.y = height / 2;
+            building.castShadow = true;
+            building.receiveShadow = true;
             buildingGroup.add(building);
             
             // Roof
-            const roofGeometry = new THREE.ConeGeometry(width * 0.8, height * 0.5, 4);
-            const roofMaterial = new THREE.MeshStandardMaterial({
-                color: 0x654321,
-                roughness: 0.8
-            });
+            const roofGeometry = new THREE.BoxGeometry(width + 1, 1, depth + 1);
+            const roofMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
             const roof = new THREE.Mesh(roofGeometry, roofMaterial);
-            roof.position.y = height + (height * 0.25);
+            roof.position.y = height + 0.5;
             buildingGroup.add(roof);
             
             // Windows
             const windowMaterial = new THREE.MeshStandardMaterial({
                 color: 0x87CEEB,
                 emissive: 0x111111,
-                emissiveIntensity: 0.2,
-                transparent: true,
-                opacity: 0.8
+                emissiveIntensity: 0.2
             });
             
             const windowCount = Math.floor(width / 3);
-            for (let i = 0; i < windowCount; i++) {
-                const windowGeometry = new THREE.PlaneGeometry(0.8, 1);
+            for(let i = 0; i < windowCount; i++) {
+                const windowGeometry = new THREE.PlaneGeometry(1.5, 2);
                 const windowMesh = new THREE.Mesh(windowGeometry, windowMaterial);
                 
                 // Front windows
@@ -2648,381 +2080,204 @@
                     depth/2 + 0.01
                 );
                 buildingGroup.add(windowMesh);
-                
-                // Back windows
-                const backWindow = windowMesh.clone();
-                backWindow.position.z = -depth/2 - 0.01;
-                buildingGroup.add(backWindow);
             }
             
-            // Door
-            const doorGeometry = new THREE.BoxGeometry(1.2, 2, 0.2);
-            const doorMaterial = new THREE.MeshStandardMaterial({
-                color: 0x654321,
+            buildingGroup.position.set(x, y, z);
+            scene.add(buildingGroup);
+        }
+        
+        function createSpecialBuilding(x, y, z, color, type) {
+            const buildingGroup = new THREE.Group();
+            
+            let width, depth, height;
+            
+            switch(type) {
+                case "Government Building":
+                    width = 40; depth = 40; height = 25;
+                    break;
+                case "Hospital":
+                    width = 35; depth = 35; height = 20;
+                    break;
+                default:
+                    width = 30; depth = 30; height = 15;
+            }
+            
+            const buildingGeometry = new THREE.BoxGeometry(width, height, depth);
+            const buildingMaterial = new THREE.MeshStandardMaterial({
+                color: color,
                 roughness: 0.6
             });
-            const door = new THREE.Mesh(doorGeometry, doorMaterial);
-            door.position.set(0, 1, depth/2 + 0.1);
-            buildingGroup.add(door);
             
-            // Make door interactive
-            door.userData = {
-                isDoor: true,
-                isOpen: false,
-                canEnter: true
-            };
+            const building = new THREE.Mesh(buildingGeometry, buildingMaterial);
+            building.position.y = height / 2;
+            building.castShadow = true;
+            building.receiveShadow = true;
+            buildingGroup.add(building);
             
-            buildingGroup.position.set(x, 0, z);
-            buildingGroup.rotation.y = Math.random() * Math.PI * 2;
+            // Add flag for government building
+            if(type === "Government Building") {
+                const flagPole = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.2, 0.2, 10),
+                    new THREE.MeshStandardMaterial({ color: 0xffffff })
+                );
+                flagPole.position.set(width/2 - 2, height + 5, 0);
+                buildingGroup.add(flagPole);
+                
+                const flag = new THREE.Mesh(
+                    new THREE.PlaneGeometry(6, 4),
+                    new THREE.MeshStandardMaterial({ 
+                        color: 0x006a4e,
+                        side: THREE.DoubleSide
+                    })
+                );
+                flag.position.set(width/2 + 1, height + 5, 0);
+                buildingGroup.add(flag);
+                
+                const circle = new THREE.Mesh(
+                    new THREE.CircleGeometry(1.5, 32),
+                    new THREE.MeshStandardMaterial({ color: 0xf42a41 })
+                );
+                circle.position.set(width/2 + 1, height + 5, 0.1);
+                buildingGroup.add(circle);
+            }
             
+            buildingGroup.position.set(x, y, z);
             scene.add(buildingGroup);
-            
-            // Add collision body
-            const buildingShape = new CANNON.Box(new CANNON.Vec3(width/2, height/2, depth/2));
-            const buildingBody = new CANNON.Body({ mass: 0 });
-            buildingBody.addShape(buildingShape);
-            buildingBody.position.set(x, height/2, z);
-            physicsWorld.addBody(buildingBody);
-            
-            gameObjects.buildings.push({ 
-                mesh: buildingGroup, 
-                body: buildingBody,
-                door: door,
-                type: type 
-            });
-            
-            return buildingGroup;
         }
         
-        function createRealisticTree(x, z) {
-            const treeGroup = new THREE.Group();
+        function createLighting() {
+            // Ambient light
+            ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
             
-            // Trunk
-            const trunkHeight = 3 + Math.random() * 4;
-            const trunkGeometry = new THREE.CylinderGeometry(0.4, 0.6, trunkHeight, 8);
-            const trunkMaterial = new THREE.MeshStandardMaterial({
-                color: 0x8B4513,
-                roughness: 0.9
-            });
-            
-            const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
-            treeGroup.add(trunk);
-            
-            // Leaves with multiple layers
-            const leafColors = [0x228B22, 0x32CD32, 0x3CB371];
-            
-            for (let i = 0; i < 3; i++) {
-                const leafSize = 2 + Math.random() * 1.5 - i * 0.5;
-                const leafGeometry = new THREE.SphereGeometry(leafSize, 8, 7);
-                const leafMaterial = new THREE.MeshStandardMaterial({
-                    color: leafColors[i % leafColors.length],
-                    roughness: 0.8,
-                    transparent: true,
-                    opacity: 0.9 - i * 0.1
-                });
-                
-                const leaves = new THREE.Mesh(leafGeometry, leafMaterial);
-                leaves.position.y = trunkHeight - leafSize/2 + 1 + i * 1.5;
-                treeGroup.add(leaves);
-                
-                // Add some randomness to leaf positions
-                leaves.position.x += (Math.random() - 0.5) * 0.5;
-                leaves.position.z += (Math.random() - 0.5) * 0.5;
+            // Sun light (directional)
+            sunLight = new THREE.DirectionalLight(0xfff4e6, 1.0);
+            sunLight.position.set(100, 200, 100);
+            sunLight.castShadow = CONFIG.graphics.shadows;
+            if(CONFIG.graphics.shadows) {
+                sunLight.shadow.mapSize.width = 2048;
+                sunLight.shadow.mapSize.height = 2048;
+                sunLight.shadow.camera.left = -200;
+                sunLight.shadow.camera.right = 200;
+                sunLight.shadow.camera.top = 200;
+                sunLight.shadow.camera.bottom = -200;
+                sunLight.shadow.camera.near = 0.5;
+                sunLight.shadow.camera.far = 500;
             }
+            scene.add(sunLight);
             
-            treeGroup.position.set(x, 0, z);
+            // Moon light (for night)
+            moonLight = new THREE.DirectionalLight(0x6688ff, 0);
+            moonLight.position.set(-100, 200, -100);
+            scene.add(moonLight);
             
-            // Add physics collision for trunk only
-            const trunkShape = new CANNON.Cylinder(0.4, 0.6, trunkHeight);
-            const trunkBody = new CANNON.Body({ mass: 0 });
-            trunkBody.addShape(trunkShape);
-            trunkBody.position.set(x, trunkHeight/2, z);
-            physicsWorld.addBody(trunkBody);
-            
-            scene.add(treeGroup);
-            gameObjects.trees.push({ mesh: treeGroup, body: trunkBody });
-            
-            return treeGroup;
+            // Hemisphere light for sky/ground color
+            const hemiLight = new THREE.HemisphereLight(0x87ceeb, 0x006a4e, 0.3);
+            scene.add(hemiLight);
         }
         
-        function createRealisticVehicle(x, z) {
-            const vehicleGroup = new THREE.Group();
-            
-            const width = 1.8;
-            const height = 1.5;
-            const depth = 4;
-            
-            // Main body
-            const bodyGeometry = new THREE.BoxGeometry(width, height, depth);
-            const bodyMaterial = new THREE.MeshStandardMaterial({
-                color: Math.random() > 0.5 ? 0x333333 : 0x006a4e,
-                roughness: 0.5
-            });
-            
-            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-            vehicleGroup.add(body);
-            
-            // Windshield
-            const windshieldGeometry = new THREE.BoxGeometry(width * 0.9, 0.8, 0.1);
-            const windshieldMaterial = new THREE.MeshStandardMaterial({
-                color: 0x87CEEB,
+        function createCloudSystem() {
+            const cloudGeometry = new THREE.SphereGeometry(15, 8, 8);
+            const cloudMaterial = new THREE.MeshStandardMaterial({
+                color: 0xffffff,
                 transparent: true,
-                opacity: 0.5
-            });
-            const windshield = new THREE.Mesh(windshieldGeometry, windshieldMaterial);
-            windshield.position.set(0, height/2 - 0.2, depth/2 - 0.3);
-            vehicleGroup.add(windshield);
-            
-            // Wheels
-            const wheelGeometry = new THREE.CylinderGeometry(0.3, 0.3, 0.2, 8);
-            const wheelMaterial = new THREE.MeshStandardMaterial({ 
-                color: 0x000000,
-                roughness: 0.8
+                opacity: 0.8,
+                roughness: 1,
+                metalness: 0
             });
             
-            const wheelPositions = [
-                { x: -width/2 + 0.3, z: depth/3 },
-                { x: width/2 - 0.3, z: depth/3 },
-                { x: -width/2 + 0.3, z: -depth/3 },
-                { x: width/2 - 0.3, z: -depth/3 }
-            ];
-            
-            wheelPositions.forEach(pos => {
-                const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
-                wheel.rotation.z = Math.PI / 2;
-                wheel.position.set(pos.x, -height/2 + 0.3, pos.z);
-                vehicleGroup.add(wheel);
-            });
-            
-            vehicleGroup.position.set(x, height/2, z);
-            vehicleGroup.rotation.y = Math.random() * Math.PI * 2;
-            
-            // Vehicle data
-            const vehicleData = {
-                mesh: vehicleGroup,
-                type: 'car',
-                speed: 2 + Math.random() * 3,
-                direction: Math.random() * Math.PI * 2,
-                userInVehicle: false,
-                health: 100
-            };
-            
-            scene.add(vehicleGroup);
-            gameObjects.vehicles.push(vehicleData);
-        }
-        
-        function createRealisticNPC(x, z, type = 'civilian') {
-            const npcGroup = new THREE.Group();
-            
-            // Body
-            const bodyGeometry = new THREE.CapsuleGeometry(0.3, 1.4, 8, 8);
-            const bodyMaterial = new THREE.MeshStandardMaterial({
-                color: type === 'enemy' ? 0x8B0000 : 0x2E8B57,
-                roughness: 0.6,
-                metalness: 0.1
-            });
-            
-            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-            npcGroup.add(body);
-            
-            // Head
-            const headGeometry = new THREE.SphereGeometry(0.25, 16, 12);
-            const headMaterial = new THREE.MeshStandardMaterial({
-                color: 0xFFCC99,
-                roughness: 0.7,
-                metalness: 0.0
-            });
-            
-            const head = new THREE.Mesh(headGeometry, headMaterial);
-            head.position.y = 1.6;
-            npcGroup.add(head);
-            
-            // Face details
-            const faceGroup = new THREE.Group();
-            
-            // Eyes
-            const eyeGeometry = new THREE.SphereGeometry(0.05, 8, 6);
-            const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
-            
-            const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-            leftEye.position.set(-0.08, 1.65, 0.2);
-            faceGroup.add(leftEye);
-            
-            const rightEye = leftEye.clone();
-            rightEye.position.x = 0.08;
-            faceGroup.add(rightEye);
-            
-            // Mouth
-            const mouthGeometry = new THREE.TorusGeometry(0.06, 0.02, 4, 8, Math.PI);
-            const mouthMaterial = new THREE.MeshStandardMaterial({ color: 0x8B0000 });
-            const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);
-            mouth.position.set(0, 1.55, 0.2);
-            mouth.rotation.x = Math.PI / 6;
-            faceGroup.add(mouth);
-            
-            // Nose
-            const noseGeometry = new THREE.ConeGeometry(0.03, 0.1, 4);
-            const noseMaterial = new THREE.MeshStandardMaterial({ color: 0xFF9966 });
-            const nose = new THREE.Mesh(noseGeometry, noseMaterial);
-            nose.position.set(0, 1.6, 0.25);
-            nose.rotation.x = Math.PI / 2;
-            faceGroup.add(nose);
-            
-            faceGroup.position.copy(head.position);
-            npcGroup.add(faceGroup);
-            
-            // Clothing
-            const shirtGeometry = new THREE.CylinderGeometry(0.32, 0.35, 0.6, 8);
-            const shirtMaterial = new THREE.MeshStandardMaterial({
-                color: type === 'enemy' ? 0x8B0000 : 0x1E90FF,
-                roughness: 0.8
-            });
-            const shirt = new THREE.Mesh(shirtGeometry, shirtMaterial);
-            shirt.position.y = 1.15;
-            npcGroup.add(shirt);
-            
-            npcGroup.position.set(x, 0.9, z);
-            
-            // NPC data
-            const npcData = {
-                mesh: npcGroup,
-                type: type,
-                health: 100,
-                speed: 0.5 + Math.random() * 0.8,
-                direction: Math.random() * Math.PI * 2,
-                state: 'idle',
-                lastStateChange: 0,
-                patrolPoints: [],
-                awareness: 0,
-                aggression: type === 'enemy' ? 0.8 : 0.1,
-                dialogue: type === 'enemy' ? "তুমি এখানে কেন?" : "আসসালামু আলাইকুম, ভালো আছেন?"
-            };
-            
-            // Add patrol points
-            for (let i = 0; i < 3; i++) {
-                npcData.patrolPoints.push({
-                    x: x + (Math.random() - 0.5) * 20,
-                    z: z + (Math.random() - 0.5) * 20
-                });
+            for(let i = 0; i < 50; i++) {
+                const cloud = new THREE.Mesh(cloudGeometry, cloudMaterial);
+                
+                cloud.position.set(
+                    (Math.random() - 0.5) * 2000,
+                    100 + Math.random() * 50,
+                    (Math.random() - 0.5) * 2000
+                );
+                
+                cloud.scale.set(
+                    1 + Math.random() * 2,
+                    0.5 + Math.random() * 0.5,
+                    1 + Math.random() * 2
+                );
+                
+                cloud.userData = {
+                    speed: 0.5 + Math.random() * 1,
+                    direction: Math.random() * Math.PI * 2
+                };
+                
+                clouds.push(cloud);
+                scene.add(cloud);
             }
-            
-            // Add physics body
-            const npcShape = new CANNON.Capsule(0.3, 1.4);
-            const npcBody = new CANNON.Body({ mass: 70 });
-            npcBody.addShape(npcShape);
-            npcBody.position.set(x, 1, z);
-            npcBody.linearDamping = 0.9;
-            physicsWorld.addBody(npcBody);
-            
-            npcData.physicsBody = npcBody;
-            
-            scene.add(npcGroup);
-            gameObjects.npcs.push(npcData);
-            
-            return npcData;
         }
         
-        function createCollectible(x, z) {
-            const collectibleTypes = [
-                { type: 'money', color: 0xFFD700, value: 100 },
-                { type: 'health', color: 0xFF6B6B, value: 25 },
-                { type: 'armor', color: 0x9B59B6, value: 30 },
-                { type: 'ammo', color: 0x00A8FF, value: 10 }
-            ];
+        async function initPhysicsWorld() {
+            physicsWorld = new CANNON.World();
+            physicsWorld.gravity.set(0, -9.82, 0);
+            physicsWorld.broadphase = new CANNON.NaiveBroadphase();
+            physicsWorld.solver.iterations = 10;
             
-            const collectibleType = collectibleTypes[Math.floor(Math.random() * collectibleTypes.length)];
+            // Ground physics
+            const groundShape = new CANNON.Plane();
+            const groundBody = new CANNON.Body({ mass: 0 });
+            groundBody.addShape(groundShape);
+            groundBody.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
+            physicsWorld.addBody(groundBody);
             
-            const geometry = new THREE.SphereGeometry(0.5, 8, 8);
-            const material = new THREE.MeshStandardMaterial({
-                color: collectibleType.color,
-                roughness: 0.3,
-                metalness: 0.7,
-                emissive: collectibleType.color,
-                emissiveIntensity: 0.2
+            return Promise.resolve();
+        }
+        
+        async function createPlayer() {
+            // Player physics body
+            const playerShape = new CANNON.Sphere(0.5);
+            playerBody = new CANNON.Body({ 
+                mass: 70,
+                material: new CANNON.Material({ friction: 0.5 })
+            });
+            playerBody.addShape(playerShape);
+            playerBody.position.set(0, 2, 0);
+            playerBody.linearDamping = 0.9;
+            playerBody.angularDamping = 0.9;
+            physicsWorld.addBody(playerBody);
+            
+            // Player mesh (invisible in first person)
+            const playerGeometry = new THREE.SphereGeometry(0.5, 8, 8);
+            const playerMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0xf42a41,
+                visible: false
             });
             
-            const collectible = new THREE.Mesh(geometry, material);
+            playerMesh = new THREE.Mesh(playerGeometry, playerMaterial);
+            scene.add(playerMesh);
             
-            const y = 1 + Math.random() * 2;
-            collectible.position.set(x, y, z);
+            // Create pointer lock controls
+            controls = new THREE.PointerLockControls(camera, document.body);
             
-            collectible.userData = {
-                type: collectibleType.type,
-                value: collectibleType.value,
-                originalY: y,
-                floatHeight: 0.3 + Math.random() * 0.3,
-                collected: false
-            };
-            
-            scene.add(collectible);
-            gameObjects.collectibles.push(collectible);
+            return Promise.resolve();
         }
         
-        function createLandmarks() {
-            return new Promise((resolve, reject) => {
-                try {
-                    console.log('Creating Bangladeshi landmarks...');
-                    
-                    // Create monuments
-                    createMonument(0, 0, 0x006a4e);
-                    createMonument(-400, 100, 0xf42a41);
-                    createMonument(200, -300, 0xffd700);
-                    
-                    resolve();
-                } catch (error) {
-                    reject(error);
+        function optimizeScene() {
+            // Merge geometries for better performance
+            const buildings = [];
+            scene.traverse((object) => {
+                if(object.isMesh && object.geometry && object.material) {
+                    buildings.push(object);
                 }
             });
+            
+            // Simple LOD system
+            scene.traverse((object) => {
+                if(object.isMesh) {
+                    object.frustumCulled = true;
+                }
+            });
+            
+            console.log("Scene optimized");
         }
         
-        function createMonument(x, z, color) {
-            const monumentGroup = new THREE.Group();
-            
-            // Base
-            const baseGeometry = new THREE.BoxGeometry(15, 2, 15);
-            const baseMaterial = new THREE.MeshStandardMaterial({ 
-                color: 0x8B4513,
-                roughness: 0.8
-            });
-            const base = new THREE.Mesh(baseGeometry, baseMaterial);
-            base.position.y = 1;
-            monumentGroup.add(base);
-            
-            // Monument
-            const monumentGeometry = new THREE.CylinderGeometry(3, 2, 10, 8);
-            const monumentMaterial = new THREE.MeshStandardMaterial({ 
-                color: color,
-                roughness: 0.5,
-                metalness: 0.3
-            });
-            const monument = new THREE.Mesh(monumentGeometry, monumentMaterial);
-            monument.position.y = 6;
-            monumentGroup.add(monument);
-            
-            monumentGroup.position.set(x, 0, z);
-            scene.add(monumentGroup);
-        }
-        
+        // CONTROLS - FIXED
         function setupControls() {
-            return new Promise((resolve, reject) => {
-                try {
-                    // Setup PC controls
-                    setupPCControls();
-                    
-                    // Setup mobile controls
-                    setupMobileControls();
-                    
-                    resolve();
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        }
-        
-        function setupPCControls() {
-            console.log("Setting up PC controls...");
-            
-            // Keyboard controls mapping
+            // Keyboard controls
             const keyMap = {
                 'w': 'forward', 'arrowup': 'forward',
                 's': 'backward', 'arrowdown': 'backward',
@@ -3030,65 +2285,65 @@
                 'd': 'right', 'arrowright': 'right',
                 ' ': 'jump',
                 'shift': 'run',
-                'control': 'crouch',
                 'e': 'interact',
                 'f': 'attack',
                 'r': 'reload',
-                'q': 'leanleft',
-                'c': 'crouch',
-                '1': 'weapon1', '2': 'weapon2', '3': 'weapon3', '4': 'weapon4', '5': 'weapon5',
+                '1': 'weapon1', '2': 'weapon2', '3': 'weapon3', '4': 'weapon4',
                 'tab': 'map',
                 'escape': 'menu',
-                'm': 'map',
-                'b': 'inventory'
+                'm': 'menu'
             };
             
             // Key down
             document.addEventListener('keydown', (e) => {
                 const key = e.key.toLowerCase();
-                if (gameState.settings.controls === 'keyboard' && gameState.isLoaded && !gameState.isPaused) {
+                
+                if(gameState.isLoaded && !gameState.isPaused) {
                     keys[key] = true;
                     
-                    // Special actions
+                    // Handle key actions
                     switch(key) {
+                        case 'w': case 'arrowup':
+                            gameState.controls.forward = true;
+                            break;
+                        case 's': case 'arrowdown':
+                            gameState.controls.backward = true;
+                            break;
+                        case 'a': case 'arrowleft':
+                            gameState.controls.left = true;
+                            break;
+                        case 'd': case 'arrowright':
+                            gameState.controls.right = true;
+                            break;
+                        case 'shift':
+                            gameState.controls.run = true;
+                            break;
+                        case ' ':
+                            if(!gameState.player.isJumping) {
+                                gameState.controls.jump = true;
+                            }
+                            break;
                         case 'f':
+                            gameState.controls.attack = true;
                             performAttack();
                             break;
                         case 'e':
+                            gameState.controls.interact = true;
                             tryInteract();
-                            break;
-                        case ' ':
-                            if (!gameState.player.isJumping) {
-                                const ray = new CANNON.Ray(playerBody.position, new CANNON.Vec3(0, -1, 0));
-                                const result = new CANNON.RaycastResult();
-                                physicsWorld.rayTest(ray.origin, ray.to(new CANNON.Vec3(0, -2, 0)), result);
-                                
-                                if (result.hasHit && result.distance < 1.5) {
-                                    playerBody.velocity.y = CONFIG.player.jumpForce;
-                                    gameState.player.isJumping = true;
-                                    setTimeout(() => { gameState.player.isJumping = false; }, 500);
-                                }
-                            }
                             break;
                         case 'escape':
                             toggleMenu();
                             break;
-                        case '1': case '2': case '3': case '4': case '5':
+                        case '1': case '2': case '3': case '4':
                             const weaponIndex = parseInt(key) - 1;
-                            if (weaponIndex < gameState.player.weapons.length) {
+                            if(weaponIndex < gameState.player.weapons.length) {
                                 switchWeapon(weaponIndex);
                             }
-                            break;
-                        case 'r':
-                            reloadWeapon();
-                            break;
-                        case 'tab':
-                            toggleMinimap();
                             break;
                     }
                     
                     // Prevent default for game keys
-                    if (['w', 'a', 's', 'd', ' ', 'shift', 'e', 'f', 'r'].includes(key)) {
+                    if(['w', 'a', 's', 'd', ' ', 'shift', 'e', 'f', 'r'].includes(key)) {
                         e.preventDefault();
                     }
                 }
@@ -3097,48 +2352,55 @@
             // Key up
             document.addEventListener('keyup', (e) => {
                 const key = e.key.toLowerCase();
-                if (gameState.settings.controls === 'keyboard') {
-                    keys[key] = false;
+                keys[key] = false;
+                
+                switch(key) {
+                    case 'w': case 'arrowup':
+                        gameState.controls.forward = false;
+                        break;
+                    case 's': case 'arrowdown':
+                        gameState.controls.backward = false;
+                        break;
+                    case 'a': case 'arrowleft':
+                        gameState.controls.left = false;
+                        break;
+                    case 'd': case 'arrowright':
+                        gameState.controls.right = false;
+                        break;
+                    case 'shift':
+                        gameState.controls.run = false;
+                        break;
+                    case ' ':
+                        gameState.controls.jump = false;
+                        break;
+                    case 'f':
+                        gameState.controls.attack = false;
+                        break;
+                    case 'e':
+                        gameState.controls.interact = false;
+                        break;
                 }
             });
             
             // Mouse controls
-            setupMouseControls();
+            document.addEventListener('mousedown', (e) => {
+                if(isPointerLocked && !gameState.isPaused) {
+                    if(e.button === 0) {
+                        performAttack();
+                    }
+                }
+            });
             
-            console.log("PC controls setup complete");
-        }
-        
-        function setupMouseControls() {
-            // Mouse movement
             document.addEventListener('mousemove', (e) => {
-                if (isPointerLocked && gameState.settings.controls === 'keyboard' && !gameState.isPaused) {
+                if(isPointerLocked && !gameState.isPaused) {
                     mouse.dx = e.movementX || 0;
                     mouse.dy = e.movementY || 0;
                 }
             });
             
-            // Mouse click
-            document.addEventListener('mousedown', (e) => {
-                if (isPointerLocked && gameState.settings.controls === 'keyboard' && !gameState.isPaused) {
-                    if (e.button === 0) { // Left click
-                        performAttack();
-                    } else if (e.button === 2) { // Right click - aim
-                        camera.fov = camera.fov === CONFIG.player.fov ? 30 : CONFIG.player.fov;
-                        camera.updateProjectionMatrix();
-                    }
-                }
-            });
-            
-            // Context menu (right click)
-            document.addEventListener('contextmenu', (e) => {
-                if (gameState.settings.controls === 'keyboard') {
-                    e.preventDefault();
-                }
-            });
-            
             // Pointer lock
             document.addEventListener('click', () => {
-                if (gameState.settings.controls === 'keyboard' && !gameState.isPaused && gameState.isLoaded) {
+                if(!gameState.isPaused && gameState.isLoaded) {
                     document.body.requestPointerLock();
                 }
             });
@@ -3146,10 +2408,12 @@
             document.addEventListener('pointerlockchange', () => {
                 isPointerLocked = document.pointerLockElement === document.body;
             });
+            
+            // Mobile controls setup
+            setupMobileControls();
         }
         
         function setupMobileControls() {
-            // Touch joystick setup
             const joystick = document.getElementById('moveJoystick');
             const handle = joystick.querySelector('.joystick-handle');
             
@@ -3157,188 +2421,138 @@
             let joystickCenter = { x: 0, y: 0 };
             
             joystick.addEventListener('touchstart', (e) => {
-                if (gameState.settings.controls === 'touch') {
-                    const rect = joystick.getBoundingClientRect();
-                    joystickCenter.x = rect.left + rect.width / 2;
-                    joystickCenter.y = rect.top + rect.height / 2;
-                    joystickActive = true;
-                    e.preventDefault();
-                }
+                const rect = joystick.getBoundingClientRect();
+                joystickCenter.x = rect.left + rect.width / 2;
+                joystickCenter.y = rect.top + rect.height / 2;
+                joystickActive = true;
+                e.preventDefault();
             });
             
             joystick.addEventListener('touchmove', (e) => {
-                if (gameState.settings.controls === 'touch' && joystickActive) {
+                if(joystickActive) {
                     const touch = e.touches[0];
                     const dx = touch.clientX - joystickCenter.x;
                     const dy = touch.clientY - joystickCenter.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (distance > 60) {
-                        touch.joystick.x = (dx / distance) * (60 / 40);
-                        touch.joystick.y = (dy / distance) * (60 / 40);
+                    if(distance > 60) {
+                        gameState.controls.left = dx < -20;
+                        gameState.controls.right = dx > 20;
+                        gameState.controls.forward = dy < -20;
+                        gameState.controls.backward = dy > 20;
                         handle.style.transform = `translate(-50%, -50%) translate(${(dx / distance) * 40}px, ${(dy / distance) * 40}px)`;
                     } else {
-                        touch.joystick.x = dx / 40;
-                        touch.joystick.y = dy / 40;
+                        gameState.controls.left = dx < -10;
+                        gameState.controls.right = dx > 10;
+                        gameState.controls.forward = dy < -10;
+                        gameState.controls.backward = dy > 10;
                         handle.style.transform = `translate(-50%, -50%) translate(${dx}px, ${dy}px)`;
                     }
-                    
-                    touch.joystick.active = true;
                     e.preventDefault();
                 }
             });
             
             joystick.addEventListener('touchend', () => {
-                if (gameState.settings.controls === 'touch') {
-                    joystickActive = false;
-                    touch.joystick.x = 0;
-                    touch.joystick.y = 0;
-                    touch.joystick.active = false;
-                    handle.style.transform = 'translate(-50%, -50%)';
-                }
+                joystickActive = false;
+                gameState.controls.left = false;
+                gameState.controls.right = false;
+                gameState.controls.forward = false;
+                gameState.controls.backward = false;
+                handle.style.transform = 'translate(-50%, -50%)';
+            });
+            
+            // Mobile buttons
+            const mobileButtons = ['jumpBtn', 'runBtn', 'attackBtn', 'interactBtn', 'weaponBtn', 'menuBtn'];
+            mobileButtons.forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                btn.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    switch(btnId) {
+                        case 'jumpBtn':
+                            gameState.controls.jump = true;
+                            break;
+                        case 'runBtn':
+                            gameState.controls.run = true;
+                            break;
+                        case 'attackBtn':
+                            performAttack();
+                            break;
+                        case 'interactBtn':
+                            tryInteract();
+                            break;
+                        case 'weaponBtn':
+                            switchWeapon((gameState.player.currentWeapon + 1) % gameState.player.weapons.length);
+                            break;
+                        case 'menuBtn':
+                            toggleMenu();
+                            break;
+                    }
+                });
+                
+                btn.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    switch(btnId) {
+                        case 'jumpBtn':
+                            gameState.controls.jump = false;
+                            break;
+                        case 'runBtn':
+                            gameState.controls.run = false;
+                            break;
+                    }
+                });
             });
         }
         
         function setupEventListeners() {
-            return new Promise((resolve, reject) => {
-                try {
-                    // Button event listeners
-                    document.getElementById('resumeBtn').onclick = () => {
-                        toggleMenu();
-                    };
-                    
-                    document.getElementById('newGameBtn').onclick = () => {
-                        if (confirm('নতুন গেম শুরু করতে চান? বর্তমান প্রোগ্রেস নষ্ট হবে।')) {
-                            location.reload();
-                        }
-                    };
-                    
-                    document.getElementById('loadGameBtn').onclick = () => {
-                        loadGame();
-                    };
-                    
-                    document.getElementById('settingsBtn').onclick = () => {
-                        document.getElementById('mainMenu').style.display = 'none';
-                        document.getElementById('settingsMenu').style.display = 'flex';
-                    };
-                    
-                    document.getElementById('missionsBtn').onclick = () => {
-                        showMissions();
-                        document.getElementById('mainMenu').style.display = 'none';
-                        document.getElementById('missionsMenu').style.display = 'flex';
-                    };
-                    
-                    document.getElementById('inventoryBtn').onclick = () => {
-                        showInventory();
-                        document.getElementById('mainMenu').style.display = 'none';
-                        document.getElementById('inventoryMenu').style.display = 'flex';
-                    };
-                    
-                    document.getElementById('helpBtn').onclick = () => {
-                        document.getElementById('mainMenu').style.display = 'none';
-                        document.getElementById('helpMenu').style.display = 'flex';
-                    };
-                    
-                    document.getElementById('backBtn').onclick = () => {
-                        document.getElementById('settingsMenu').style.display = 'none';
-                        document.getElementById('mainMenu').style.display = 'flex';
-                    };
-                    
-                    document.getElementById('missionsBackBtn').onclick = () => {
-                        document.getElementById('missionsMenu').style.display = 'none';
-                        document.getElementById('mainMenu').style.display = 'flex';
-                    };
-                    
-                    document.getElementById('inventoryBackBtn').onclick = () => {
-                        document.getElementById('inventoryMenu').style.display = 'none';
-                        document.getElementById('mainMenu').style.display = 'flex';
-                    };
-                    
-                    document.getElementById('helpBackBtn').onclick = () => {
-                        document.getElementById('helpMenu').style.display = 'none';
-                        document.getElementById('mainMenu').style.display = 'flex';
-                    };
-                    
-                    // Mobile action buttons
-                    const setupMobileButton = (id, action) => {
-                        const btn = document.getElementById(id);
-                        btn.addEventListener('touchstart', () => {
-                            touch.buttons[id] = true;
-                            if (action) action();
-                        });
-                        btn.addEventListener('touchend', () => {
-                            touch.buttons[id] = false;
-                        });
-                    };
-                    
-                    setupMobileButton('jumpBtn');
-                    setupMobileButton('runBtn');
-                    setupMobileButton('attackBtn', performAttack);
-                    setupMobileButton('weaponBtn', () => {
-                        switchWeapon((gameState.player.currentWeapon + 1) % gameState.player.weapons.length);
-                    });
-                    setupMobileButton('interactBtn', tryInteract);
-                    setupMobileButton('menuBtn', toggleMenu);
-                    
-                    resolve();
-                } catch (error) {
-                    reject(error);
+            // Menu buttons
+            document.getElementById('resumeBtn').onclick = () => toggleMenu();
+            document.getElementById('newGameBtn').onclick = () => {
+                if(confirm('নতুন গেম শুরু করতে চান?')) {
+                    location.reload();
                 }
-            });
-        }
-        
-        function initAudio() {
-            return Promise.resolve();
+            };
+            document.getElementById('loadGameBtn').onclick = loadGame;
+            document.getElementById('settingsBtn').onclick = () => {
+                document.getElementById('mainMenu').style.display = 'none';
+                showNotification('সেটিংস শীঘ্রই আসছে!');
+            };
+            document.getElementById('missionsBtn').onclick = () => {
+                document.getElementById('mainMenu').style.display = 'none';
+                showNotification('মিশন গ্যালারি শীঘ্রই আসছে!');
+            };
+            
+            window.addEventListener('resize', onWindowResize);
         }
         
         function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
-            if (composer) composer.setSize(window.innerWidth, window.innerHeight);
+            if(composer) composer.setSize(window.innerWidth, window.innerHeight);
         }
         
-        // GAME LOGIC FUNCTIONS
-        function updatePlayer() {
-            if (!gameState.isLoaded || gameState.isPaused) return;
+        // GAME LOGIC
+        function updatePlayer(delta) {
+            if(!gameState.isLoaded || gameState.isPaused) return;
             
-            const playerState = gameState.player;
-            
-            // Handle camera rotation
-            if (gameState.firstPerson) {
-                if (gameState.settings.controls === 'keyboard' && isPointerLocked) {
-                    camera.rotation.y -= mouse.dx * CONFIG.player.sensitivity;
-                    camera.rotation.x -= mouse.dy * CONFIG.player.sensitivity;
-                    camera.rotation.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, camera.rotation.x));
-                    
-                    mouse.dx = mouse.dy = 0;
-                } else if (gameState.settings.controls === 'touch' && touch.look.active) {
-                    camera.rotation.y -= touch.look.x * CONFIG.player.sensitivity * 50;
-                    camera.rotation.x -= touch.look.y * CONFIG.player.sensitivity * 50;
-                    camera.rotation.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, camera.rotation.x));
-                }
+            // Mouse look
+            if(isPointerLocked) {
+                camera.rotation.y -= mouse.dx * CONFIG.player.sensitivity;
+                camera.rotation.x -= mouse.dy * CONFIG.player.sensitivity;
+                camera.rotation.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, camera.rotation.x));
+                mouse.dx = mouse.dy = 0;
             }
             
-            // Movement input
+            // Movement
             let moveX = 0, moveZ = 0;
             
-            if (gameState.settings.controls === 'keyboard') {
-                if (keys['w'] || keys['arrowup']) moveZ = -1;
-                if (keys['s'] || keys['arrowdown']) moveZ = 1;
-                if (keys['a'] || keys['arrowleft']) moveX = -1;
-                if (keys['d'] || keys['arrowright']) moveX = 1;
-                
-                playerState.isRunning = keys['shift'] || false;
-                touch.buttons.jump = keys[' '] || false;
-                touch.buttons.interact = keys['e'] || false;
-            } else {
-                moveX = touch.joystick.x;
-                moveZ = touch.joystick.y;
-                playerState.isRunning = touch.buttons.runBtn || false;
-            }
+            if(gameState.controls.forward) moveZ = -1;
+            if(gameState.controls.backward) moveZ = 1;
+            if(gameState.controls.left) moveX = -1;
+            if(gameState.controls.right) moveX = 1;
             
             // Normalize diagonal movement
-            if (moveX !== 0 || moveZ !== 0) {
+            if(moveX !== 0 || moveZ !== 0) {
                 const length = Math.sqrt(moveX * moveX + moveZ * moveZ);
                 moveX /= length;
                 moveZ /= length;
@@ -3360,11 +2574,11 @@
             moveVector.normalize();
             
             // Apply movement speed
-            const speed = playerState.isRunning ? CONFIG.player.runSpeed : CONFIG.player.speed;
-            const moveDistance = speed * deltaTime * 60;
+            const speed = gameState.controls.run ? CONFIG.player.runSpeed : CONFIG.player.speed;
+            const moveDistance = speed * delta * 60;
             
-            // Update player physics body
-            if (moveVector.length() > 0) {
+            // Update physics body
+            if(moveVector.length() > 0) {
                 playerBody.velocity.x = moveVector.x * moveDistance * 10;
                 playerBody.velocity.z = moveVector.z * moveDistance * 10;
             } else {
@@ -3374,25 +2588,25 @@
             }
             
             // Jump
-            if ((touch.buttons.jump || keys[' ']) && !playerState.isJumping) {
+            if(gameState.controls.jump && !gameState.player.isJumping) {
                 const ray = new CANNON.Ray(playerBody.position, new CANNON.Vec3(0, -1, 0));
                 const result = new CANNON.RaycastResult();
                 physicsWorld.rayTest(ray.origin, ray.to(new CANNON.Vec3(0, -2, 0)), result);
                 
-                if (result.hasHit && result.distance < 1.5) {
+                if(result.hasHit && result.distance < 1.5) {
                     playerBody.velocity.y = CONFIG.player.jumpForce;
-                    playerState.isJumping = true;
-                    setTimeout(() => { playerState.isJumping = false; }, 500);
-                    touch.buttons.jump = false;
+                    gameState.player.isJumping = true;
+                    setTimeout(() => { gameState.player.isJumping = false; }, 500);
                 }
+                gameState.controls.jump = false;
             }
             
-            // Update player state from physics
+            // Update player state
             gameState.player.position.x = playerBody.position.x;
             gameState.player.position.y = playerBody.position.y;
             gameState.player.position.z = playerBody.position.z;
             
-            // Update camera position to follow player
+            // Update camera
             camera.position.x = playerBody.position.x;
             camera.position.y = playerBody.position.y + CONFIG.player.eyeHeight;
             camera.position.z = playerBody.position.z;
@@ -3400,567 +2614,128 @@
             // Update player mesh
             playerMesh.position.copy(playerBody.position);
             
-            // Stamina management
-            if (playerState.isRunning && (moveX !== 0 || moveZ !== 0)) {
-                playerState.stamina = Math.max(0, playerState.stamina - 20 * deltaTime);
-                if (playerState.stamina === 0) {
-                    playerState.isRunning = false;
+            // Stamina
+            if(gameState.controls.run && (moveX !== 0 || moveZ !== 0)) {
+                gameState.player.stamina = Math.max(0, gameState.player.stamina - 20 * delta);
+                if(gameState.player.stamina === 0) {
+                    gameState.controls.run = false;
                 }
             } else {
-                playerState.stamina = Math.min(playerState.maxStamina, playerState.stamina + 10 * deltaTime);
+                gameState.player.stamina = Math.min(100, gameState.player.stamina + 10 * delta);
             }
+            
+            // Update clouds
+            updateClouds(delta);
+            
+            // Update time
+            updateTimeAndWeather(delta);
             
             // Update UI
             updateUI();
             
-            // Check collectibles
-            checkCollectibles();
-            
-            // Update NPCs
-            updateNPCs();
-            
-            // Update vehicles
-            updateVehicles();
-            
-            // Update collectible animations
-            updateCollectibleAnimations();
-            
-            // Update time
-            updateTimeAndWeather();
-            
             // Update minimap
             updateMinimap();
             
-            // Update location display
+            // Update location
             updateLocationDisplay();
-            
-            // Debug info
-            if (gameState.debugMode) {
-                updateDebugInfo();
-            }
         }
         
-        function updateNPCs() {
-            const currentTime = clock.getElapsedTime();
-            const playerPos = gameState.player.position;
-            
-            gameObjects.npcs.forEach(npc => {
-                const mesh = npc.mesh;
-                const npcPos = mesh.position;
+        function updateClouds(delta) {
+            clouds.forEach(cloud => {
+                cloud.position.x += Math.cos(cloud.userData.direction) * cloud.userData.speed * delta * 10;
+                cloud.position.z += Math.sin(cloud.userData.direction) * cloud.userData.speed * delta * 10;
                 
-                // Simple NPC behavior
-                switch(npc.state) {
-                    case 'idle':
-                        if (currentTime - npc.lastStateChange > 3 + Math.random() * 5) {
-                            npc.state = 'patrol';
-                            npc.lastStateChange = currentTime;
-                        }
-                        break;
-                        
-                    case 'patrol':
-                        if (npc.patrolPoints.length > 0) {
-                            const target = npc.patrolPoints[0];
-                            const dx = target.x - npcPos.x;
-                            const dz = target.z - npcPos.z;
-                            const distance = Math.sqrt(dx * dx + dz * dz);
-                            
-                            if (distance < 2) {
-                                npc.patrolPoints.shift();
-                                if (npc.patrolPoints.length === 0) {
-                                    npc.state = 'idle';
-                                    npc.lastStateChange = currentTime;
-                                }
-                            } else {
-                                const direction = Math.atan2(dx, dz);
-                                npcPos.x += Math.sin(direction) * npc.speed * deltaTime * 60;
-                                npcPos.z += Math.cos(direction) * npc.speed * deltaTime * 60;
-                                mesh.rotation.y = direction;
-                            }
-                        }
-                        break;
-                        
-                    case 'chase':
-                        if (npc.type === 'enemy') {
-                            const dx = playerPos.x - npcPos.x;
-                            const dz = playerPos.z - npcPos.z;
-                            const distance = Math.sqrt(dx * dx + dz * dz);
-                            const direction = Math.atan2(dx, dz);
-                            
-                            if (distance < 15) {
-                                npcPos.x += Math.sin(direction) * npc.speed * 1.2 * deltaTime * 60;
-                                npcPos.z += Math.cos(direction) * npc.speed * 1.2 * deltaTime * 60;
-                                mesh.rotation.y = direction;
-                                
-                                if (distance < 2.5 && currentTime - npc.lastStateChange > 1.5) {
-                                    damagePlayer(8);
-                                    npc.lastStateChange = currentTime;
-                                }
-                            } else {
-                                npc.state = 'idle';
-                                npc.lastStateChange = currentTime;
-                            }
-                        }
-                        break;
-                }
-                
-                // Check awareness
-                if (npc.type === 'enemy') {
-                    const dx = playerPos.x - npcPos.x;
-                    const dz = playerPos.z - npcPos.z;
-                    const distance = Math.sqrt(dx * dx + dz * dz);
-                    
-                    if (distance < 20 && npc.state !== 'chase') {
-                        npc.state = 'chase';
-                        npc.lastStateChange = currentTime;
-                    }
-                }
-                
-                // Update NPC physics body
-                if (npc.physicsBody) {
-                    npc.physicsBody.position.set(npcPos.x, 1, npcPos.z);
-                    mesh.position.copy(npc.physicsBody.position);
-                }
+                // Wrap around
+                if(cloud.position.x > 1000) cloud.position.x = -1000;
+                if(cloud.position.x < -1000) cloud.position.x = 1000;
+                if(cloud.position.z > 1000) cloud.position.z = -1000;
+                if(cloud.position.z < -1000) cloud.position.z = 1000;
             });
         }
         
-        function updateVehicles() {
-            gameObjects.vehicles.forEach(vehicle => {
-                const mesh = vehicle.mesh;
-                
-                if (!vehicle.userInVehicle) {
-                    // Simple autonomous movement
-                    vehicle.direction += (Math.random() - 0.5) * 0.05;
-                    
-                    const moveX = Math.sin(vehicle.direction) * vehicle.speed * deltaTime * 60;
-                    const moveZ = Math.cos(vehicle.direction) * vehicle.speed * deltaTime * 60;
-                    
-                    const newX = mesh.position.x + moveX;
-                    const newZ = mesh.position.z + moveZ;
-                    
-                    // Boundary check
-                    if (Math.abs(newX) > CONFIG.world.size * 0.3 || Math.abs(newZ) > CONFIG.world.size * 0.3) {
-                        vehicle.direction += Math.PI;
-                    } else {
-                        mesh.position.x = newX;
-                        mesh.position.z = newZ;
-                    }
-                    
-                    mesh.rotation.y = vehicle.direction;
-                } else {
-                    // Player is in vehicle - follow player
-                    mesh.position.x = playerBody.position.x;
-                    mesh.position.z = playerBody.position.z;
-                    mesh.rotation.y = camera.rotation.y;
-                }
-            });
-        }
-        
-        function updateCollectibleAnimations() {
-            const time = clock.getElapsedTime();
-            
-            gameObjects.collectibles.forEach(collectible => {
-                if (collectible.userData.collected) return;
-                
-                const data = collectible.userData;
-                
-                // Float up and down
-                collectible.position.y = data.originalY + Math.sin(time * 0.8) * data.floatHeight;
-                
-                // Rotate
-                collectible.rotation.y += 0.01;
-                
-                // Pulsing glow
-                const intensity = 0.2 + Math.sin(time * 2) * 0.1;
-                collectible.material.emissiveIntensity = intensity;
-            });
-        }
-        
-        function updateTimeAndWeather() {
-            gameState.world.time += deltaTime * 0.03;
-            if (gameState.world.time >= 24) gameState.world.time = 0;
+        function updateTimeAndWeather(delta) {
+            // Update time (24-hour cycle, 1 minute real = 1 hour game)
+            gameState.world.time += delta * 0.0167; // Slower time
+            if(gameState.world.time >= 24) gameState.world.time = 0;
             
             gameState.world.isDay = gameState.world.time >= 6 && gameState.world.time < 18;
             
+            // Update sun/moon position
+            const timeRad = (gameState.world.time / 24) * Math.PI * 2;
+            gameState.world.sunAngle = timeRad;
+            gameState.world.moonAngle = timeRad + Math.PI;
+            
+            // Update lighting
+            const sunIntensity = gameState.world.isDay ? 1.0 : 0.1;
+            const moonIntensity = gameState.world.isDay ? 0 : 0.3;
+            
+            sunLight.intensity = sunIntensity;
+            moonLight.intensity = moonIntensity;
+            
+            // Position sun and moon
+            const radius = 500;
+            sunLight.position.x = Math.cos(gameState.world.sunAngle) * radius;
+            sunLight.position.y = Math.sin(gameState.world.sunAngle) * radius + 100;
+            sunLight.position.z = Math.sin(gameState.world.sunAngle) * radius;
+            
+            moonLight.position.x = Math.cos(gameState.world.moonAngle) * radius;
+            moonLight.position.y = Math.sin(gameState.world.moonAngle) * radius + 100;
+            moonLight.position.z = Math.sin(gameState.world.moonAngle) * radius;
+            
+            // Update sky color
+            const hour = gameState.world.time;
+            let skyColor, fogColor;
+            
+            if(hour >= 6 && hour < 18) {
+                // Day
+                const dayProgress = (hour - 6) / 12;
+                skyColor = new THREE.Color().lerpColors(
+                    new THREE.Color(0x87CEEB), // Morning
+                    new THREE.Color(0x87CEEB), // Noon
+                    dayProgress
+                );
+                fogColor = skyColor;
+            } else {
+                // Night
+                const nightProgress = hour < 6 ? (hour + 6) / 12 : (hour - 18) / 6;
+                skyColor = new THREE.Color().lerpColors(
+                    new THREE.Color(0x191970), // Deep blue
+                    new THREE.Color(0x000033), // Dark blue
+                    nightProgress
+                );
+                fogColor = skyColor;
+            }
+            
+            scene.background = skyColor;
+            scene.fog.color = fogColor;
+            
+            // Update time display
             updateTimeDisplay();
         }
         
-        function checkCollectibles() {
-            const playerPos = gameState.player.position;
-            
-            for (let i = gameObjects.collectibles.length - 1; i >= 0; i--) {
-                const collectible = gameObjects.collectibles[i];
-                if (collectible.userData.collected) continue;
-                
-                const dx = playerPos.x - collectible.position.x;
-                const dz = playerPos.z - collectible.position.z;
-                const dy = playerPos.y - collectible.position.y;
-                const distance = Math.sqrt(dx * dx + dz * dz + dy * dy);
-                
-                if (distance < 1.5) {
-                    collectItem(collectible);
-                    collectible.userData.collected = true;
-                    
-                    // Visual effect
-                    collectible.material.transparent = true;
-                    collectible.material.opacity = 0.5;
-                    
-                    setTimeout(() => {
-                        scene.remove(collectible);
-                        gameObjects.collectibles.splice(i, 1);
-                    }, 300);
-                }
-            }
-        }
-        
-        function collectItem(collectible) {
-            const data = collectible.userData;
-            const playerState = gameState.player;
-            
-            switch(data.type) {
-                case 'money':
-                    playerState.money += data.value;
-                    showNotification(`+৳${data.value} টাকা সংগ্রহ করা হয়েছে!`);
-                    updateMissionProgress(2, data.value);
-                    break;
-                    
-                case 'health':
-                    playerState.health = Math.min(playerState.maxHealth, playerState.health + data.value);
-                    showNotification(`+${data.value} স্বাস্থ্য পুনরুদ্ধার!`);
-                    break;
-                    
-                case 'armor':
-                    playerState.armor = Math.min(playerState.maxArmor, playerState.armor + data.value);
-                    showNotification(`+${data.value} আর্মার সংগ্রহ!`);
-                    break;
-                    
-                case 'ammo':
-                    const weapon = playerState.weapons[playerState.currentWeapon];
-                    weapon.ammo = Math.min(weapon.maxAmmo, weapon.ammo + data.value);
-                    showNotification(`+${data.value} এম্মো সংগ্রহ!`);
-                    updateWeaponDisplay();
-                    break;
-            }
-        }
-        
-        function tryInteract() {
-            const playerPos = gameState.player.position;
-            
-            // Check for vehicles
-            let closestVehicle = null;
-            let closestDistance = Infinity;
-            
-            gameObjects.vehicles.forEach(vehicle => {
-                const distance = playerPos.distanceTo(vehicle.mesh.position);
-                if (distance < 8 && distance < closestDistance) {
-                    closestDistance = distance;
-                    closestVehicle = vehicle;
-                }
-            });
-            
-            if (closestVehicle) {
-                if (!gameState.player.inVehicle) {
-                    // Enter vehicle
-                    gameState.player.inVehicle = true;
-                    gameState.player.currentVehicle = closestVehicle;
-                    closestVehicle.userInVehicle = true;
-                    showNotification('গাড়িতে উঠলেন! চলাচলের জন্য W, A, S, D ব্যবহার করুন');
-                    
-                    // Update camera for vehicle
-                    camera.position.y = 3;
-                    
-                    updateMissionProgress(3, 1);
-                } else {
-                    // Exit vehicle
-                    gameState.player.inVehicle = false;
-                    gameState.player.currentVehicle.userInVehicle = false;
-                    gameState.player.currentVehicle = null;
-                    showNotification('গাড়ি থেকে নামলেন');
-                    
-                    // Reset camera
-                    camera.position.y = CONFIG.player.eyeHeight;
-                }
-                
-                touch.buttons.interact = false;
-                keys['e'] = false;
-                return;
-            }
-            
-            // Check for building doors
-            let closestBuilding = null;
-            closestDistance = Infinity;
-            
-            gameObjects.buildings.forEach(building => {
-                if (building.door) {
-                    const doorWorldPos = new THREE.Vector3();
-                    building.door.getWorldPosition(doorWorldPos);
-                    
-                    const distance = playerPos.distanceTo(doorWorldPos);
-                    if (distance < 3 && distance < closestDistance) {
-                        closestDistance = distance;
-                        closestBuilding = building;
-                    }
-                }
-            });
-            
-            if (closestBuilding) {
-                // Toggle door
-                const door = closestBuilding.door;
-                if (!door.userData.isOpen) {
-                    // Open door
-                    door.rotation.y = Math.PI / 2;
-                    door.userData.isOpen = true;
-                    showNotification("দরজা খোলা হলো। ভিতরে প্রবেশ করতে E চাপুন আবার");
-                } else {
-                    // Enter/exit building
-                    if (gameState.player.inBuilding === closestBuilding) {
-                        // Exit building
-                        playerBody.position.set(
-                            closestBuilding.mesh.position.x + 2,
-                            1,
-                            closestBuilding.mesh.position.z + 2
-                        );
-                        gameState.player.inBuilding = null;
-                        showNotification("বিল্ডিং থেকে বের হচ্ছেন...");
-                    } else {
-                        // Enter building
-                        const interiorPos = closestBuilding.mesh.position.clone();
-                        interiorPos.y = 1;
-                        playerBody.position.copy(interiorPos);
-                        gameState.player.inBuilding = closestBuilding;
-                        showNotification("বিল্ডিং-এর ভিতরে প্রবেশ করেছেন!");
-                    }
-                }
-                touch.buttons.interact = false;
-                keys['e'] = false;
-                return;
-            }
-            
-            // Check for NPCs
-            gameObjects.npcs.forEach(npc => {
-                if (npc.type === 'civilian') {
-                    const distance = playerPos.distanceTo(npc.mesh.position);
-                    if (distance < 4) {
-                        showNotification(`নাগরিক: "${npc.dialogue}"`);
-                        touch.buttons.interact = false;
-                        keys['e'] = false;
-                        return;
-                    }
-                }
-            });
-            
-            showNotification('কোন ইন্টার্যাক্টেবল বস্তু নেই');
-            touch.buttons.interact = false;
-            keys['e'] = false;
-        }
-        
-        function performAttack() {
-            if (gameState.isPaused || !gameState.isLoaded) return;
-            
-            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
-            
-            // Check ammo
-            if (weapon.ammo <= 0) {
-                showNotification('এম্মো শেষ! অন্য অস্ত্র ব্যবহার করুন');
-                return;
-            }
-            
-            // Use ammo
-            weapon.ammo--;
-            
-            // Show hit effect
-            showHitEffect();
-            
-            // Camera recoil
-            camera.rotation.x += 0.01;
-            
-            // Check for NPC hits
-            const raycaster = new THREE.Raycaster();
-            raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
-            
-            let hitNPC = null;
-            let hitDistance = Infinity;
-            
-            gameObjects.npcs.forEach((npc, index) => {
-                if (npc.type === 'enemy') {
-                    const intersection = raycaster.intersectObject(npc.mesh, true);
-                    if (intersection.length > 0) {
-                        const distance = intersection[0].distance;
-                        if (distance < hitDistance && distance < weapon.range) {
-                            hitDistance = distance;
-                            hitNPC = { npc, index };
-                        }
-                    }
-                }
-            });
-            
-            if (hitNPC) {
-                // Hit enemy
-                hitNPC.npc.health -= weapon.damage;
-                
-                // Show damage indicator
-                const damageIndicator = document.createElement('div');
-                damageIndicator.style.position = 'fixed';
-                damageIndicator.style.top = '50%';
-                damageIndicator.style.left = '50%';
-                damageIndicator.style.transform = 'translate(-50%, -50%)';
-                damageIndicator.style.color = '#ff0000';
-                damageIndicator.style.fontSize = '24px';
-                damageIndicator.style.fontWeight = 'bold';
-                damageIndicator.textContent = `-${weapon.damage}`;
-                damageIndicator.style.zIndex = '1000';
-                damageIndicator.style.pointerEvents = 'none';
-                document.body.appendChild(damageIndicator);
-                
-                setTimeout(() => {
-                    document.body.removeChild(damageIndicator);
-                }, 500);
-                
-                if (hitNPC.npc.health <= 0) {
-                    // Enemy defeated
-                    showNotification(`শত্রু নিপাত! +৳500, +100 স্কোর`);
-                    
-                    // Remove NPC
-                    scene.remove(hitNPC.npc.mesh);
-                    if (hitNPC.npc.physicsBody) {
-                        physicsWorld.removeBody(hitNPC.npc.physicsBody);
-                    }
-                    gameObjects.npcs.splice(hitNPC.index, 1);
-                    
-                    // Add rewards
-                    gameState.player.money += 500;
-                    gameState.player.score += 100;
-                    
-                    // Update mission progress
-                    updateMissionProgress(4, 1);
-                } else {
-                    showNotification(`শত্রু ক্ষতিগ্রস্ত!`);
-                }
-            }
-            
-            // Update UI
-            updateWeaponDisplay();
-            
-            touch.buttons.attackBtn = false;
-            keys['f'] = false;
-        }
-        
-        function reloadWeapon() {
-            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
-            const ammoNeeded = weapon.maxAmmo - weapon.ammo;
-            
-            if (ammoNeeded > 0) {
-                weapon.ammo = weapon.maxAmmo;
-                showNotification(`${weapon.name} রিলোড করা হয়েছে!`);
-                updateWeaponDisplay();
-            } else {
-                showNotification('এম্মো পূর্ণ আছে!');
-            }
-        }
-        
-        function switchWeapon(index) {
-            if (index < gameState.player.weapons.length) {
-                gameState.player.currentWeapon = index;
-                const weapon = gameState.player.weapons[index];
-                showNotification(`অস্ত্র পরিবর্তন: ${weapon.name}`);
-                updateWeaponDisplay();
-            }
-        }
-        
-        function damagePlayer(amount) {
-            // Apply damage to armor first
-            let damageToHealth = amount;
-            
-            if (gameState.player.armor > 0) {
-                const armorDamage = Math.min(gameState.player.armor, amount * 0.7);
-                gameState.player.armor -= armorDamage;
-                damageToHealth = amount - armorDamage;
-            }
-            
-            // Apply remaining damage to health
-            gameState.player.health = Math.max(0, gameState.player.health - damageToHealth);
-            
-            // Show hit effect
-            showHitEffect();
-            
-            // Screen shake
-            cameraShake(0.3);
-            
-            if (gameState.player.health <= 0) {
-                gameOver();
-            }
-        }
-        
-        function cameraShake(intensity) {
-            const originalPosition = camera.position.clone();
-            const shakeDuration = 200;
-            
-            let elapsed = 0;
-            const animateShake = () => {
-                elapsed += 16;
-                const progress = elapsed / shakeDuration;
-                
-                if (progress < 1) {
-                    const shakeAmount = intensity * (1 - progress);
-                    camera.position.x = originalPosition.x + (Math.random() - 0.5) * shakeAmount;
-                    camera.position.y = originalPosition.y + (Math.random() - 0.5) * shakeAmount;
-                    camera.position.z = originalPosition.z + (Math.random() - 0.5) * shakeAmount;
-                    
-                    requestAnimationFrame(animateShake);
-                } else {
-                    camera.position.copy(originalPosition);
-                }
-            };
-            
-            animateShake();
-        }
-        
-        function gameOver() {
-            showNotification('গেম ওভার! হাসপাতালে স্থানান্তরিত হচ্ছেন...');
-            gameState.isPaused = true;
-            
-            setTimeout(() => {
-                playerBody.position.set(0, 2, 0);
-                playerBody.velocity.set(0, 0, 0);
-                gameState.player.health = gameState.player.maxHealth;
-                gameState.player.armor = 0;
-                gameState.isPaused = false;
-                showNotification('হাসপাতাল থেকে ছাড়পত্র! আবার চেষ্টা করুন');
-            }, 3000);
-        }
-        
-        // UI FUNCTIONS
         function updateUI() {
-            const playerState = gameState.player;
+            const player = gameState.player;
             
-            // Update health bar
-            const healthPercent = (playerState.health / playerState.maxHealth) * 100;
+            // Health
+            const healthPercent = (player.health / player.maxHealth) * 100;
             document.getElementById('healthBar').style.width = `${healthPercent}%`;
             document.getElementById('healthValue').textContent = `${Math.round(healthPercent)}%`;
             
-            // Update stamina bar
-            const staminaPercent = (playerState.stamina / playerState.maxStamina) * 100;
+            // Stamina
+            const staminaPercent = player.stamina;
             document.getElementById('staminaBar').style.width = `${staminaPercent}%`;
             document.getElementById('staminaValue').textContent = `${Math.round(staminaPercent)}%`;
             
-            // Update armor bar
-            const armorPercent = (playerState.armor / playerState.maxArmor) * 100;
+            // Armor
+            const armorPercent = (player.armor / player.maxArmor) * 100;
             document.getElementById('armorBar').style.width = `${armorPercent}%`;
             document.getElementById('armorValue').textContent = `${Math.round(armorPercent)}%`;
             
-            // Update money
-            document.getElementById('money').textContent = `৳ ${playerState.money.toLocaleString()}`;
+            // Money
+            document.getElementById('money').textContent = `৳ ${player.money.toLocaleString()}`;
             
-            // Update score
-            document.getElementById('score').textContent = `${playerState.score.toLocaleString()}`;
-            
-            // Update weapon display
-            updateWeaponDisplay();
-        }
-        
-        function updateWeaponDisplay() {
-            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
-            document.getElementById('weaponName').textContent = weapon.name;
-            document.getElementById('ammoCount').textContent = `${weapon.ammo}/${weapon.maxAmmo}`;
+            // Score
+            document.getElementById('score').textContent = player.score.toLocaleString();
         }
         
         function updateTimeDisplay() {
@@ -3972,7 +2747,7 @@
                 `${period} ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
             
             const timeIcon = document.querySelector('#timeDisplay i');
-            if (gameState.world.isDay) {
+            if(gameState.world.isDay) {
                 timeIcon.className = 'fas fa-sun';
                 timeIcon.style.color = '#FFD700';
             } else {
@@ -3981,33 +2756,11 @@
             }
         }
         
-        function updateLocationDisplay() {
-            const playerPos = gameState.player.position;
-            let closestLocation = gameState.world.locations[0];
-            let closestDistance = Infinity;
-            
-            gameState.world.locations.forEach(location => {
-                const dx = playerPos.x - location.x;
-                const dz = playerPos.z - location.z;
-                const distance = Math.sqrt(dx * dx + dz * dz);
-                
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestLocation = location;
-                }
-            });
-            
-            if (closestDistance < 150) {
-                document.getElementById('locationName').textContent = closestLocation.name;
-            }
-        }
-        
         function updateMinimap() {
             const playerDot = document.querySelector('.mini-map-player');
-            if (!playerDot) return;
+            if(!playerDot) return;
             
             const playerPos = gameState.player.position;
-            
             const mapSize = 180;
             const worldSize = CONFIG.world.size * 0.6;
             
@@ -4018,121 +2771,84 @@
             playerDot.style.top = `${mapY}px`;
         }
         
-        function toggleMinimap() {
-            const minimap = document.getElementById('miniMap');
-            minimap.style.display = minimap.style.display === 'none' ? 'block' : 'none';
-        }
-        
-        function updateMissionProgress(missionId, amount) {
-            const mission = gameState.missions.find(m => m.id === missionId);
-            if (mission && !mission.completed) {
-                mission.progress += amount;
+        function updateLocationDisplay() {
+            const locations = [
+                { name: "ঢাকা সেনানিবাস", x: 0, z: 0 },
+                { name: "সরকারি ভবন", x: 0, z: 0 },
+                { name: "হাসপাতাল", x: 200, z: 200 },
+                { name: "স্কুল", x: -200, z: 200 },
+                { name: "পুলিশ স্টেশন", x: 200, z: -200 },
+                { name: "বাজার", x: -200, z: -200 }
+            ];
+            
+            const playerPos = gameState.player.position;
+            let closestLocation = locations[0];
+            let closestDistance = Infinity;
+            
+            locations.forEach(location => {
+                const dx = playerPos.x - location.x;
+                const dz = playerPos.z - location.z;
+                const distance = Math.sqrt(dx * dx + dz * dz);
                 
-                if (mission.progress >= mission.target) {
-                    mission.completed = true;
-                    mission.progress = mission.target;
-                    gameState.player.money += mission.reward;
-                    gameState.player.experience += mission.exp;
-                    
-                    // Level up check
-                    if (gameState.player.experience >= gameState.player.level * 100) {
-                        gameState.player.level++;
-                        gameState.player.experience = 0;
-                        showNotification(`লেভেল আপ! এখন লেভেল ${gameState.player.level}`);
-                    }
-                    
-                    showNotification(`মিশন সম্পন্ন! +৳${mission.reward} পুরস্কার`);
-                    showAchievementPopup(mission.title);
+                if(distance < closestDistance) {
+                    closestDistance = distance;
+                    closestLocation = location;
                 }
+            });
+            
+            if(closestDistance < 100) {
+                document.getElementById('locationName').textContent = closestLocation.name;
+            } else {
+                document.getElementById('locationName').textContent = "খোলা মাঠ";
             }
         }
         
-        function showMissions() {
-            const missionsList = document.getElementById('missionsList');
-            missionsList.innerHTML = '';
+        function performAttack() {
+            if(gameState.isPaused) return;
             
-            gameState.missions.forEach(mission => {
-                const progressPercent = (mission.progress / mission.target) * 100;
-                const missionElement = document.createElement('div');
-                missionElement.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(20,20,40,0.4))';
-                missionElement.style.padding = '15px';
-                missionElement.style.margin = '10px 0';
-                missionElement.style.borderRadius = '12px';
-                missionElement.style.border = '2px solid ' + (mission.completed ? '#00ff00' : '#f42a41');
-                
-                missionElement.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                        <div style="font-weight: bold; font-size: 16px; color: ${mission.completed ? '#00ff00' : '#f42a41'};">
-                            ${mission.title} ${mission.completed ? '✓' : ''}
-                        </div>
-                        <div style="background: ${mission.completed ? '#00ff00' : '#f42a41'}; color: white; padding: 3px 8px; border-radius: 8px; font-size: 12px;">
-                            ${mission.type}
-                        </div>
-                    </div>
-                    <div style="font-size: 14px; margin-bottom: 10px; color: #ccc;">
-                        ${mission.description}
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div style="flex: 1; margin-right: 15px;">
-                            <div style="width: 100%; height: 8px; background: #333; border-radius: 4px; overflow: hidden;">
-                                <div style="width: ${progressPercent}%; height: 100%; background: ${mission.completed ? '#00ff00' : '#f42a41'};"></div>
-                            </div>
-                        </div>
-                        <div style="font-size: 14px; color: #f1c40f;">
-                            ${Math.round(mission.progress)}/${mission.target}
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-top: 10px; color: #ccc; font-size: 12px;">
-                        <div>
-                            <i class="fas fa-money-bill-wave"></i>
-                            পুরস্কার: ৳${mission.reward}
-                        </div>
-                        <div>
-                            <i class="fas fa-star"></i>
-                            এক্সপি: ${mission.exp}
-                        </div>
-                    </div>
-                `;
-                
-                missionsList.appendChild(missionElement);
-            });
+            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+            
+            if(weapon.ammo <= 0) {
+                showNotification('এম্মো শেষ!');
+                return;
+            }
+            
+            weapon.ammo--;
+            showHitEffect();
+            
+            // Camera recoil
+            camera.rotation.x += 0.01;
+            
+            // Update weapon display
+            updateWeaponDisplay();
         }
         
-        function showInventory() {
-            const inventoryMenu = document.getElementById('inventoryMenu');
-            const inventoryGrid = inventoryMenu.querySelector('div[style*="grid-template-columns"]');
-            inventoryGrid.innerHTML = '';
-            
-            gameState.player.weapons.forEach((weapon, index) => {
-                const itemElement = document.createElement('div');
-                itemElement.style.background = 'linear-gradient(135deg, rgba(0,0,0,0.5), rgba(40,40,60,0.5))';
-                itemElement.style.padding = '12px';
-                itemElement.style.borderRadius = '10px';
-                itemElement.style.textAlign = 'center';
-                itemElement.style.border = index === gameState.player.currentWeapon ? 
-                    '2px solid #f42a41' : '1px solid #444';
-                itemElement.style.cursor = 'pointer';
-                
-                itemElement.innerHTML = `
-                    <div style="font-size: 28px; color: #f42a41; margin-bottom: 8px;">
-                        <i class="fas ${weapon.icon}"></i>
-                    </div>
-                    <div style="font-weight: bold; margin-bottom: 5px; font-size: 14px;">${weapon.name}</div>
-                    <div style="font-size: 11px; color: #ccc;">
-                        এম্মো: ${weapon.ammo}/${weapon.maxAmmo}
-                    </div>
-                `;
-                
-                itemElement.onclick = () => {
-                    switchWeapon(index);
-                    showNotification(`অস্ত্র সিলেক্ট: ${weapon.name}`);
-                };
-                
-                inventoryGrid.appendChild(itemElement);
-            });
+        function switchWeapon(index) {
+            if(index < gameState.player.weapons.length) {
+                gameState.player.currentWeapon = index;
+                const weapon = gameState.player.weapons[index];
+                showNotification(`অস্ত্র পরিবর্তন: ${weapon.name}`);
+                updateWeaponDisplay();
+            }
         }
         
-        function showNotification(text, subtitle = '') {
+        function updateWeaponDisplay() {
+            const weapon = gameState.player.weapons[gameState.player.currentWeapon];
+            document.getElementById('weaponName').textContent = weapon.name;
+            document.getElementById('ammoCount').textContent = `${weapon.ammo}/${weapon.maxAmmo}`;
+        }
+        
+        function tryInteract() {
+            showNotification('কোন ইন্টার্যাক্টেবল বস্তু নেই');
+        }
+        
+        function showHitEffect() {
+            const hitEffect = document.getElementById('hitEffect');
+            hitEffect.style.opacity = '0.6';
+            setTimeout(() => { hitEffect.style.opacity = '0'; }, 100);
+        }
+        
+        function showNotification(text) {
             const notification = document.getElementById('missionNotification');
             const missionText = document.getElementById('missionText');
             
@@ -4144,31 +2860,6 @@
             }, 3000);
         }
         
-        function showMissionNotification(title, text) {
-            showNotification(text);
-        }
-        
-        function showAchievementPopup(title) {
-            const popup = document.getElementById('achievementPopup');
-            const achievementText = document.getElementById('achievementText');
-            
-            achievementText.textContent = title;
-            popup.style.display = 'block';
-            
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 3000);
-        }
-        
-        function showHitEffect() {
-            const hitEffect = document.getElementById('hitEffect');
-            hitEffect.style.opacity = '0.6';
-            
-            setTimeout(() => {
-                hitEffect.style.opacity = '0';
-            }, 100);
-        }
-        
         function toggleMenu() {
             gameState.isPaused = !gameState.isPaused;
             const mainMenu = document.getElementById('mainMenu');
@@ -4177,135 +2868,93 @@
             const mobileControls = document.getElementById('mobileControls');
             mobileControls.style.display = gameState.isPaused ? 'none' : 'flex';
             
-            if (gameState.isPaused && isPointerLocked) {
+            if(gameState.isPaused && isPointerLocked) {
                 document.exitPointerLock();
             }
-            
-            // Show/hide controls based on device
-            if (!gameState.isPaused) {
-                detectDeviceType();
-            }
-        }
-        
-        function saveSettings() {
-            const graphicsQuality = document.getElementById('graphicsQuality').value;
-            const controlType = document.getElementById('controlType').value;
-            
-            gameState.settings.graphics = graphicsQuality;
-            gameState.settings.controls = controlType;
-            
-            // Apply control settings
-            if (controlType === 'touch') {
-                document.getElementById('mobileControls').style.display = 'flex';
-            } else {
-                document.getElementById('mobileControls').style.display = 'none';
-                setupMouseControls();
-            }
-            
-            document.getElementById('settingsMenu').style.display = 'none';
-            document.getElementById('mainMenu').style.display = 'flex';
-            
-            showNotification('সেটিংস সেভ করা হয়েছে!');
-        }
-        
-        function saveGame() {
-            const saveData = {
-                player: gameState.player,
-                missions: gameState.missions,
-                achievements: gameState.achievements,
-                timestamp: new Date().toISOString()
-            };
-            
-            localStorage.setItem('nafizEmpireSave', JSON.stringify(saveData));
-            showNotification('গেম সেভ করা হয়েছে!');
         }
         
         function loadGame() {
-            const saveData = localStorage.getItem('nafizEmpireSave');
-            if (saveData) {
-                const parsed = JSON.parse(saveData);
-                
-                gameState.player = { ...gameState.player, ...parsed.player };
-                gameState.missions = parsed.missions;
-                gameState.achievements = parsed.achievements;
-                
-                showNotification('গেম লোড করা হয়েছে!');
-                toggleMenu();
+            showNotification('সেভ গেম শীঘ্রই আসছে!');
+        }
+        
+        function detectDeviceType() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            if(isMobile || (hasTouch && window.innerWidth < 768)) {
+                // Mobile
+                document.getElementById('mobileControls').style.display = 'flex';
+                document.body.style.cursor = 'default';
             } else {
-                showNotification('কোন সেভ ডাটা পাওয়া যায়নি!');
+                // PC
+                document.getElementById('mobileControls').style.display = 'none';
+                document.body.style.cursor = 'url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="%23f42a41" opacity="0.8"/><circle cx="16" cy="16" r="6" fill="%23ffffff"/></svg>\') 16 16, auto';
+                
+                // Enable mouse controls
+                document.addEventListener('click', () => {
+                    if(!gameState.isPaused && gameState.isLoaded) {
+                        document.body.requestPointerLock();
+                    }
+                });
             }
         }
         
-        function updateDebugInfo() {
-            const debugInfo = document.getElementById('debugInfo');
-            const player = gameState.player;
-            const fps = Math.round(1 / deltaTime);
-            
-            debugInfo.innerHTML = `
-                <div>FPS: ${fps}</div>
-                <div>Position: ${player.position.x.toFixed(1)}, ${player.position.y.toFixed(1)}, ${player.position.z.toFixed(1)}</div>
-                <div>Health: ${player.health}/${player.maxHealth}</div>
-                <div>Money: ৳${player.money}</div>
-                <div>Weapon: ${player.weapons[player.currentWeapon].name}</div>
-                <div>Time: ${gameState.world.time.toFixed(2)}</div>
-            `;
-        }
+        // ANIMATION LOOP - OPTIMIZED
+        let frameCount = 0;
+        let lastFpsUpdate = 0;
         
-        // ANIMATION LOOP
         function animate() {
             requestAnimationFrame(animate);
             
-            deltaTime = clock.getDelta();
+            const currentTime = performance.now();
+            deltaTime = (currentTime - lastFrameTime) / 1000;
+            lastFrameTime = currentTime;
             
-            if (gameState.isLoaded && !gameState.isPaused) {
-                // Update physics
-                physicsWorld.step(1/60, deltaTime, 2);
-                
-                // Update game logic
-                updatePlayer();
-                
-                // Render
-                renderer.render(scene, camera);
+            // Limit delta time to prevent large jumps
+            deltaTime = Math.min(deltaTime, 0.1);
+            
+            // Update physics
+            if(physicsWorld) {
+                physicsWorld.step(1/60, deltaTime, 3);
+            }
+            
+            // Update game logic
+            if(gameState.isLoaded && !gameState.isPaused) {
+                updatePlayer(deltaTime);
+            }
+            
+            // Render
+            if(composer && CONFIG.graphics.bloom) {
+                composer.render();
             } else {
-                // Still render when paused
                 renderer.render(scene, camera);
+            }
+            
+            // Update FPS counter
+            frameCount++;
+            if(currentTime - lastFpsUpdate > 1000) {
+                gameState.performance.fps = frameCount;
+                frameCount = 0;
+                lastFpsUpdate = currentTime;
             }
         }
         
-        // START THE GAME
+        // START GAME
         document.addEventListener('DOMContentLoaded', () => {
-            const loadingTimeout = setTimeout(() => {
-                if (!gameState.isLoaded) {
-                    console.log("Loading timeout - forcing game start");
-                    document.getElementById('loadingScreen').style.opacity = '0';
-                    setTimeout(() => {
-                        document.getElementById('loadingScreen').style.display = 'none';
-                        gameState.isLoaded = true;
-                        gameState.gameStarted = true;
-                        showNotification('গেম লোডেড (সীমিত মোড)!');
-                        
-                        detectDeviceType();
-                        animate();
-                    }, 500);
-                }
-            }, 15000);
+            // Start initialization
+            initGame();
             
-            // Start game initialization
-            initGame().then(() => {
-                clearTimeout(loadingTimeout);
-            }).catch((error) => {
-                console.error("Game initialization failed:", error);
-                clearTimeout(loadingTimeout);
-                document.getElementById('loadingScreen').style.opacity = '0';
-                setTimeout(() => {
+            // Performance fallback
+            setTimeout(() => {
+                if(!gameState.isLoaded) {
+                    console.log("Forcing game start...");
                     document.getElementById('loadingScreen').style.display = 'none';
                     gameState.isLoaded = true;
                     gameState.gameStarted = true;
-                    showNotification('গেম লোডেড! কিছু ফিচার সীমিত থাকতে পারে।');
-                    detectDeviceType();
+                    showNotification('গেম লোডেড (লিমিটেড মোড)!');
                     animate();
-                }, 500);
-            });
+                }
+            }, 15000);
         });
         
         // Prevent drag and drop
